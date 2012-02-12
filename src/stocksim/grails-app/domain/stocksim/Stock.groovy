@@ -2,6 +2,5 @@ package stocksim
 
 class Stock {
     String tickerSymbol
-    Market market
-    
+    String market // either NASDAQ or NYSE
 }

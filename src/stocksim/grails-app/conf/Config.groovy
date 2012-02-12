@@ -93,4 +93,5 @@ log4j = {
 }
 
 // application settings
-stocksim.trading.tradeFee = 8.95 // flat fee for trading
+stocksim.trading.fee = 8.95 // flat fee for trading
+stocksim.trading.delay = 20 * 60 * 60 // seconds mandated between trades (20 hours)

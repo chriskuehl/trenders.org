@@ -17,13 +17,10 @@ environments {
             username = "stocksim-dev"
             password = "6rcCszF9HqyaprKM"
         }
-        hibernate {
-            show_sql = true
-        }
     }
     test {
         dataSource {
-            dbCreate = "create-drop"
+            dbCreate = "create"
             url = "jdbc:mysql://wctp.us/stocksim-dev?useUnicode=yes&characterEncoding=UTF-8"
             username = "stocksim-dev"
             password = "6rcCszF9HqyaprKM"
