@@ -91,3 +91,6 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+// application settings
+stocksim.trading.tradeFee = 8.95 // flat fee for trading

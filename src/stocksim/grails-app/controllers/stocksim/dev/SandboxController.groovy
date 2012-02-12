@@ -1,12 +1,14 @@
 package stocksim.dev
 
-class SandboxController {
+import stocksim.*
 
-    def world() {
-        render "Hello, world!"
-    }
+class SandboxController {
+    static defaultAction = "viewstock"
     
-    def world2() {
-        render "Hello 2!"
+    def viewstock() {
+        def nasdaq = new Market(title: "NASDAQ")
+        def nyse = new Market(title: "NYSE")
+        
+        render nasdaq.getTitle()
     }
 }
