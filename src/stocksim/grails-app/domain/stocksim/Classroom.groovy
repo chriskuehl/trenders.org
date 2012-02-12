@@ -10,6 +10,6 @@ class Classroom {
     double tradeFee = config.stocksim.trading.fee
     int tradeDelay = config.stocksim.trading.delay
     boolean showNames = true
-    String password
+    String password = null
     boolean open = true
 }

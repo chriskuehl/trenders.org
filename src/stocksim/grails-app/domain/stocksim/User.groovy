@@ -1,20 +1,23 @@
 package stocksim
 
 class User {
+    static contraints = {
+        email(email: true, unique: true)
+    }
+    
     String email
-    boolean emailConfirmed
-    String displayName
-    String passwordHash
-    Classroom classroom
+    boolean emailConfirmed = false
+    String displayName = "Guest"
+    String passwordHash = null
+    Classroom classroom = null
     
     // status
-    boolean disabled
+    boolean disabled = false
     
     // information from account creation
     String registerIP
     Date registerTime
     String registerUserAgent
-    String registerEmail
     
     // information from last visit
     String lastSeenIP
