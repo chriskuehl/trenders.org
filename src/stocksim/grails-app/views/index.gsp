@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <meta name="layout" content="main"/>
+    <meta name="layout" content="main" />
     <title>Test Page</title>
     <style>
       #page-body {
