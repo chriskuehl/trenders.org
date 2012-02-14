@@ -3,6 +3,17 @@ dataSource {
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
 }
+
+dataSource_temp { // used for ephemeral storage
+    pooled = true
+    driverClassName = "org.h2.Driver"
+    username = "sa"
+    password = ""
+    
+    dbCreate = "create-drop"
+    url = "jdbc:h2:mem:temp"
+}
+
 hibernate {
     cache.use_second_level_cache = true
     cache.use_query_cache = true
