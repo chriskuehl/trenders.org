@@ -15,7 +15,7 @@ class SandboxController {
             render "Stocks to check:<br />"
             
             try {
-                Stock[] stockObjects =  StockService.getStocks(stocks)
+                Stock[] stockObjects = StockService.getStocks(stocks)
                 
                 render "<ul>"
                 
