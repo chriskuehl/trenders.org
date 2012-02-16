@@ -4,6 +4,7 @@ import stocksim.temp.*
 import org.codehaus.groovy.grails.web.context.ServletContextHolder as SCH
 import grails.util.BuildSettingsHolder as BSH
 import au.com.bytecode.opencsv.CSVReader
+import org.apache.commons.lang.StringEscapeUtils
 
 class SearchService {
     def servletContext = SCH.servletContext
@@ -52,7 +53,7 @@ class SearchService {
                 if (action.command == "replace") {
                     // clear the table of existing stocks for this market
                     start = new Date().getTime()
-                    SearchableStock.executeUpdate("DELETE FROM SearchableStock WHERE market = ?", [market])
+                    SearchableStock.executeUpdate("DELETE FROM SearchableStock WHERE market = ?", [market]) // GORM is just too slow for this
                     
                     println "Removed data, time ${new Date().getTime() - start}"
                     
@@ -168,7 +169,11 @@ class SearchService {
             // headers:
             // Symbol, Name, LastSale, MarketCap, ADR TSO, IPOyear, Sector, industry, Summary Quote
             SearchableStock stock = new SearchableStock()
-
+            
+            (0..7).each { i ->
+                nextLine[i] = StringEscapeUtils.unescapeHtml(nextLine[i])
+            }
+            
             stock.setTicker(nextLine[0]) // this *should* always be set
             stock.setName(nextLine[1] == "n/a" ? nextLine[0] : nextLine[1])
             stock.setLastSale(nextLine[2] == "n/a" ? (- 1) : nextLine[2].toDouble())
