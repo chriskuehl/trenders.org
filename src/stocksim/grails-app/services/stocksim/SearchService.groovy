@@ -14,22 +14,10 @@ class SearchService {
     def sessionFactory
     
     SearchableStock[] searchForStocks(query) {
-        checkUpdateCache() // make sure the cache of all stocks has been recently updated
+        
     }
     
-    private void checkUpdateCache() {
-        // has the cache been updated recently?
-        if (servletContext.lastSearchCacheUpdate == null || getSecondsSinceLastCacheUpdate() > 60) {
-            println "Updating stock cache..."
-            updateCache()
-        }
-    }
-    
-    private def getSecondsSinceLastCacheUpdate() {
-        new Date().getTime() - servletContext.lastSearchCacheUpdate
-    }
-    
-    private void updateCache() {
+    void updateCache() {
         // download CSV files from nasdaq.com for the two important markets
         def markets = ["nasdaq", "nyse"] // TODO: read from config file?
         def fullStart = new Date().getTime()
@@ -134,9 +122,9 @@ class SearchService {
                 File[] files = dir.listFiles(filter)
 
                 if (files.length > 0) {
-                    file = files[0]
+                    def file = files[0]
+                    def stocks = getStocksFromSource(file)
                     
-                    def stocks = getStocksFromSource(connection)
                     action.command = "replace" // replace the stocks currently in the database, they're outdated
                     action.data = stocks
                 } else {
