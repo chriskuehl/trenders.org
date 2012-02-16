@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringEscapeUtils
 class SearchService {
     def servletContext = SCH.servletContext
     def baseDir = BSH.settings.baseDir
+    def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
     def domainClass
     def sessionFactory
     
@@ -60,8 +61,7 @@ class SearchService {
                     // now add them back
                     start = new Date().getTime()
                     
-                    action.data.each{item -> // TODO: speed this up
-                        item.setMarket(market)
+                    action.data.eachWithIndex { item, index ->
                         item.save()
                     }
                     
@@ -73,6 +73,14 @@ class SearchService {
         }
         
         println "Finished, total time ${new Date().getTime() - fullStart}"
+    }
+    
+    private def cleanUpGorm() { // http://naleid.com/blog/2009/10/01/batch-import-performance-with-grails-and-mysql/
+        println "Cleaning..."
+        def session = sessionFactory.currentSession
+        session.flush()
+        session.clear()
+        propertyInstanceMap.get().clear()
     }
     
     private def determineCacheActionForMarkets(markets) {

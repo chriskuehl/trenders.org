@@ -7,11 +7,13 @@ dataSource {
 dataSource_temp { // used for ephemeral storage
     pooled = true
     driverClassName = "org.h2.Driver"
+    //driverClassName = "org.hsqldb.jdbcDriver"
     username = "sa"
     password = ""
     
     dbCreate = "create-drop"
     url = "jdbc:h2:mem:temp"
+    //url = "jdbc:hsqldb:mem:devDB"
 }
 
 hibernate {
