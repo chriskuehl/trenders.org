@@ -15,8 +15,27 @@ class SearchService {
     def sessionFactory
     def dataSource_temp
     
-    SearchableStock[] searchForStocks(query) {
+    def searchForStocks(query) {
+        def results = []
+        def sql = new Sql(dataSource_temp)
+        def term = YahooQueryService.makeAlphaNumeric(query).toLowerCase() + "%"
         
+        sql.eachRow("SELECT * FROM searchable_stock WHERE LOWER(name) LIKE ? OR LOWER(ticker) LIKE ? ORDER BY ticker", [term, term]) { row ->
+            def stock = new SearchableStock()
+            
+            stock.setIndustry(row.industry)
+            stock.setIpoYear(row.ipo_year)
+            stock.setLastSale(row.last_sale)
+            stock.setMarket(row.market)
+            stock.setMarketCap(row.market_cap)
+            stock.setName(row.name)
+            stock.setSector(row.sector)
+            stock.setTicker(row.ticker)
+            
+            results.add(stock)
+        }
+        
+        results
     }
     
     void updateCache() {
