@@ -43,27 +43,16 @@ class SearchService {
                 
                 if (action.command == "replace") {
                     // clear the table of existing stocks for this market
-                    start = new Date().getTime()
                     SearchableStock.executeUpdate("DELETE FROM SearchableStock WHERE market = ?", [market]) // GORM is just too slow for this
                     
-                    println "Removed data, time ${new Date().getTime() - start}"
-                    
                     // now add them back
-                    start = new Date().getTime()
-                    
-                    println "Found data: ${action.data.size()}"
-                    println "One: ${action.data[0]}"
-                    
                     action.data.each { stock ->
                         def sql = new Sql(dataSource_temp)
                         stock.setMarket(market)
                         
                         sql.execute("insert into searchable_stock (version, ticker, name, industry, sector, market, ipo_year, last_sale, market_cap) values (0.1, ?, ?, ?, ?, ?, ?, ?, ?)",
                             [stock.getTicker(), stock.getName(), stock.getIndustry(), stock.getSector(), stock.getMarket(), stock.getIpoYear(), stock.getLastSale(), stock.getMarketCap()])
-                        //item.save()
                     }
-                    
-                    println "Added data, time ${new Date().getTime() - start}"
                 } else if (action.command == "giveup") {
                     println "Unable to find any stocks for market ${market}, try again soon."
                 }
@@ -71,14 +60,6 @@ class SearchService {
         }
         
         println "Finished, total time ${new Date().getTime() - fullStart}"
-    }
-    
-    private def cleanUpGorm() { // http://naleid.com/blog/2009/10/01/batch-import-performance-with-grails-and-mysql/
-        println "Cleaning..."
-        def session = sessionFactory.currentSession
-        session.flush()
-        session.clear()
-        propertyInstanceMap.get().clear()
     }
     
     private def determineCacheActionForMarkets(markets) {
