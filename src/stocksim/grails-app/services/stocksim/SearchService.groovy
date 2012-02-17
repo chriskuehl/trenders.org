@@ -4,14 +4,16 @@ import stocksim.temp.*
 import org.codehaus.groovy.grails.web.context.ServletContextHolder as SCH
 import grails.util.BuildSettingsHolder as BSH
 import au.com.bytecode.opencsv.CSVReader
+import groovy.sql.Sql
 import org.apache.commons.lang.StringEscapeUtils
 
 class SearchService {
     def servletContext = SCH.servletContext
     def baseDir = BSH.settings.baseDir
     def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
-    def domainClass
+    
     def sessionFactory
+    def dataSource_temp
     
     SearchableStock[] searchForStocks(query) {
         
@@ -49,8 +51,16 @@ class SearchService {
                     // now add them back
                     start = new Date().getTime()
                     
-                    action.data.eachWithIndex { item, index ->
-                        item.save()
+                    println "Found data: ${action.data.size()}"
+                    println "One: ${action.data[0]}"
+                    
+                    action.data.each { stock ->
+                        def sql = new Sql(dataSource_temp)
+                        stock.setMarket(market)
+                        
+                        sql.execute("insert into searchable_stock (version, ticker, name, industry, sector, market, ipo_year, last_sale, market_cap) values (0.1, ?, ?, ?, ?, ?, ?, ?, ?)",
+                            [stock.getTicker(), stock.getName(), stock.getIndustry(), stock.getSector(), stock.getMarket(), stock.getIpoYear(), stock.getLastSale(), stock.getMarketCap()])
+                        //item.save()
                     }
                     
                     println "Added data, time ${new Date().getTime() - start}"
