@@ -72,14 +72,16 @@ environments {
 
 // log4j configuration
 log4j = {
-    // Example of changing the log pattern for the default console
     // appender:
-    //
     appenders {
-        rollingFile name: "stacktrace", maxFileSize: 1024, file: "/var/logs/tomcat7/stacktrace.log"
-        //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+       rollingFile name:'catalinaOut', file:"/var/log/tomcat7/catalina.out", layout: pattern(conversionPattern: '%c{2} %m%n')
     }
-
+    
+    root {
+        error 'catalinaOut'
+        additivity = true
+    }
+    
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
            'org.codehaus.groovy.grails.web.pages', //  GSP
            'org.codehaus.groovy.grails.web.sitemesh', //  layouts
@@ -91,6 +93,8 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+    
+    warn 'stocksim.exception'
 }
 
 // application settings
