@@ -9,7 +9,6 @@ import org.apache.commons.lang.StringEscapeUtils
 
 class SearchService {
     def servletContext = SCH.servletContext
-    def baseDir = BSH.settings.baseDir
     def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
     
     def sessionFactory
@@ -127,6 +126,8 @@ class SearchService {
                 println "Database had no entries for market ${market}; using backup cache file"
 
                 // get stored cache file as a last backup
+                def baseDir = BSH.getSettings().baseDir
+                
                 File dir = new File("${baseDir}/grails-app/conf/stockcsv-cache/")
                 FilenameFilter filter = new StockCacheFilenameFilter(market + "-")
                 File[] files = dir.listFiles(filter)
