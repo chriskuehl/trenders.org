@@ -5,6 +5,12 @@ import stocksim.temp.*
 class SearchController {
     SearchService searchService
     
+    def refresh() {
+        def start = new Date().getTime()
+        searchService.updateCache()
+        render "Refreshed cache in ${(new Date().getTime() - start) / 1000} seconds."
+    }
+    
     def index() {
         render "<form method=\"GET\">"
         render "    <p>Search: <input type=\"text\" value=\"${params["query"] ? params["query"] : ""}\" name=\"query\" /> <input type=\"submit\" value=\"Search\" />"
