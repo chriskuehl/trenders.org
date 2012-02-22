@@ -1,3 +1,0 @@
-This is a test file.
-Test from Windows.
-I'm going to add a line here.
