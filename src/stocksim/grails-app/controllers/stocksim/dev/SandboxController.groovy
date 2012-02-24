@@ -5,6 +5,12 @@ import stocksim.exception.*
 
 class SandboxController {
     static defaultAction = "viewstocks"
+    def userService
+    
+    def newUser() {
+        def token = userService.generateTokenHash()
+        render "Got: ${token}"
+    }
     
     def viewstocks() {
         if (! params.stocks) {
