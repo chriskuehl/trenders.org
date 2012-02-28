@@ -1,0 +1,274 @@
+body {
+	font-family: Arimo, Helvetica, Arial, sans-serif;
+	min-height: 3000px;
+	
+	background-image: url("/static/images/back.png");
+}
+
+.pageWidth {
+	position: relative;
+	
+	width: 960px;
+}
+
+div.centered {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+strong {
+	font-weight: bold;
+}
+
+.clear {
+	clear: both;
+}
+
+/* top bar */
+#topBar {
+	background-image: url("/static/images/bar_back.png");
+	background-repeat: repeat-x;
+	height: 121px;
+	
+	position: relative;
+}
+
+#topBarShadow {
+	background-image: url("/static/images/bar_shadow.png");
+	background-repeat: no-repeat;
+	background-position: 50% 0%;
+	
+	height: 74px;
+}
+
+#logo {
+	background-image: url("/static/images/logo.png");
+	background-repeat: no-repeat;
+	
+	text-indent: -2000em;
+	
+	width: 301px;
+	height: 57px;
+	
+	position: absolute;
+	
+	left: -23px;
+	top: 46px;
+}
+
+#blueBar {
+	background-color: #193441;
+	height: 33px;
+}
+
+#userBar {
+	background-image: url("/static/images/black-25.png");
+	
+	position: absolute;
+	
+	top: 0px;
+	right: 0px;
+	
+	color: #D9E5E9;
+	
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	
+	box-shadow: 3px 3px 1px rgba(255, 255, 255, 0.05), -3px -3px 1px rgba(0, 0, 0, 0.05);
+}
+
+#userStatusBar {
+	background-image: url("/static/images/black-25.png");
+	padding: 8px;
+	padding-left: 10px;
+	padding-top: 6px;
+	
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	
+	position: relative;
+}
+
+#userStatusBar p {
+	font-size: 14px;
+	margin-right: 150px;
+	line-height: 1.1em;
+}
+
+#changeLanguageBar {
+	background-image: url("/static/images/black-25.png");
+	
+	width: 150px;
+	
+	padding-top: 15px;
+	
+	border-bottom-right-radius: 15px;
+	
+	position: absolute;
+	
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	
+	text-align: center;
+	text-decoration: none;
+	
+	font-size: 14px;
+	font-weight: bold;
+	
+	color: #9AACB2;
+}
+
+#changeLanguageBar:hover {
+	color: #D9E5E9;
+}
+
+/* user icons */
+#userIcons {
+	padding: 10px;
+	padding-top: 6px;
+	padding-right: 5px;
+}
+
+#userIcons li {
+	display: block;
+	float: left;
+	
+	background-image: url("/static/images/icon_back.png");
+	background-repeat: no-repeat;
+	background-position: 50% 0%;
+	
+	margin-right: 5px;
+	
+	width: 45px;
+}
+
+#userIcons li a {
+	display: block;
+	
+	width: 45px;
+	
+	background-repeat: no-repeat;
+	background-position: 50% 4px;
+	
+	text-align: center;
+	font-size: 10px;
+	
+	color: white;
+	text-decoration: none;
+	
+	padding-top: 35px;
+	margin-bottom: 7px;
+}
+
+#userIcons li a:hover {
+	opacity: 0.8;
+}
+
+#portfolioIcon { background-image: url("/static/images/icons/portfolio.png"); }
+#historyIcon { background-image: url("/static/images/icons/history.png"); }
+#lessonsIcon { background-image: url("/static/images/icons/lessons.png"); }
+#searchIcon { background-image: url("/static/images/icons/search.png"); }
+#trendingIcon { background-image: url("/static/images/icons/trending.png"); }
+#inNewsIcon { background-image: url("/static/images/icons/news.png"); }
+#myClassIcon { background-image: url("/static/images/icons/class.png"); }
+#rankingsIcon { background-image: url("/static/images/icons/rankings.png"); }
+#logOutIcon { background-image: url("/static/images/icons/exit.png"); }
+
+/* tab bar */
+#tabBar {
+	height: 38px;
+	
+	background-image: url("/static/images/tabbar_back.png");
+	
+	border-top: solid 1px #CCCCCC;
+	border-bottom: solid 1px #CCCCCC;
+	
+	position: relative;
+}
+
+div.marketIndex {
+	float: left;
+	font-size: 14px;
+	
+	margin-top: 12px;
+	margin-right: 13px;
+	
+	color: #7C7C7C;
+}
+
+div.marketUp, div.marketDown {
+	padding-left: 17px;
+	
+	background-repeat: no-repeat;
+	background-position: 0% 50%;
+}
+
+div.marketUp {
+	background-image: url("/static/images/trend_up.png");
+}
+
+div.marketDown {
+	background-image: url("/static/images/trend_down.png");
+}
+
+span.marketUp {
+	color: #81C881;
+}
+
+span.marketDown {
+	color: #E08080;
+}
+
+#navBar {
+	position: absolute;
+	
+	right: 0px;
+	top: 0px;
+	
+	height: 37px;
+	
+	border: solid 1px #CCCCCC;
+	border-left: none;
+	border-top: none;
+	
+	background-image: url("/static/images/tabs_back.png");
+	background-repeat: repeat-x;
+}
+
+#navBar li {
+	float: right;
+	border-left: solid 1px #CCCCCC;
+	
+	height: 37px;
+}
+
+#navBar li a {
+	display: block;
+	
+	font-size: 12px;
+	
+	padding-top: 14px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 11px;
+	
+	color: #6B6C6D;
+	
+	text-transform: uppercase;
+	text-decoration: none;
+	
+	letter-spacing: 0em;
+}
+
+/* content */
+#content {
+	background-color: white;
+	border: solid 1px #D4E6E3;
+	border-top: none;
+	
+	padding: 20px;
+	width: 918px;
+	
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
