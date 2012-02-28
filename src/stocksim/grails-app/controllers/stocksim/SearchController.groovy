@@ -1,6 +1,7 @@
 package stocksim
 
 import stocksim.temp.*
+import grails.converters.JSON
 
 class SearchController {
     SearchService searchService
@@ -18,7 +19,7 @@ class SearchController {
         render "</form>"
         
         if (params["query"]) {
-            def results = searchService.searchForStocks(params["query"])
+            def results = searchService.searchForStocks(params["query"], 100)
             
             render "<p>Results for your query (${results.size()}):</p>"
             render "<table border=\"1\">"
@@ -48,5 +49,10 @@ class SearchController {
             
             render "</table>"
         }
+    }
+    
+    def json() {
+        def results = searchService.searchForStocks(params["query"], 5)
+        render results as JSON
     }
 }

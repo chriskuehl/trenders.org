@@ -14,12 +14,12 @@ class SearchService {
     def sessionFactory
     def dataSource_temp
     
-    def searchForStocks(query) {
+    def searchForStocks(query, int limit) {
         def results = []
         def sql = new Sql(dataSource_temp)
         def term = YahooQueryService.makeAlphaNumeric(query).toLowerCase() + "%"
         
-        sql.eachRow("SELECT * FROM searchable_stock WHERE LOWER(name) LIKE ? OR LOWER(ticker) LIKE ? ORDER BY ticker", [term, term]) { row ->
+        sql.eachRow("SELECT * FROM searchable_stock WHERE LOWER(name) LIKE ? OR LOWER(ticker) LIKE ? ORDER BY ticker LIMIT ?", [term, term, limit]) { row ->
             def stock = new SearchableStock()
             
             stock.setIndustry(row.industry)
