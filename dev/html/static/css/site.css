@@ -1,6 +1,5 @@
 body {
 	font-family: Arimo, Helvetica, Arial, sans-serif;
-	background-image: url("/static/images/back.png");
 }
 
 .pageWidth {
@@ -298,6 +297,10 @@ li.blueNavBar {
 }
 
 /* content */
+#container {
+	background-image: url("/static/images/back.png");
+}
+
 #content {
 	background-color: white;
 	border: solid 1px #D4E6E3;
@@ -306,7 +309,7 @@ li.blueNavBar {
 	padding: 20px;
 	padding-bottom: 10px; /* all elements have margin-bottom: 10px; */
 	
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 	
 	width: 918px;
 	
@@ -346,9 +349,9 @@ div.warning img {
 
 #content h1 { font-size: 26px; }
 #content h2 { font-size: 18px; }
-#content h3 { font-size: 14px; font-weight: bold; } /* we aren't technically requiring downloading of bold, */
-#content h4 { font-size: 12px; font-weight: bold; } /* but hopefully the browser can simulate it anyway */
-#content h5 { font-size: 10px; font-weight: bold; }
+#content h3 { font-size: 14px; }
+#content h4 { font-size: 12px; }
+#content h5 { font-size: 10px; }
 
 #content p, #content li {
 	color: #3F3F3F;
@@ -410,4 +413,25 @@ div.sidebar h5 { font-size: 10px !important; }
 
 div.sidebar p, div.sidebar li, div.sidebar th, div.sidebar td {
 	font-size: 12px !important;
+}
+
+/* footer */
+#footer {
+	background-color: #C0C8CB;
+	
+	padding: 20px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#footer p {
+	font-size: 12px;
+	color: #4B4F50;
+}
+
+#footerInner {
+	background-color: #D1DADD;
+	
+	width: 920px;
+	padding: 20px;
 }
