@@ -1,7 +1,5 @@
 body {
 	font-family: Arimo, Helvetica, Arial, sans-serif;
-	min-height: 3000px;
-	
 	background-image: url("/static/images/back.png");
 }
 
@@ -18,6 +16,10 @@ div.centered {
 
 strong {
 	font-weight: bold;
+}
+
+em {
+	font-style: italic;
 }
 
 .clear {
@@ -119,8 +121,8 @@ strong {
 	color: #9AACB2;
 }
 
-#changeLanguageBar:hover {
-	color: #D9E5E9;
+a.changeLanguageBarNoScript:hover {
+	color: #D9E5E9 !important;
 }
 
 /* user icons */
@@ -161,7 +163,7 @@ strong {
 	margin-bottom: 7px;
 }
 
-#userIcons li a:hover {
+ul.userIconsNoScript li a:hover {
 	opacity: 0.8;
 }
 
@@ -261,6 +263,40 @@ span.marketDown {
 	letter-spacing: 0em;
 }
 
+#navBar li a:hover {
+	background-image: url("/static/images/tabs_back-hover.png");
+	background-repeat: repeat-x;
+}
+
+li.blueNavBar {
+	background-image: url("/static/images/tabs_searchback.png");
+}
+
+#searchTab {
+	padding-top: 3px;
+	padding-left: 5px;
+	padding-right: 5px;
+	
+	height: 35px !important;
+}
+
+#searchTab input {
+	width: 150px;
+	
+	padding: 4px;
+	border: solid 2px #BBB;
+	
+	color: #333333;
+	
+	padding-left: 22px;
+	
+	background-image: url("/static/images/search.png");
+	background-position: 4px 50%;
+	background-repeat: no-repeat;
+	
+	font-size: 12px;
+}
+
 /* content */
 #content {
 	background-color: white;
@@ -268,7 +304,110 @@ span.marketDown {
 	border-top: none;
 	
 	padding: 20px;
+	padding-bottom: 10px; /* all elements have margin-bottom: 10px; */
+	
+	margin-bottom: 20px;
+	
 	width: 918px;
 	
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+	
+	font-size: 13px;
+}
+
+#content div, #content p, #content h1, #content h2, #content h3, #content h4, #content h5, #content ul, #content ol, #content table {
+	margin-bottom: 10px;
+}
+
+div.warning {
+	border: solid 3px #FFB56A;
+	background-color: #FFDA8F;
+	
+	padding: 12px;
+	padding-left: 60px;
+	
+	margin-top: 0px;
+	
+	position: relative;
+}
+
+div.warning img {
+	position: absolute;
+	left: 8px;
+	top: -13px;
+}
+
+#content h1, #content h2, #content h3, #content h4, #content h5 {
+	color: #193441;
+	
+	font-family: Cabin, Arimo, Helvetica, Arial, sans-serif;
+	font-weight: 500;
+}
+
+#content h1 { font-size: 26px; }
+#content h2 { font-size: 18px; }
+#content h3 { font-size: 14px; font-weight: bold; } /* we aren't technically requiring downloading of bold, */
+#content h4 { font-size: 12px; font-weight: bold; } /* but hopefully the browser can simulate it anyway */
+#content h5 { font-size: 10px; font-weight: bold; }
+
+#content p, #content li {
+	color: #3F3F3F;
+	line-height: 1.6em;
+}
+
+#content ul, #content ol {
+	margin-left: 30px;
+}
+
+#content ul {
+	list-style: disc outside none;
+}
+
+#content ol {
+	list-style: decimal outside none;
+}
+
+#content table {
+	border-collapse: collapse;
+}
+
+#content th, #content td {
+	padding: 7px;
+	border: solid 1px #3F3F3F;
+	
+	color: #3F3F3F;
+	text-align: left;
+}
+
+#content th {
+	font-weight: bold;
+	background-color: #D1DADD;
+	color: black;
+}
+
+/* sidebar */
+div.sidebar {
+	width: 200px;
+	float: right;
+	
+	margin-left: 20px;
+}
+
+div.sidebarItem {
+	padding: 20px;
+	padding-bottom: 10px; /* elements have margin-bottom: 10px */
+	
+	margin-bottom: 10px;
+	
+	background-color: #F7F7F7;
+}
+
+div.sidebar h1 { font-size: 18px !important; }
+div.sidebar h2 { font-size: 16px !important; }
+div.sidebar h3 { font-size: 14px !important; }
+div.sidebar h4 { font-size: 12px !important; }
+div.sidebar h5 { font-size: 10px !important; }
+
+div.sidebar p, div.sidebar li, div.sidebar th, div.sidebar td {
+	font-size: 12px !important;
 }
