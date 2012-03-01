@@ -424,14 +424,41 @@ div.sidebar p, div.sidebar li, div.sidebar th, div.sidebar td {
 	padding-bottom: 0px;
 }
 
-#footer p {
-	font-size: 12px;
-	color: #4B4F50;
-}
-
 #footerInner {
 	background-color: #D1DADD;
 	
 	width: 920px;
 	padding: 20px;
+	padding-bottom: 10px; /* elements inside this have 10px margin-bottom */
+}
+
+#footerInner p {
+	font-size: 12px;
+	color: #4B4F50;
+	line-height: 1.6em;
+}
+
+#footerInner ul, #footerInner p {
+	margin-bottom: 10px;
+}
+
+#footerInner ul {
+	float: left;
+	margin-right: 70px;
+}
+
+#footerInner ul li {
+	line-height: 1.6em;
+	
+	font-size: 12px;
+	
+}
+
+#footerInner ul li a {
+	text-decoration: none;
+	color: black;
+}
+
+#footerInner ul li a:hover {
+	text-decoration: underline;
 }
