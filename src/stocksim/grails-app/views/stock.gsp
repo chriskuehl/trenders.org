@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta name="layout" content="main" />
-    <title>trenders.org: a simple stock market sim for students &amp; teachers</title>
+    <title>Test Page</title>
   </head>
   <body>
     <div id="page-body" role="main">

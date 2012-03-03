@@ -10,7 +10,8 @@
 		<meta name="viewport" content="width=1024" />
 		
 		<!-- page-specific -->
-		<title><g:layoutTitle default="trenders.org"/> &ndash; trenders.org</title>
+                
+                <title><layout:genTitle><g:layoutTitle default="trenders.org" /></layout:genTitle></title>
                 <g:layoutHead />
 	</head>
 	
