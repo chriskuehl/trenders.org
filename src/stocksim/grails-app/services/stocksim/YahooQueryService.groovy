@@ -7,9 +7,7 @@ class YahooQueryService {
         String body = "http://query.yahooapis.com/v1/public/yql?format=json&env=http%3A%2F%2Fdatatables.org%2Falltables.env&q=${URLEncoder.encode(query)}".toURL().getText()
         
         def slurper = new JsonSlurper()
-        def response = slurper.parseText(body)
-        
-        response
+        slurper.parseText(body)
     }
     
     static boolean isAlphaNumeric(def test) {

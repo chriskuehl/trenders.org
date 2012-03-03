@@ -2,10 +2,17 @@ package stocksim.dev
 
 import stocksim.*
 import stocksim.exception.*
+import grails.converters.XML
 
 class SandboxController {
     static defaultAction = "viewstocks"
     def userService
+    
+    def getIndex() {
+        def index = params.idx
+        def results = GoogleFinanceService.getInfoForAsset(index)
+        render results as XML
+    }
     
     def newUser() {
         def token = userService.generateTokenHash()
