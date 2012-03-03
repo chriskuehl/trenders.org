@@ -51,13 +51,16 @@
 			
 			<div id="tabBar">
 				<div class="pageWidth centered">
+                                        <%-- 
 					<div class="marketIndex marketDown">
 						<strong>Dow</strong> 12,965.69 (<span class="marketDown">&ndash;0.2%</span>)
 					</div>
 					
 					<div class="marketIndex marketUp">
 						<strong>S&amp;P 500</strong> 1,362.21 (<span class="marketUp">+1.3%</span>)
-					</div>
+					</div> --%>
+                                        <finance:index index="DJI" title="Dow" />
+                                        <finance:index index="INX" title="S&amp;P 500" />
 				
 					<ul id="navBar">
 						<li class="blueNavBar" id="searchTab">

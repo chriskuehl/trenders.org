@@ -15,7 +15,17 @@ class FinanceTagLib {
     }
     
     def index = { attrs ->
+        def fullAssetName = ".${attrs.index}"
+        // TODO: caching
         
+        def results = GoogleFinanceService.getInfoForAsset(fullAssetName)
+        
+        def index = new MarketIndex()
+        index.title = attrs.title
+        index.percentChange = results.c
+        index.currentValue = results.l_cur
+        
+        out << render(template: "/marketIndex/marketIndex", model: [index: index])
     }
     
     /*
