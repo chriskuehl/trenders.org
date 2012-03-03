@@ -22,10 +22,12 @@
         </ul>
       </g:stocks>
       
-      <h3>Controllers:</h3>
-      <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-        <li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-      </g:each>
+      <h2>Controllers:</h2>
+      <ul>
+        <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
+          <li><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
+        </g:each>
+      </ul>
     </div>
   </body>
 </html>
