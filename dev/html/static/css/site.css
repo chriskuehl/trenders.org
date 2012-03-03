@@ -1,5 +1,6 @@
 body {
 	font-family: Arimo, Helvetica, Arial, sans-serif;
+	background-color: #D1DADD;
 }
 
 .pageWidth {
@@ -298,7 +299,10 @@ li.blueNavBar {
 
 /* content */
 #container {
+	background-color: white;
 	background-image: url("/static/images/back.png");
+	
+	padding-bottom: 30px;
 }
 
 #content {
@@ -308,8 +312,6 @@ li.blueNavBar {
 	
 	padding: 20px;
 	padding-bottom: 10px; /* all elements have margin-bottom: 10px; */
-	
-	margin-bottom: 30px;
 	
 	width: 918px;
 	
@@ -388,6 +390,10 @@ div.warning img {
 	color: black;
 }
 
+div.contentWithColumns {
+	padding-right: 0px !important; /* no padding on the right if columns since they have margin-right: 20px */
+}
+
 /* sidebar */
 div.sidebar {
 	width: 200px;
@@ -405,6 +411,13 @@ div.sidebarItem {
 	background-color: #F7F7F7;
 }
 
+div.column3 {
+	width: 286px;
+	margin-right: 20px;
+	
+	float: left;
+}
+
 div.sidebar h1 { font-size: 18px !important; }
 div.sidebar h2 { font-size: 16px !important; }
 div.sidebar h3 { font-size: 14px !important; }
@@ -417,16 +430,12 @@ div.sidebar p, div.sidebar li, div.sidebar th, div.sidebar td {
 
 /* footer */
 #footer {
-	background-color: #C0C8CB;
-	
 	padding: 20px;
 	padding-top: 0px;
 	padding-bottom: 0px;
 }
 
 #footerInner {
-	background-color: #D1DADD;
-	
 	width: 920px;
 	padding: 20px;
 	padding-bottom: 10px; /* elements inside this have 10px margin-bottom */
