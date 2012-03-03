@@ -2,7 +2,7 @@ package stocksim
 
 /*
     Stocks are either born with data or not; data is typically provided via
-    StockService
+    FinanceService
     
     If not born with data, attempts to access data via getters (use these!)
     will result in data being fetched

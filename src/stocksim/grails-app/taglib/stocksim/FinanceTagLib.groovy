@@ -1,15 +1,21 @@
 package stocksim
 
-class StocksTagLib {
+class FinanceTagLib {
+    static namespace = "finance"
+    
     def stocks = { attrs, body ->
         String[] tickers = attrs.tickers
-        request.stocks = StockService.getStocks(tickers)
+        request.stocks = FinanceService.getStocks(tickers)
         
         out << body()
     }
     
     def stock = { attrs ->
         out << request.stocks.get(attrs.ticker)[attrs.req]
+    }
+    
+    def index = { attrs ->
+        
     }
     
     /*

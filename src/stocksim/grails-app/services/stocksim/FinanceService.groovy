@@ -2,7 +2,7 @@ package stocksim
 
 import stocksim.exception.*;
 
-class StockService {
+class FinanceService {
     static def getStocks(String[] tickers) {
         def stocks = [:]
         def tickerList = ""

@@ -14,13 +14,13 @@
     <div id="page-body" role="main">
       <h1>Welcome to Grails</h1>
 
-      <g:stocks tickers="['aapl', 'goog', 'yhoo']">
+      <finance:stocks tickers="['aapl', 'goog', 'yhoo']">
         <ul>
-          <li>AAPL: <g:stock ticker="aapl" req="price" /></li>
-          <li>GOOG: <g:stock ticker="goog" req="price" /></li>
-          <li>YHOO: <g:stock ticker="yhoo" req="price" /></li>
+          <li>AAPL: <finance:stock ticker="aapl" req="price" /></li>
+          <li>GOOG: <finance:stock ticker="goog" req="price" /></li>
+          <li>YHOO: <finance:stock ticker="yhoo" req="price" /></li>
         </ul>
-      </g:stocks>
+      </finance:stocks>
       
       <h2>Controllers:</h2>
       <ul>
