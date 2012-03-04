@@ -1,5 +1,6 @@
 <html>
   <head>
+    <content tag="hasColumns">true</content>
     <meta name="layout" content="main" />
     <title>Test Page</title>
   </head>
@@ -15,13 +16,7 @@
       <li>YHOO: <finance:stock ticker="yhoo" req="price" /></li>
       </ul>
       </finance:stocks> --%>
-
-      <h2>Controllers:</h2>
-      <ul>
-        <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-          <li><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-        </g:each>
-      </ul>
+      
     </div>
   </body>
 </html>

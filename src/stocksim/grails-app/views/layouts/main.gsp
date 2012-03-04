@@ -80,7 +80,7 @@
 		</div>
 		
 		<div id="container">
-			<div id="content" class="centered">
+			<div id="content" class="centered ${pageProperty(name: "page.hasColumns") == "true" ? "contentWithColumns" : ""}">
                                 <!-- noscript warning -->
 				<noscript>
 					<div class="warning">

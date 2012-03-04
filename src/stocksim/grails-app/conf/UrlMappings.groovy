@@ -8,7 +8,7 @@ class UrlMappings {
 		}
         
 		"/"(view:"/index")
-                "/stock"(view:"/stock")
+                "/stock/$ticker"(view:"/stock")
                 
                 // errors
 		"500"(view:'/error')
