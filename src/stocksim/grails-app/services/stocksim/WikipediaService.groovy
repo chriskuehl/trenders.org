@@ -28,6 +28,9 @@ class WikipediaService {
         }
     }
     
+    // a regex doesn't work very well since templates can be embedded inside
+    // other templates, so we'll just do it sift through each character and keep
+    // track of our depth
     def stripTemplates(def source, def maxChars) {
         def numChars = 0
         def lastChar = null
@@ -37,7 +40,7 @@ class WikipediaService {
         // this is faster than closures for very long articles, and I can use a
         // break if we hit the max limit
         for (int i = 0; i < source.length(); i ++) {
-            char curChar = source.charAt(i)
+            char curChar = source.charAt(i) // faster to avoid Groovy here and just go with primitives
 
             if (curChar == "{" && lastChar == "{") {
                 depth ++
@@ -47,7 +50,7 @@ class WikipediaService {
                 lastChar = null
             } else {
                 if (depth <= 0 && lastChar != null) {
-                    finalSourceBuffer.append(lastChar)
+                    finalSourceBuffer << lastChar
                     numChars ++
 
                     if (numChars >= maxChars) {
@@ -62,5 +65,9 @@ class WikipediaService {
         def finalSource = finalSourceBuffer.toString()
         finalSource = finalSource.replace("()", "")
         finalSource
+    }
+    
+    def convertToHTML(def source) {
+        
     }
 }
