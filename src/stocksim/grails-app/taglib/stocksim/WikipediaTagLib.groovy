@@ -16,7 +16,13 @@ class WikipediaTagLib {
                 out << content
             } else {
                 def trimmedContent = content.substring(0, attrs.maxChars.toInteger())
-                trimmedContent = trimmedContent.substring(0, trimmedContent.lastIndexOf(" ")) + "..."
+                trimmedContent = trimmedContent.substring(0, trimmedContent.lastIndexOf(" "))
+                
+                if (trimmedContent.endsWith(",") || trimmedContent.endsWith(".")) {
+                    trimmedContent = trimmedContent.substring(0, trimmedContent.length() - 1)
+                }
+                
+                trimmedContent += "..."
                 out << trimmedContent
             }
             
