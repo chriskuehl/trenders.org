@@ -3,9 +3,11 @@ package stocksim
 import stocksim.exception.*;
 
 class FinanceService {
-    static def getStocks(String[] tickers) {
+    static def getStocks(def tickers) {
         def stocks = [:]
         def tickerList = ""
+        
+        tickers.add("YHOO") // TODO: fix this
         
         // build a ticker list & ensure all tickers are alphanumeric
         tickers.each { ticker ->
@@ -24,7 +26,20 @@ class FinanceService {
         def json = YahooQueryService.getResultsFromQuery(query)
         
         json.query.results.quote.each { stock ->
-            stocks[stock.symbol.toLowerCase()] = new Stock(stock.symbol, stock.StockExchange, stock.Ask.toDouble())
+            stocks[stock.symbol.toLowerCase()] = new Stock(
+                ticker: stock.Symbol,
+                name: stock.Name,
+                lastClose: stock.PreviousClose,
+                dayChange: stock.Change,
+                dayChangePercent: stock.PercentChange,
+                open: stock.Open,
+                yearTarget: stock.OneyrTargetPrice,
+                dayRange: stock.DaysRange,
+                yearRange: stock.YearRange,
+                marketCap: stock.MarketCapitalization,
+                peRatio: stock.PERatio,
+                value: stock.Ask
+            )
         }
         
         stocks
