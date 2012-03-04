@@ -20,12 +20,15 @@ class WikipediaService {
     
     def cleanupHTML(def source) {
         source = source.replaceAll("(?s)\\<table(.*?)\\</table\\>", "")
-        source = source.replaceAll("(?s)\\<div(.*?)\\</div\\>", "")
-        source = source.replaceAll("(?s)\\<map(.*?)\\</map\\>", "")
-        source = source.replaceAll("(?s)\\<img(.*?)/\\>", "")
         source = source.replaceAll("(?s)\\<div class=\"dablink\"\\>(.*?)\\</div\\>", "")
         source = source.replaceAll("(?s)\\<div class=\"metadata topicon\"(.*?)\\</div\\>", "")
+        source = source.replaceAll("(?s)\\<div class=\"thumb tright\"\\>(.*?)</div>(.*?)</div>", "")
+        source = source.replaceAll("(?s)\\<div(.*?)\\</div\\>", "")
+        source = source.replaceAll("(?s)\\</div\\>", "");
+        source = source.replaceAll("(?s)\\<map(.*?)\\</map\\>", "")
+        source = source.replaceAll("(?s)\\<img(.*?)/\\>", "")
         source = source.replaceAll("(?s)\\<sup(.*?)\\</sup\\>", "")
+        source = source.replaceAll("(?s)\\<p\\>\\<span style=\"font-size: small;\"\\>\\<span id=\"coordinates\"\\>(.*?)\\</span\\>\\</span\\>\\</p\\>", "");
         source = source.replaceAll("href=\"/wiki/", "target=\"_blank\" href=\"http://en.wikipedia.org/wiki/")
         
         return source
