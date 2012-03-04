@@ -20,18 +20,6 @@ class FinanceTagLib {
         
         if (index) {
             out << render(template: "/marketIndex/marketIndex", model: [index: index])
-        } else {
-            out << "Asset $fullAssetName isn't available."
         }
     }
-    
-    /*
-    def books = { attrs, body ->
-        request.books = BookService.getBooks(attrs.books)
-        out << body()
-    }
-    
-    def book = { attrs ->
-        request.books[attrs.title][attrs.req]
-    }*/
 }
