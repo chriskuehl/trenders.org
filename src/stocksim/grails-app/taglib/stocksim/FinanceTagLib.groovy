@@ -4,7 +4,7 @@ class FinanceTagLib {
     static namespace = "finance"
     
     def stocks = { attrs, body ->
-        String[] tickers = attrs.tickers
+        def tickers = attrs.tickers
         request.stocks = FinanceService.getStocks(tickers)
         
         out << body()
