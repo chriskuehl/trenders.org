@@ -1,10 +1,14 @@
 package stocksim
 
 class WikipediaService {
+    def getURL(def title) {
+        title = URLEncoder.encode(title.replace(" ", "_"))
+        "http://en.wikipedia.org/wiki/$title"
+    }
+    
     def getArticleSource(def title) {
         try {
-            title = URLEncoder.encode(title.replace(" ", "_"))
-            def url = "http://en.wikipedia.org/wiki/$title"
+            def url = getURL(title)
             def content = url.toURL().text
             def source = between(content,
                 "<div lang=\"en\" dir=\"ltr\" class=\"mw-content-ltr\">",
