@@ -8,8 +8,11 @@ class WikipediaController {
         render "<br />"
         
         if (params.article) {
-            render wikipediaService.cleanupHTML(
-                wikipediaService.getArticleSource(params.article, false), 1000
+            render wikipediaService.getSummaryFromHTML(
+                wikipediaService.cleanupHTML(
+                    wikipediaService.getArticleSource(params.article, false)
+            
+                )
             )
         }
     }

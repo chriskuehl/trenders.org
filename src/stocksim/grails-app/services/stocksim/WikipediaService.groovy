@@ -18,17 +18,22 @@ class WikipediaService {
         }
     }
     
-    // a regex doesn't work very well since templates can be embedded inside
-    // other templates, so we'll just do it sift through each character and keep
-    // track of our depth
-    def cleanupHTML(def source, def maxChars) {
+    def cleanupHTML(def source) {
         source = source.replaceAll("(?s)\\<table(.*?)\\</table\\>", "")
+        source = source.replaceAll("(?s)\\<div(.*?)\\</div\\>", "")
+        source = source.replaceAll("(?s)\\<map(.*?)\\</map\\>", "")
+        source = source.replaceAll("(?s)\\<img(.*?)/\\>", "")
         source = source.replaceAll("(?s)\\<div class=\"dablink\"\\>(.*?)\\</div\\>", "")
         source = source.replaceAll("(?s)\\<div class=\"metadata topicon\"(.*?)\\</div\\>", "")
         source = source.replaceAll("(?s)\\<sup(.*?)\\</sup\\>", "")
         source = source.replaceAll("href=\"/wiki/", "target=\"_blank\" href=\"http://en.wikipedia.org/wiki/")
         
         return source
+    }
+    
+    def getSummaryFromHTML(def source) {
+        // remove everything after a header
+        source.replaceAll("(?s)<h(.*)", "")
     }
     
     // TODO: move these to a utility class
