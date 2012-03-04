@@ -27,4 +27,40 @@ class WikipediaService {
             return null
         }
     }
+    
+    def stripTemplates(def source, def maxChars) {
+        def numChars = 0
+        def lastChar = null
+        def depth = 0
+        def finalSourceBuffer = new StringBuffer()
+        
+        // this is faster than closures for very long articles, and I can use a
+        // break if we hit the max limit
+        for (int i = 0; i < source.length(); i ++) {
+            char curChar = source.charAt(i)
+
+            if (curChar == "{" && lastChar == "{") {
+                depth ++
+                lastChar = null
+            } else if (curChar == "}" && lastChar == "}") {
+                depth --
+                lastChar = null
+            } else {
+                if (depth <= 0 && lastChar != null) {
+                    finalSourceBuffer.append(lastChar)
+                    numChars ++
+
+                    if (numChars >= maxChars) {
+                        break
+                    }
+                }
+
+                lastChar = curChar
+            }
+        }
+        
+        def finalSource = finalSourceBuffer.toString()
+        finalSource = finalSource.replace("()", "")
+        finalSource
+    }
 }

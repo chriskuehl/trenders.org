@@ -8,7 +8,9 @@ class WikipediaController {
         render "<br />"
         
         if (params.article) {
-            render wikipediaService.getArticleSource(params.article, false)
+            render wikipediaService.stripTemplates(
+                wikipediaService.getArticleSource(params.article, false), 1000
+            )
         }
     }
 }
