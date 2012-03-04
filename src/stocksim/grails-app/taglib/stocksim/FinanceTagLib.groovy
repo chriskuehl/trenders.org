@@ -16,24 +16,13 @@ class FinanceTagLib {
     
     def index = { attrs ->
         def fullAssetName = ".${attrs.index}"
+        def index = servletContext["index_${fullAssetName}"]
         
-        // TODO: some real scheduling
-        def index
-        
-        if (! servletContext["index_${attrs.index}"]) {
-            def results = GoogleFinanceService.getInfoForAsset(fullAssetName)
-
-            index = new MarketIndex()
-            index.title = attrs.title
-            index.percentChange = results.c
-            index.currentValue = results.l_cur
-            
-            servletContext["index_${attrs.index}"] = index
+        if (index) {
+            out << render(template: "/marketIndex/marketIndex", model: [index: index])
         } else {
-            index = servletContext["index_${attrs.index}"]
+            out << "Asset $fullAssetName isn't available."
         }
-        
-        out << render(template: "/marketIndex/marketIndex", model: [index: index])
     }
     
     /*
