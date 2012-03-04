@@ -1,3 +1,5 @@
+var mouseOverAutoComplete = false;
+
 $(function() {
 	// hovering over user icons
 	$(".userIconsNoScript").removeClass("userIconsNoScript");
@@ -27,6 +29,19 @@ $(function() {
 	$(".searchBar").inputLabel("Search for stocks...", {color: "#777777"});
 	
 	// autocomplete for the search bar
+        $("body").click(function() {
+            if (mouseOverAutoComplete) {
+                return;
+            }
+            
+            $("#autoComplete").fadeOut(200);
+        });
+        
+        $(".searchBar").click(function() {
+            console.log("test");
+            $(this).keyup(); 
+        });
+        
 	$(".searchBar").keyup(function() {
 		var query = $.trim($(this).val());
 		
@@ -44,18 +59,19 @@ $(function() {
 					position: "absolute",
 					zIndex: "100",
 					left: pos.left,
-					top: pos.top + height,
-					border: "solid 2px #CCC",
-					backgroundColor: "rgba(255, 255, 255, 0.8)",
-					padding: "5px",
+					top: pos.top + height + 3,
 					display: "none"
 				});
 				
-				$("#autoComplete").fadeIn(200);
+				$("#autoComplete").fadeIn(200).hover(function() {
+                                    mouseOverAutoComplete = true;
+                                }, function() {
+                                    mouseOverAutoComplete = false;
+                                })
 			} else if (! $("#autoComplete").is(":visible")) {
-				$("#autoComplete").fadeIn(200),css({
+				$("#autoComplete").fadeIn(200).css({
 					left: pos.left,
-					top: pos.top + height
+					top: pos.top + height + 3
 				});
 			}
 			
@@ -70,7 +86,22 @@ $(function() {
 			
 			for (var resultIndex in results) {
 				var result = results[resultIndex];
-				src += "<li>" + result.name + " (" + result.ticker + ")</li>";
+				src += "<li class=\"";
+                                
+                                if (resultIndex == 0) {
+                                    src += "first ";
+                                }
+                                
+                                if (resultIndex == results.length - 1) {
+                                    src += "last";
+                                }
+                                
+                                src += "\"><a href=\"stock/" + result.ticker + "\">";
+                                src += "<strong>" + result.name + "</strong><br />";
+                                src += "<div class=\"autoCompleteTicker\">" + result.ticker + " &ndash; " + result.sector + "</div>";
+                                src += "<div class=\"autoCompletePrice\">" + result.lastSale + "</div>";
+                                src += "<div class=\"clear\"></div>";
+                                src +="</a></li>";
 			}
 			
 			src += "</ul>";

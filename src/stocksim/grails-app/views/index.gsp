@@ -5,8 +5,8 @@
   </head>
   <body>
     <div id="page-body" role="main">
-      <h1>Welcome to Grails</h1>
-
+      <h1>Welcome to trenders.org</h1>
+      
       <%-- 
       <finance:stocks tickers="['aapl', 'goog', 'yhoo']">
       <ul>

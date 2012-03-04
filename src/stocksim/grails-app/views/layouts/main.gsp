@@ -3,7 +3,7 @@
 	<head>
                 <r:require modules="site" />
 
-                <base href="<g:createLink />" />
+                <base href="/stocksim/" />
 
 		<!-- site-wide -->
                 <r:layoutResources />
@@ -21,7 +21,7 @@
 		<div id="header">
 			<div id="topBar">
 				<div id="topBarShadow" class="pageWidth centered">
-					<a href="/" id="logo">trenders.org</a>
+					<a href="<g:createLink />" id="logo">trenders.org</a>
                                         <user:ifLoggedIn>
                                                 <div id="userBar">
                                                         <ul id="userIcons" class="userIconsNoScript">
@@ -43,7 +43,7 @@
                                                                         <strong>Welcome, John Doe</strong><br />
                                                                         <strong>Current Balance:</strong> $143,293
                                                                 </p>
-                                                                <a id="changeLanguageBar" class="changeLanguageBarNoScript" href="/changeLanguage?lang=en">Usar español</a>
+                                                                <a id="changeLanguageBar" class="changeLanguageBarNoScript" rel="nofollow" href="/changeLanguage?lang=en">Usar español</a>
                                                         </div>
                                                 </div>
                                         </user:ifLoggedIn>
@@ -81,7 +81,15 @@
 		
 		<div id="container">
 			<div id="content" class="centered">
-                                <g:layoutBody/>
+                                <!-- noscript warning -->
+				<noscript>
+					<div class="warning">
+                                                <g:img dir="images" file="warning.png" alt="Warning" />
+						<strong>Sorry to bug you,</strong> but your browser currently has JavaScript disabled. Please enable it and refresh the page for a better experience.
+					</div>
+				</noscript>
+                                
+                                <g:layoutBody />
                         </div>
                 </div>
 		
@@ -121,5 +129,56 @@
 		</div>
                 
                 <r:layoutResources />
+                
+                <%--
+                <div id="autoComplete" style="position: absolute; left: 300px; top: 200px;">
+                  <ul>
+                    <li class="first">
+                      <a href="#">
+                        <strong>Apple Inc.</strong><br />
+                        <div class="autoCompleteTicker">AAPL &ndash; Technology</div>
+                        <div class="autoCompletePrice autoCompletePriceUp">532.12</div>
+                        <div class="clear"></div>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#">
+                        <strong>Apple Inc.</strong><br />
+                        <div class="autoCompleteTicker">AAPL &ndash; Technology</div>
+                        <div class="autoCompletePrice autoCompletePriceDown">532.12</div>
+                        <div class="clear"></div>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#">
+                        <strong>Apple Inc.</strong><br />
+                        <div class="autoCompleteTicker">AAPL &ndash; Technology</div>
+                        <div class="autoCompletePrice autoCompletePriceUp">532.12</div>
+                        <div class="clear"></div>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#">
+                        <strong>Apple Inc.</strong><br />
+                        <div class="autoCompleteTicker">AAPL &ndash; Technology</div>
+                        <div class="autoCompletePrice autoCompletePriceUp">532.12</div>
+                        <div class="clear"></div>
+                      </a>
+                    </li>
+
+                    <li class="last">
+                      <a href="#">
+                        <strong>Apple Inc.</strong><br />
+                        <div class="autoCompleteTicker">AAPL &ndash; Technology</div>
+                        <div class="autoCompletePrice autoCompletePriceUp">532.12</div>
+                        <div class="clear"></div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                --%>
 	</body>
 </html>
