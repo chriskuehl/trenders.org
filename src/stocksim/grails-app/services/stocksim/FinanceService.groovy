@@ -1,12 +1,14 @@
 package stocksim
 
-import stocksim.exception.*;
+import stocksim.temp.*
+import stocksim.exception.*
 
 class FinanceService {
     static def getStocks(def tickers) {
         def stocks = [:]
         def tickerList = ""
         
+        tickers.add("MSFT")
         tickers.add("YHOO") // TODO: fix this
         
         // build a ticker list & ensure all tickers are alphanumeric
@@ -26,9 +28,11 @@ class FinanceService {
         def json = YahooQueryService.getResultsFromQuery(query)
         
         json.query.results.quote.each { stock ->
+            def realName = SearchableStock.findByTicker(stock.symbol.toUpperCase()).name
+            
             stocks[stock.symbol.toLowerCase()] = new Stock(
                 ticker: stock.Symbol,
-                name: stock.Name,
+                name: realName,
                 lastClose: stock.PreviousClose,
                 dayChange: stock.Change,
                 dayChangePercent: stock.PercentChange,
