@@ -90,6 +90,10 @@
 				</noscript>
                                 
                                 <g:layoutBody />
+                                
+                                <g:if test="${pageProperty(name: "page.hasColumns") == "true"}">
+                                  <div class="clear"></div>
+                                </g:if>
                         </div>
                 </div>
 		
