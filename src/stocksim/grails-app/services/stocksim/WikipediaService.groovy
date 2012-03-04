@@ -1,7 +1,7 @@
 package stocksim
 
 class WikipediaService {
-    def getArticleSource(def title, def failOnRedirect) {
+    def getArticleSource(def title) {
         try {
             title = URLEncoder.encode(title.replace(" ", "_"))
             def url = "http://en.wikipedia.org/wiki/$title"

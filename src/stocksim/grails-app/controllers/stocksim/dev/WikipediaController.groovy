@@ -10,7 +10,7 @@ class WikipediaController {
         if (params.article) {
             render wikipediaService.getSummaryFromHTML(
                 wikipediaService.cleanupHTML(
-                    wikipediaService.getArticleSource(params.article, false)
+                    wikipediaService.getArticleSource(params.article)
             
                 )
             )
