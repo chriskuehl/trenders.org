@@ -2,7 +2,9 @@
 <html>
 	<head>
                 <r:require modules="site" />
-                
+
+                <base href="<g:createLink />" />
+
 		<!-- site-wide -->
                 <r:layoutResources />
                 

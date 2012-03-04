@@ -10,6 +10,6 @@ class UpdateSearchCacheJob {
     def execute() {
         def start = new Date().getTime()
         searchService.updateCache()
-        println "Refreshed cache in ${(new Date().getTime() - start) / 1000} seconds."
+        println "Refreshed search cache in ${(new Date().getTime() - start) / 1000} seconds."
     }
 }

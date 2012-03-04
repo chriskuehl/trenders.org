@@ -38,7 +38,7 @@ $(function() {
 		var height = $(this).outerHeight()
 		
 		// get results
-		$.get("/search/json", {query: query}, function(results) {
+		$.get("search/json", {query: query}, function(results) {
 			if ($("#autoComplete").length == 0) {
 				$("<div />").attr("id", "autoComplete").appendTo($("body")).css({
 					position: "absolute",
