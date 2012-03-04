@@ -1,22 +1,20 @@
-<html>
-  <head>
-    <content tag="hasColumns">true</content>
-    <meta name="layout" content="main" />
-    <title>Test Page</title>
-  </head>
-  <body>
-    <div id="page-body" role="main">
-      <h1>Welcome to Grails</h1>
+<g:set var="ticker" value="${params.ticker.toLowerCase()}" />
+<finance:stocks tickers="${[ticker]}">
+  <!doctype html>
+  <html>
+    <head>
+      <content tag="hasColumns">true</content>
+      <meta name="layout" content="main" />
+      <title><finance:stock ticker="${ticker}" req="name" /> &ndash; ${ticker.toUpperCase()}</title>
+    </head>
+    
+    <body>
+      <!-- first column -->
+      <div class="column3">
+        <h1><finance:stock ticker="${ticker}" req="name" /></h1>
+        <p><wikipedia:summary title="${finance.stock(ticker: ticker, req: "name")}" maxChars="400" /></p>
+      </div>
 
-      <%-- 
-      <finance:stocks tickers="['aapl', 'goog', 'yhoo']">
-      <ul>
-      <li>AAPL: <finance:stock ticker="aapl" req="price" /></li>
-      <li>GOOG: <finance:stock ticker="goog" req="price" /></li>
-      <li>YHOO: <finance:stock ticker="yhoo" req="price" /></li>
-      </ul>
-      </finance:stocks> --%>
-      
-    </div>
-  </body>
-</html>
+    </body>
+  </html>
+</finance:stocks>
