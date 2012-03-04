@@ -8,7 +8,7 @@ class WikipediaController {
         render "<br />"
         
         if (params.article) {
-            render wikipediaService.getArticleSource(params.article)
+            render wikipediaService.getArticleSource(params.article, false)
         }
     }
 }
