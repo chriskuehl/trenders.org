@@ -396,6 +396,7 @@ div.warning img {
 
 div.contentWithColumns {
 	padding-right: 0px !important; /* no padding on the right if columns since they have margin-right: 20px */
+        width: 938px !important;
 }
 
 #content a {
