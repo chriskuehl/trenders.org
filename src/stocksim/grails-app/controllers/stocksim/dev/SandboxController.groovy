@@ -7,6 +7,18 @@ import grails.converters.XML
 class SandboxController {
     static defaultAction = "viewstocks"
     def userService
+    def cacheService
+    
+    def cacheTest() {
+        def obj = cacheService.fetchFromCache("test", "date", 0.1)
+        
+        if (obj == null) {
+            render "null<br>adding"
+            cacheService.storeInCache("test", "date", new Date())
+        } else {
+            render "not null<br>${obj}"
+        }
+    }
     
     def getIndex() {
         def index = params.idx

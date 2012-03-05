@@ -4,7 +4,7 @@ class CacheService {
     def cache = [:]
     
     def initService(def service) {
-        if (! cache[service] instanceof java.util.Map) {
+        if (! cache.containsKey(service)) {
             cache[service] = [:]
         }
     }
@@ -13,11 +13,11 @@ class CacheService {
     def hasExpired(def service, def key, def minutes) {
         initService(service)
         
-        if (! cache[service][key] instanceof java.util.Map) {
+        if (! cache[service].containsKey(key)) {
             return true
         }
         
-        ((new Date().getTime() - cache[service][key][date].getTime()) / (1000 * 60)) > minutes
+        ((new Date().getTime() - cache[service][key]["date"].getTime()) / (1000 * 60)) > minutes
     }
     
     def storeInCache(def service, def key, def value) {
@@ -29,9 +29,10 @@ class CacheService {
         initService(service)
             
         if (minutes <= 0 || ! hasExpired(service, key, minutes)) {
-            return cache[service][key]
+            return cache[service][key]["value"]
         }
         
-        cache[service][key] = null // it's expired, let's save some memory; also return null
+        cache[service].remove(key) // it's expired, let's save some memory
+        null
     }
 }
