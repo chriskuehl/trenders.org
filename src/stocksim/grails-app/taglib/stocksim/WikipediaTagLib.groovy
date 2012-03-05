@@ -3,11 +3,16 @@ package stocksim
 class WikipediaTagLib {
     static namespace = "wikipedia"
     def wikipediaService
+    def cacheService
     
     def summary = { attrs, body ->
         def title = attrs.title
+        def source = cacheService.fetchFromCache("wikipedia", title, 60 * 24)
         
-        def source = wikipediaService.getArticleSource(title)
+        if (source == null) { // it wasn't in the cache
+            source = wikipediaService.getArticleSource(title)
+            cacheService.storeInCache("wikipedia", title, source)
+        }
         
         if (source != null) {
             def content = wikipediaService.getSummaryFromHTML(wikipediaService.cleanupHTML(source)).replaceAll("<(.|\n)*?>", "")

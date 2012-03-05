@@ -4,10 +4,32 @@ import stocksim.temp.*
 import stocksim.exception.*
 
 class FinanceService {
-    static def getStocks(def tickers) {
+    def cacheService
+    
+    def getStocks(def tickers) {
         def stocks = [:]
         def tickerList = ""
         
+        // see if we can just use the cache
+        def foundOld = false
+        
+        tickers.each { ticker ->
+            def stockC = cacheService.fetchFromCache("stocks", ticker.toLowerCase(), 15)
+            
+            if (stockC == null) {
+                foundOld = true
+            } else {
+                stocks[ticker.toLowerCase()] = stockC
+            }
+        }
+        
+        // we can just use the cache
+        if (! foundOld) {
+            return stocks
+        }
+        
+        
+        // can't just use the cache, so fetch the data via YQL
         tickers.add("MSFT")
         tickers.add("YHOO") // TODO: fix this
         
@@ -29,8 +51,7 @@ class FinanceService {
         
         json.query.results.quote.each { stock ->
             def realName = SearchableStock.findByTicker(stock.symbol.toUpperCase()).name
-            
-            stocks[stock.symbol.toLowerCase()] = new Stock(
+            def stockO = new Stock(
                 ticker: stock.Symbol,
                 name: realName,
                 lastClose: stock.PreviousClose,
@@ -44,6 +65,9 @@ class FinanceService {
                 peRatio: stock.PERatio,
                 value: stock.Ask
             )
+            
+            stocks[stock.symbol.toLowerCase()] = stockO
+            cacheService.storeInCache("stocks", stock.symbol.toLowerCase(), stockO)
         }
         
         stocks

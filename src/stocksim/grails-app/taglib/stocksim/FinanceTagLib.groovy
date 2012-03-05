@@ -3,9 +3,11 @@ package stocksim
 class FinanceTagLib {
     static namespace = "finance"
     
+    def financeService
+    
     def stocks = { attrs, body ->
         def tickers = attrs.tickers
-        request.stocks = FinanceService.getStocks(tickers)
+        request.stocks = financeService.getStocks(tickers)
         
         out << body()
     }
