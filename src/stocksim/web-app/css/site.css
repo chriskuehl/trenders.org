@@ -411,6 +411,7 @@ div.contentWithColumns {
 
 #content p.small {
     font-size: 10px;
+    margin-top: -10px;
 }
 
 /* sidebar */
