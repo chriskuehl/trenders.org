@@ -18,8 +18,12 @@ strong, b {
 	font-weight: bold;
 }
 
-em, i {
+em, i, .italics {
 	font-style: italic;
+}
+
+.plain {
+    font-style: normal;
 }
 
 .clear {
@@ -392,6 +396,20 @@ div.warning img {
 
 div.contentWithColumns {
 	padding-right: 0px !important; /* no padding on the right if columns since they have margin-right: 20px */
+}
+
+#content a {
+    color: #6699CC;
+    text-decoration: none;
+}
+
+#content a:hover {
+    color: #3F3F3F;
+    background-color: #E9EDEF;
+}
+
+#content p.small {
+    font-size: 10px;
 }
 
 /* sidebar */

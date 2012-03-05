@@ -9,6 +9,9 @@ class UrlMappings {
         
 		"/"(view:"/index")
                 "/stock/$ticker"(view:"/stock")
+                name faq: "/faq" {
+                    view = "/faq"
+                }
                 
                 // errors
 		"500"(view:'/error')
