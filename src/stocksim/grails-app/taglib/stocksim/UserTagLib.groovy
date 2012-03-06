@@ -8,4 +8,8 @@ class UserTagLib {
             out << body()
         }
     }
+    
+    def displayAlert = { attrs, body ->
+        out << render(template: "/userAlert/userAlert", model: [alert: new UserAlert(type: attrs.type, title: attrs.title, message: attrs.message)])
+    }
 }

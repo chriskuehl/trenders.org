@@ -78,15 +78,12 @@
 			<div id="content" class="centered ${pageProperty(name: "page.hasColumns") == "true" ? "contentWithColumns" : ""}">
                                 <%-- noscript warning --%>
 				<noscript>
-					<div class="warning">
-                                                <g:img dir="images" file="warning.png" alt="Warning" />
-						<strong>Sorry to bug you,</strong> but your browser currently has JavaScript disabled. Please enable it and refresh the page for a better experience.
-					</div>
+                                        <user:displayAlert type="alert" title="Sorry to bug you," message="but your browser currently has JavaScript disabled. Please enable it and refresh the page for a better experience." />
 				</noscript>
                                 
                                 <%-- alert boxes from other pages --%>
                                 <g:each var="alert" in="${flash.alerts}">
-                                  <g:render template="/userAlert/userAlert" model="${[alert: alert]}" />
+                                        <g:render template="/userAlert/userAlert" model="${[alert: alert]}" />
                                 </g:each>
                                   
                                 <g:layoutBody />
