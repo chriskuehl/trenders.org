@@ -1,6 +1,11 @@
 var mouseOverAutoComplete = false;
 
 $(function() {
+        // preload images
+        if ($("a.yellowButton").length > 0) {
+            preloadImages(["static/images/yellowbutton_middle-hover.png"]);
+        }
+        
 	// hovering over user icons
 	$(".userIconsNoScript").removeClass("userIconsNoScript");
 	$("#userIcons li a").hover(function() {
@@ -109,3 +114,10 @@ $(function() {
 		});
 	});
 });
+
+// http://stackoverflow.com/questions/476679/preloading-images-with-jquery
+function preloadImages(arrayOfImages) {
+    $(arrayOfImages).each(function(){
+        $('<img/>')[0].src = this;
+    });
+}
