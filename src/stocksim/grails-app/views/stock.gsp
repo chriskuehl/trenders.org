@@ -51,7 +51,7 @@
         
         <div class="clear"></div>
         
-        <a id="chartBack" href="#">
+        <a id="chartBack" target="_blank" href="http://finance.yahoo.com/q/bc?s=${ticker.toUpperCase()}+Basic+Chart">
           <g:set var="chartWidth" value="266" />
           <g:set var="chartHeight" value="150" />
           <div id="chart" style="background-image: url('http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=${chartWidth}&height=${chartHeight}&symbol=${ticker.toUpperCase()}.${finance.stock(ticker: ticker, req: "exchange") == "nasdaq" ? "O" : "N"}&duration=5&headertype=none'); width: ${chartWidth}px; height: ${chartHeight}px;">
