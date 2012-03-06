@@ -414,6 +414,60 @@ div.contentWithColumns {
     margin-top: -10px;
 }
 
+.infoRow {
+    border-bottom: dotted 1px #A1A1A1;
+}
+
+.infoRow .key {
+    float: left;
+    font-weight: bold;
+    color: #6E6E6E;
+}
+
+.infoRow .value {
+    float: right;
+    color: #3F3F3F;
+}
+
+#content h1.understroked, #content h2.understroked, #content h3.understroked, #content h4.understroked, #content h5.understroked {
+    border-bottom: solid 2px #AAB4B9;
+}
+
+code {
+    display: block;
+}
+
+p.justify {
+    text-align: justify;
+}
+
+a.yellowButton {
+    display: block;
+    
+    background-image: url("../images/yellowbutton_middle.png");
+    background-repeat: repeat-x;
+    
+    border-left: solid 1px #FEAA05;
+    border-right: solid 1px #FEAA05;
+    
+    height: 26px;
+    
+    padding-top: 12px;
+    padding-bottom: 12px;
+    
+    font-size: 26px;
+    text-align: center;
+    
+    color: #A47527 !important;
+    
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3), -1px -1px -1px rgba(0, 0, 0, 0.2);
+}
+
+a.yellowButton:hover {
+    color: #916722 !important;
+    background-image: url("../images/yellowbutton_middle-hover.png");
+}
+
 /* sidebar */
 div.sidebar {
 	width: 200px;
