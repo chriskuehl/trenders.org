@@ -67,13 +67,13 @@
 				
 					<ul id="navBar">
 						<li class="blueNavBar" id="searchTab">
-							<form method="GET" action="/search" autocomplete="off">
+							<form method="GET" action="search" autocomplete="off">
 								<input type="text" class="searchBar" name="query" value="" />
 							</form>
 						</li>
-						<li><a href="#">Sit Amet</a></li>
-						<li><a href="#">Ipsum Dolor</a></li>
-						<li><a href="#">Lorem</a></li>
+						<li><a href="#">Join</a></li>
+						<li><a href="#">Getting Started</a></li>
+						<li><a href="#">About</a></li>
 					</ul>
 				</div>
 			</div>
