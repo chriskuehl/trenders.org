@@ -78,7 +78,7 @@
 			<div id="content" class="centered ${pageProperty(name: "page.hasColumns") == "true" ? "contentWithColumns" : ""}">
                                 <%-- noscript warning --%>
 				<noscript>
-                                        <user:displayAlert type="alert" title="Sorry to bug you," message="but your browser currently has JavaScript disabled. Please enable it and refresh the page for a better experience." />
+                                        <user:displayAlert type="error" title="Sorry to bug you," message="but your browser currently has JavaScript disabled. Please enable it and refresh the page for a better experience." />
 				</noscript>
                                 
                                 <%-- alert boxes from other pages --%>

@@ -20,6 +20,14 @@ class SandboxController {
         }
     }
     
+    def alertTest() {
+        new UserAlert(type: "error", title: "All done!", message: "The cache has been flushed.").add(flash)
+        new UserAlert(type: "info", title: "All done!", message: "The cache has been flushed.").add(flash)
+        new UserAlert(type: "success", title: "All done!", message: "The cache has been flushed.").add(flash)
+        
+        render(view: "/index")
+    }
+    
     def getIndex() {
         def index = params.idx
         def results = GoogleFinanceService.getInfoForAsset(index)
