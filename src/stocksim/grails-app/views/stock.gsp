@@ -60,9 +60,27 @@
           
           <user:userAgentChoose iOS="Tap" other="Click" /> to view more charts.
         </a>
+        
+        <h2 class="understroked">Recent News Articles</h2>
+        
       </div>
       
-      
+      <%-- third column --%>
+      <div class="column3">
+        <h2 class="understroked">On the Web</h2>
+        <p>Many sites offer advice and information on stocks. You might find the following sites useful when researching <finance:stock ticker="${ticker}" req="name" />.</p>
+        <ul class="stockSiteLinks">
+          <li><a target="_blank" href="http://www.investopedia.com/markets/stocks/${ticker.toUpperCase()}">Investopedia</a></li>
+          <li><a target="_blank" href="http://finance.yahoo.com/q?s=${ticker.toUpperCase()}">Yahoo! Finance</a></li>
+        </ul>
+        
+        <ul class="stockSiteLinks">
+          <li><a target="_blank" href="http://www.google.com/finance?client=ob&q=${ticker.toUpperCase()}">Google Finance</a></li>
+          <li><a target="_blank" href="http://money.cnn.com/quote/quote.html?symb=${ticker.toUpperCase()}">CNN Money</a></li>
+        </ul>
+        
+        <div class="clear"></div>
+      </div>
     </body>
   </html>
 </finance:stocks>

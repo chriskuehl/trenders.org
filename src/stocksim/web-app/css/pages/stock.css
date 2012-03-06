@@ -71,6 +71,8 @@
     color: #222222 !important;
     
     font-size: 10px;
+    
+    margin-bottom: 10px;
 }
 
 #chart {
@@ -86,4 +88,10 @@
     margin: 0px !important;
     
     color: #BBBBBB;
+}
+
+ul.stockSiteLinks {
+    float: left;
+    margin-left: 25px !important;
+    margin-right: 20px;
 }
