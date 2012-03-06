@@ -4,13 +4,14 @@
   <!doctype html>
   <html>
     <head>
+      <r:require modules="page_stock" />
       <content tag="hasColumns">true</content>
       <meta name="layout" content="main" />
       <title><finance:stock ticker="${ticker}" req="name" /> &ndash; ${ticker.toUpperCase()}</title>
     </head>
     
     <body>
-      <!-- first column -->
+      <%-- first column --%>
       <div class="column3">
         <h1>${title}</h1>
         <p class="justify"><wikipedia:summary title="${title}" maxChars="400" /></p>
@@ -18,7 +19,7 @@
         
         <h2 class="understroked">Financial Overview</h2>
         <g:set var="financialInfo" value="${[
-          ["Last Close", "lastClose"],
+          ["Previous Close", "prevClose"],
           ["1-Year Target", "yearTarget"],
           ["Day Range", "dayRange"],
           ["Year Range", "yearRange"],
@@ -37,6 +38,12 @@
         <%-- <user:ifLoggedIn> --%>
           <a class="yellowButton" href="#">Invest</a>
         <%-- </user> --%>
+      </div>
+      
+      <%-- second column --%>
+      <div class="column3">
+        <h3 class="askPriceLabel">Asking price:</h3>
+        <div class="askPrice"><finance:stock ticker="${ticker}" req="value" /></div>
       </div>
       
     </body>

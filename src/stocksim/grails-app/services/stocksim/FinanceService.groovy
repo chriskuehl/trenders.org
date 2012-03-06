@@ -54,7 +54,7 @@ class FinanceService {
             def stockO = new Stock(
                 ticker: stock.Symbol,
                 name: realName,
-                lastClose: stock.PreviousClose,
+                prevClose: stock.PreviousClose,
                 dayChange: stock.Change,
                 dayChangePercent: stock.PercentChange,
                 open: stock.Open,

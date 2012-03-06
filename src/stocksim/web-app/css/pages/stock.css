@@ -1,0 +1,18 @@
+.infoRow {
+    border-bottom: dotted 1px #A1A1A1;
+}
+
+.infoRow .key {
+    float: left;
+    font-weight: bold;
+    color: #6E6E6E;
+}
+
+.infoRow .value {
+    float: right;
+    color: #3F3F3F;
+}
+
+#content h1.understroked, #content h2.understroked, #content h3.understroked, #content h4.understroked, #content h5.understroked {
+    border-bottom: solid 2px #AAB4B9;
+}

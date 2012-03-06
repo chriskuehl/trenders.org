@@ -5,7 +5,7 @@ package stocksim
 class Stock {
     def ticker
     def name
-    def lastClose
+    def prevClose
     def dayChange
     def dayChangePercent
     def open

@@ -414,34 +414,19 @@ div.contentWithColumns {
     margin-top: -10px;
 }
 
-.infoRow {
-    border-bottom: dotted 1px #A1A1A1;
-}
-
-.infoRow .key {
-    float: left;
-    font-weight: bold;
-    color: #6E6E6E;
-}
-
-.infoRow .value {
-    float: right;
-    color: #3F3F3F;
-}
-
-#content h1.understroked, #content h2.understroked, #content h3.understroked, #content h4.understroked, #content h5.understroked {
-    border-bottom: solid 2px #AAB4B9;
-}
-
-code {
+#content code {
     display: block;
 }
 
-p.justify {
+#content code.error {
+    color: red;
+}
+
+#content p.justify {
     text-align: justify;
 }
 
-a.yellowButton {
+#content a.yellowButton {
     display: block;
     
     background-image: url("../images/yellowbutton_middle.png");
@@ -463,7 +448,7 @@ a.yellowButton {
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3), -1px -1px -1px rgba(0, 0, 0, 0.2);
 }
 
-a.yellowButton:hover {
+#content a.yellowButton:hover {
     color: #916722 !important;
     background-image: url("../images/yellowbutton_middle-hover.png");
 }
