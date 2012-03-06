@@ -63,7 +63,8 @@ class FinanceService {
                 yearRange: stock.YearRange,
                 marketCap: stock.MarketCapitalization,
                 peRatio: stock.PERatio,
-                value: stock.LastTradePriceOnly
+                value: stock.LastTradePriceOnly,
+                exchange: stock.StockExchange.startsWith("Nasdaq") ? "nasdaq" : "nyse"
             )
             
             stocks[stock.symbol.toLowerCase()] = stockO

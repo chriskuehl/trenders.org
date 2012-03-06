@@ -42,9 +42,26 @@
       
       <%-- second column --%>
       <div class="column3">
-        <h3 class="askPriceLabel">Asking price:</h3>
-        <div class="askPrice"><finance:stock ticker="${ticker}" req="value" /></div>
+        <h3 id="lastTradeLabel">Last trading price:</h3>
+        <div id="lastTrade"><finance:stock ticker="${ticker}" req="value" /></div>
+        <div id="lastTradeInfo">
+          <span id="tradeMove" class="${finance.stock(ticker: ticker, req: "dayChangePercent").startsWith("-") ? "tradeMoveDown" : "tradeMoveUp"}"><finance:stock ticker="${ticker}" req="dayChange" /> (<finance:stock ticker="${ticker}" req="dayChangePercent" />)</span><br />
+          from previous day
+        </div>
+        
+        <div class="clear"></div>
+        
+        <a id="chartBack" href="#">
+          <g:set var="chartWidth" value="266" />
+          <g:set var="chartHeight" value="150" />
+          <div id="chart" style="background-image: url('http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=${chartWidth}&height=${chartHeight}&symbol=${ticker.toUpperCase()}.${finance.stock(ticker: ticker, req: "exchange") == "nasdaq" ? "O" : "N"}&duration=5&headertype=none'); width: ${chartWidth}px; height: ${chartHeight}px;">
+            <p>Chart powered by Reuters.</p>
+          </div>
+          
+          <user:userAgentChoose iOS="Tap" other="Click" /> to view more charts.
+        </a>
       </div>
+      
       
     </body>
   </html>

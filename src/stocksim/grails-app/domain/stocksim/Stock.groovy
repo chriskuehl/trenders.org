@@ -15,4 +15,5 @@ class Stock {
     def marketCap
     def peRatio
     def value
+    def exchange
 }
