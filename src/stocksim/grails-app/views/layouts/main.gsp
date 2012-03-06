@@ -10,7 +10,10 @@
                 
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=1024" />
-		
+                
+                <g:if test="${pageProperty(name: "page.noRobots") == "true"}">
+                  <meta name="robots" content="noindex" />
+                </g:if>		
 		<!-- page-specific -->
                 
                 <title><layout:genTitle><g:layoutTitle default="trenders.org" /></layout:genTitle></title>
@@ -54,14 +57,6 @@
 			
 			<div id="tabBar">
 				<div class="pageWidth centered">
-                                        <%-- 
-					<div class="marketIndex marketDown">
-						<strong>Dow</strong> 12,965.69 (<span class="marketDown">&ndash;0.2%</span>)
-					</div>
-					
-					<div class="marketIndex marketUp">
-						<strong>S&amp;P 500</strong> 1,362.21 (<span class="marketUp">+1.3%</span>)
-					</div> --%>
                                         <finance:index index="DJI" title="Dow" />
                                         <finance:index index="INX" title="S&amp;P 500" />
 				
@@ -81,7 +76,7 @@
 		
 		<div id="container">
 			<div id="content" class="centered ${pageProperty(name: "page.hasColumns") == "true" ? "contentWithColumns" : ""}">
-                                <!-- noscript warning -->
+                                <%-- noscript warning --%>
 				<noscript>
 					<div class="warning">
                                                 <g:img dir="images" file="warning.png" alt="Warning" />
@@ -89,6 +84,11 @@
 					</div>
 				</noscript>
                                 
+                                <%-- alert boxes from other pages --%>
+                                <g:each var="alert" in="${flash.alerts}">
+                                  <g:render template="/userAlert/userAlert" model="${[alert: alert]}" />
+                                </g:each>
+                                  
                                 <g:layoutBody />
                                 
                                 <g:if test="${pageProperty(name: "page.hasColumns") == "true"}">
