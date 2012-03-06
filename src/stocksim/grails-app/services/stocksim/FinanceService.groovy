@@ -63,7 +63,7 @@ class FinanceService {
                 yearRange: stock.YearRange,
                 marketCap: stock.MarketCapitalization,
                 peRatio: stock.PERatio,
-                value: stock.Ask
+                value: stock.LastTradePriceOnly
             )
             
             stocks[stock.symbol.toLowerCase()] = stockO
