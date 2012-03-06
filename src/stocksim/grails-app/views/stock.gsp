@@ -80,6 +80,9 @@
         </ul>
         
         <div class="clear"></div>
+        
+        <h2 class="understroked">Related Stocks</h2>
+        <p>The following stocks are in the same industry or sector as <finance:stock ticker="${ticker}" req="name" />. You should always familiarize yourself with competitors before investing in a business, regardless of its size.</p>
       </div>
     </body>
   </html>
