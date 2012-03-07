@@ -16,7 +16,7 @@ class FinanceTagLib {
     }
     
     def stock = { attrs ->
-        out << request.stocks.get(attrs.ticker)[attrs.req]
+        out << request.stocks.get(attrs.ticker.toLowerCase())[attrs.req]
     }
     
     def index = { attrs ->
@@ -30,5 +30,19 @@ class FinanceTagLib {
     
     def relatedStocks = { attrs ->
         financeService.getRelatedStocks(attrs.ticker.toUpperCase(), attrs.max)
+    }
+    
+    def simpleName = { attrs ->
+        def name = attrs.name
+        def removeAtEnd = ["Corporation", "Inc.", "Inc", "Incorporated", "Company"]
+        
+        removeAtEnd.each { rm ->
+            if (name.endsWith(" ${rm}")) {
+                name = name.substring(0, name.indexOf(" ${rm}"))
+                name = name.trim()
+            }
+        }
+        
+        out << name
     }
 }
