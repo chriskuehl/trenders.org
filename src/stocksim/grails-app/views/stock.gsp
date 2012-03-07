@@ -93,7 +93,7 @@
         <ul class="stockList">
           <g:each var="relatedStock" in="${related}">
             <li>
-              <a href="">
+              <g:link mapping="stock" params="${[ticker: relatedStock]}">
                 <strong><finance:simpleName name="${finance.stock(ticker: relatedStock, req: "name")}" /></strong>
                 <span class="soft">${relatedStock}</span>
                 <br />
@@ -103,7 +103,7 @@
                   <strong>P/E:</strong> <finance:stock ticker="${relatedStock}" req="peRatio" />
                   <strong>Market Cap:</strong> <finance:stock ticker="${relatedStock}" req="marketCap" />
                 </span>
-              </a>
+              </g:link>
             </li>
           </g:each>
         </ul>

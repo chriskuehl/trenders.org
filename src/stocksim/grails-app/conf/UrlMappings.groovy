@@ -8,7 +8,11 @@ class UrlMappings {
 		}
         
 		"/"(view:"/index")
-                "/stock/$ticker"(view:"/stock")
+        
+                name stock: "/stock/$ticker" {
+                    view = "/stock"
+                }
+                
                 name faq: "/faq" {
                     view = "/faq"
                 }
