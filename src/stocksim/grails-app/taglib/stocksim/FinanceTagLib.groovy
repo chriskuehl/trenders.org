@@ -43,6 +43,12 @@ class FinanceTagLib {
             }
         }
         
+        name = name.trim()
+        
+        if (name.endsWith(",")) {
+            name = name.substring(0, name.length() - 1)
+        }
+        
         out << name
     }
 }
