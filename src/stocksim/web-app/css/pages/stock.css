@@ -62,7 +62,7 @@
 }
 
 #chartBack {
-    background-color: #FFF5DD;
+    background-color: #E9EDEF;
     padding: 10px;
     
     display: block;
@@ -73,6 +73,10 @@
     font-size: 10px;
     
     margin-bottom: 10px;
+}
+
+#chartBack:hover {
+    background-color: #DCE1E3 !important;
 }
 
 #chart {

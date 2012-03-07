@@ -15,7 +15,7 @@
                   <meta name="robots" content="noindex" />
                 </g:if>		
                 
-                <%-- page-specific%>
+                <%-- page-specific --%>
                 <title><layout:genTitle><g:layoutTitle default="trenders.org" /></layout:genTitle></title>
                 <g:layoutHead />
                 

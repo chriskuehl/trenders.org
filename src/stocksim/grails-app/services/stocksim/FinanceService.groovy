@@ -55,7 +55,7 @@ class FinanceService {
                 ticker: stock.Symbol,
                 name: realName,
                 prevClose: stock.PreviousClose,
-                dayChange: stock.Change,
+                dayChange: stock.Change.startsWith("+") ? dayChange.substring(1) : dayChange,
                 dayChangePercent: stock.PercentChange,
                 open: stock.Open,
                 yearTarget: stock.OneyrTargetPrice,
