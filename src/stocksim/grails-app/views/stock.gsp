@@ -100,8 +100,8 @@
                 <br />
 
                 <span class="stockStats">
-                  <strong>Price:</strong> <finance:stock ticker="${relatedStock}" req="value" />
-                  <strong>P/E:</strong> <finance:stock ticker="${relatedStock}" req="peRatio" />
+                  <strong>Price:</strong> <finance:stock ticker="${relatedStock}" req="value" />&nbsp;
+                  <strong>P/E:</strong> <finance:stock ticker="${relatedStock}" req="peRatio" />&nbsp;
                   <strong>Market Cap:</strong> <finance:stock ticker="${relatedStock}" req="marketCap" />
                 </span>
               </g:link>
