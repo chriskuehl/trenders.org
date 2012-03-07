@@ -3,6 +3,7 @@ package stocksim
 import stocksim.temp.*
 
 class FinanceTagLib {
+    static returnObjectForTags = ["relatedStocks"]
     static namespace = "finance"
     
     def financeService
