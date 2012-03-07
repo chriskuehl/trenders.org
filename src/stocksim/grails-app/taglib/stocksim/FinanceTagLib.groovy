@@ -34,20 +34,7 @@ class FinanceTagLib {
     
     def simpleName = { attrs ->
         def name = attrs.name
-        def removeAtEnd = ["Corporation", "Inc.", "Inc", "Incorporated", "Company"]
-        
-        removeAtEnd.each { rm ->
-            if (name.endsWith(" ${rm}")) {
-                name = name.substring(0, name.indexOf(" ${rm}"))
-                name = name.trim()
-            }
-        }
-        
-        name = name.trim()
-        
-        if (name.endsWith(",")) {
-            name = name.substring(0, name.length() - 1)
-        }
+        name = financeService.getSimpleName(name)
         
         out << name
     }

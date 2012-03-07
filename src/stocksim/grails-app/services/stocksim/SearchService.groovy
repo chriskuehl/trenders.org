@@ -13,6 +13,7 @@ class SearchService {
     
     def sessionFactory
     def dataSource_temp
+    def financeService
     
     def searchForStocks(query, int limit) {
         def results = []
@@ -27,7 +28,7 @@ class SearchService {
             stock.setLastSale(row.last_sale)
             stock.setMarket(row.market)
             stock.setMarketCap(row.market_cap)
-            stock.setName(row.name)
+            stock.setName(financeService.getSimpleName(row.name))
             stock.setSector(row.sector)
             stock.setTicker(row.ticker)
             
