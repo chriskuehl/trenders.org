@@ -1,5 +1,7 @@
 package stocksim
 
+import stocksim.temp.*
+
 class FinanceTagLib {
     static namespace = "finance"
     
@@ -23,5 +25,9 @@ class FinanceTagLib {
         if (index) {
             out << render(template: "/marketIndex/marketIndex", model: [index: index])
         }
+    }
+    
+    def relatedStocks = { attrs ->
+        financeService.getRelatedStocks(attrs.ticker.toUpperCase(), attrs.max)
     }
 }

@@ -55,7 +55,7 @@ class FinanceService {
                 ticker: stock.Symbol,
                 name: realName,
                 prevClose: stock.PreviousClose,
-                dayChange: stock.Change.startsWith("+") ? dayChange.substring(1) : dayChange,
+                dayChange: stock.Change.startsWith("+") ? stock.Change.substring(1) : stock.Change,
                 dayChangePercent: stock.PercentChange,
                 open: stock.Open,
                 yearTarget: stock.OneyrTargetPrice,
@@ -72,5 +72,26 @@ class FinanceService {
         }
         
         stocks
+    }
+    
+    def getRelatedStocks(def ticker, def max) {
+        def stock = SearchableStock.findByTicker(ticker)
+        def sector = stock.getSector()
+        
+        def allRelatedStocks = SearchableStock.findAll("from SearchableStock as s where s.sector = ? AND s.ticker != ? order by marketCap desc", [sector, ticker], [max: max * 3])
+        def tickers = []
+        allRelatedStocks.each { relatedStock -> 
+            tickers.add(relatedStock.getTicker())
+        }
+        
+        Collections.shuffle(tickers)
+        
+        def finalTickers = []
+        
+        for (def i in (1..max)) {
+            finalTickers.add(tickers[i])
+        }
+        
+        finalTickers
     }
 }
