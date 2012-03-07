@@ -1,5 +1,10 @@
 <g:set var="ticker" value="${params.ticker.toLowerCase()}" />
-<finance:stocks tickers="${[ticker]}">
+<g:set var="related" value="${finance.relatedStocks(ticker: ticker, max: 7)}" />
+
+<g:set var="allTickers" value="${related.clone()}" />
+<g:addToCollection collection="${allTickers}" element="${ticker.toUpperCase()}" />
+
+<finance:stocks tickers="${allTickers}">
   <g:set var="title" value="${finance.stock(ticker: ticker, req: "name")}" />
   <!doctype html>
   <html>
@@ -11,6 +16,7 @@
     </head>
     
     <body>
+
       <%-- first column --%>
       <div class="column3">
         <h1>${title}</h1>
@@ -83,6 +89,24 @@
         
         <h2 class="understroked">Related Stocks</h2>
         <p>The following stocks are in the same industry or sector as <finance:stock ticker="${ticker}" req="name" />. You should always familiarize yourself with competitors before investing in a business, regardless of its size.</p>
+      
+        <ul class="stockList">
+          <g:each var="relatedStock" in="${related}">
+            <li>
+              <a href="">
+                <strong><finance:simpleName name="${finance.stock(ticker: relatedStock, req: "name")}" /></strong>
+                <span class="soft">${relatedStock}</span>
+                <br />
+
+                <span class="stockStats">
+                  <strong>Price:</strong> <finance:stock ticker="${relatedStock}" req="value" />
+                  <strong>P/E:</strong> <finance:stock ticker="${relatedStock}" req="peRatio" />
+                  <strong>Market Cap:</strong> <finance:stock ticker="${relatedStock}" req="marketCap" />
+                </span>
+              </a>
+            </li>
+          </g:each>
+        </ul>
       </div>
     </body>
   </html>

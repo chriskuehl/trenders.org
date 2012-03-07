@@ -15,6 +15,7 @@
 
 #content h1.understroked, #content h2.understroked, #content h3.understroked, #content h4.understroked, #content h5.understroked {
     border-bottom: solid 2px #AAB4B9;
+    margin-bottom: 6px !important;
 }
 
 #lastTradeLabel {
@@ -98,4 +99,30 @@ ul.stockSiteLinks {
     float: left;
     margin-left: 25px !important;
     margin-right: 20px;
+    margin-top: -7px !important;
+}
+
+ul.stockList {
+    margin-left: 0px !important;
+    margin-bottom: 0px !important;
+    margin-top: -4px !important;
+}
+
+ul.stockList li {
+    list-style: none;
+    margin-bottom: 10px;
+    line-height: 1.2em !important;
+}
+
+span.stockStats {
+    color: #6F6F6F;
+}
+
+ul.stockList a {
+    color: inherit !important;
+    display: block;
+}
+
+ul.stockList a:hover {
+    background-color: #FFEDCA !important;
 }

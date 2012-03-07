@@ -468,6 +468,10 @@ div.contentWithColumns {
     background-image: url("../images/yellowbutton_middle-hover.png");
 }
 
+#content span.soft {
+    color: #AAB3B8;
+}
+
 /* sidebar */
 div.sidebar {
 	width: 200px;
