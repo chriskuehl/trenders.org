@@ -6,6 +6,7 @@
 
 <finance:stocks tickers="${allTickers}">
   <g:set var="title" value="${finance.stock(ticker: ticker, req: "name")}" />
+  <g:set var="simpleTitle" value="${finance.simpleName(name: title)}" />
   <!doctype html>
   <html>
     <head>
@@ -19,7 +20,7 @@
 
       <%-- first column --%>
       <div class="column3">
-        <h1>${title}</h1>
+        <h1>${simpleTitle}</h1>
         <p class="justify"><wikipedia:summary title="${title}" maxChars="400" /></p>
         <p class="small italics">from Wikipedia's article on ${title.endsWith(".") ? title : title + "."} <g:link mapping="faq" fragment="wikipedia">what's this?</g:link></p>
         
@@ -74,7 +75,7 @@
       <%-- third column --%>
       <div class="column3">
         <h2 class="understroked">On the Web</h2>
-        <p>Many sites offer advice and information on stocks. You might find the following sites useful when researching <finance:stock ticker="${ticker}" req="name" />.</p>
+        <p>Many sites offer advice and information on stocks. You might find the following sites useful when researching ${simpleTitle}.</p>
         <ul class="stockSiteLinks">
           <li><a target="_blank" href="http://www.investopedia.com/markets/stocks/${ticker.toUpperCase()}">Investopedia</a></li>
           <li><a target="_blank" href="http://finance.yahoo.com/q?s=${ticker.toUpperCase()}">Yahoo! Finance</a></li>
@@ -87,8 +88,8 @@
         
         <div class="clear"></div>
         
-        <h2 class="understroked">Related Stocks</h2>
-        <p>The following stocks are in the same industry or sector as <finance:stock ticker="${ticker}" req="name" />. You should always familiarize yourself with competitors before investing in a business, regardless of its size.</p>
+        <h2 class="understroked">Related Companies</h2>
+        <p>The following companies are in the same industry as ${simpleTitle}. You should familiarize yourself with competitors before investing in a business.</p>
       
         <ul class="stockList">
           <g:each var="relatedStock" in="${related}">
