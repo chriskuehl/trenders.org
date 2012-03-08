@@ -6,7 +6,11 @@ class AdminCacheController {
     def servletContext
     
     def index() {
-        render(view: "/admin/cache")
+        render(view: "/admin/cache/index")
+    }
+    
+    def browse() {
+        render(view: "/admin/cache/browse")
     }
     
     def flush() {
