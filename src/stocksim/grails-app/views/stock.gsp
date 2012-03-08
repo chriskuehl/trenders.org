@@ -1,7 +1,8 @@
 <g:set var="ticker" value="${params.ticker.toLowerCase()}" />
-<g:set var="related" value="${finance.relatedStocks(ticker: ticker, max: 7)}" />
+<g:set var="relatedAll" value="${finance.relatedStocks(ticker: ticker)}" />
+<g:set var="related" value="${pickRandom(array: relatedAll, num: 7)}" />
 
-<g:set var="allTickers" value="${related.clone()}" />
+<g:set var="allTickers" value="${relatedAll.clone()}" />
 <g:addToCollection collection="${allTickers}" element="${ticker.toUpperCase()}" />
 
 <finance:stocks tickers="${allTickers}">

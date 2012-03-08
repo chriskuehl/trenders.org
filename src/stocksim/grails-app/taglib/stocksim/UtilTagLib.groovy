@@ -3,6 +3,8 @@ package stocksim
 import com.ocpsoft.pretty.time.PrettyTime
 
 class UtilTagLib {
+    static returnObjectForTags = ["pickRandom"]
+    
     def addToCollection = { attrs ->
         attrs.collection.add(attrs.element)
     }
@@ -32,5 +34,20 @@ class UtilTagLib {
                 out << "..."
             }
         }
+    }
+    
+    def pickRandom = { attrs ->
+        def array = attrs.array
+        def max = Math.min(array.size(), attrs.num.toInteger())
+        
+        Collections.shuffle(array)
+        
+        def finalArray = []
+        
+        for (def i in (1..max)) {
+            finalArray.add(array[i - 1])
+        }
+        
+        finalArray
     }
 }

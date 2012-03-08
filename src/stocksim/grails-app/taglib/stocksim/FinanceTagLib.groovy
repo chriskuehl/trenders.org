@@ -29,7 +29,7 @@ class FinanceTagLib {
     }
     
     def relatedStocks = { attrs ->
-        financeService.getRelatedStocks(attrs.ticker.toUpperCase(), attrs.max)
+        financeService.getRelatedStocks(attrs.ticker.toUpperCase())
     }
     
     def simpleName = { attrs ->
