@@ -35,6 +35,7 @@ grails.project.dependency.resolution = {
 
         runtime "mysql:mysql-connector-java:5.1.18"
         runtime "net.sf.opencsv:opencsv:2.0"
+        runtime "com.ocpsoft:ocpsoft-pretty-time:1.0.7"
         //runtime "hsqldb:hsqldb:1.8.0.10"
     }
 
