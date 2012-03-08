@@ -88,7 +88,7 @@ class FinanceService {
     }
     
     def getSimpleName(def name) {
-        def removeAtEnd = ["Corporation", "Inc.", "Inc", "Incorporated", "Company"]
+        def removeAtEnd = ["Corporation", "Inc.", "Inc", "Incorporated", "Company", "(The)"]
         
         removeAtEnd.each { rm ->
             if (name.endsWith(" ${rm}")) {
