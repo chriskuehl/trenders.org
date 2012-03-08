@@ -73,8 +73,8 @@
         </a>
         
         <h2 class="understroked">Recent News Articles</h2>
-        <ul class="stockList">
-          <googleNews:articles query="${simpleTitle.toString()}" num="6">
+        <ul class="stockList" style="margin-top: 10px !important;">
+          <googleNews:articles query="${simpleTitle.toString()}" num="5">
             <li>
               <strong><a href="${googleNews.article(req: "link")}" class="gray" target="_blank"><g:trim elipses="true" content="${googleNews.article(req: "title")}" chars="45" /></a></strong><br />
               <span class="soft"><googleNews:article req="author" />, <g:toRecentTime date="${googleNews.article(req: "pubDate")}" />. <a class="small" href="${googleNews.article(req: "relatedLink")}" target="_blank">related</a></span><br />
