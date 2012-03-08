@@ -18,8 +18,6 @@ class GoogleNewsService {
             title = title.substring(0, title.lastIndexOf("-") - 1)
             def relatedLink = WikipediaService.between(description, "<a class=\"p\" href=\"", "\"")
             
-            print description
-            
             description = WikipediaService.between(description, "</font></b></font><br /><font size=\"-1\">", "</font>").replaceAll("<[^>]*>", "")
             description = description.substring(0, description.length() - 4)
             
