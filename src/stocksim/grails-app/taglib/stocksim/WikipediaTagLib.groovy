@@ -32,6 +32,7 @@ class WikipediaTagLib {
             }
             
             out << " <a target=\"_blank\" href=\"${wikipediaService.getURL(title)}\">(read more)</a>"
+            out << body()
         }
     }
 }

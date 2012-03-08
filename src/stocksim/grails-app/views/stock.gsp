@@ -21,8 +21,12 @@
       <%-- first column --%>
       <div class="column3">
         <h1>${simpleTitle}</h1>
-        <p class="justify"><wikipedia:summary title="${title}" maxChars="400" /></p>
-        <p class="small italics">from Wikipedia's article on ${title.endsWith(".") ? title : title + "."} <g:link mapping="faq" fragment="wikipedia">what's this?</g:link></p>
+        <p class="justify">
+          <wikipedia:summary title="${title}" maxChars="400">
+            <p class="small italics">from Wikipedia's article on ${title.endsWith(".") ? title : title + "."} <g:link mapping="faq" fragment="wikipedia">what's this?</g:link></p>
+          </wikipedia:summary>
+        </p>
+        
         
         <h2 class="understroked">Financial Overview</h2>
         <g:set var="financialInfo" value="${[
