@@ -40,10 +40,13 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://wctp.us/stocksim-dev?useUnicode=yes&characterEncoding=UTF-8"
-            username = "stocksim-dev"
-            password = "6rcCszF9HqyaprKM"
+            driverClassName = "org.h2.Driver"
+            
+            username = "sa"
+            password = ""
+
+            dbCreate = "create-drop"
+            url = "jdbc:h2:mem:temp"
         }
     }
     test {
