@@ -23,7 +23,7 @@
         <h1>${simpleTitle}</h1>
         <p class="justify">
           <wikipedia:summary title="${title}" maxChars="400">
-            <p class="small italics">from Wikipedia's article on ${title.endsWith(".") ? title : title + "."} <g:link mapping="faq" fragment="wikipedia">what's this?</g:link></p>
+            <p class="small italics">from Wikipedia's article on ${simpleTitle.endsWith(".") ? simpleTitle : simpleTitle + "."} <g:link mapping="faq" fragment="wikipedia">what's this?</g:link></p>
           </wikipedia:summary>
         </p>
         
@@ -73,7 +73,15 @@
         </a>
         
         <h2 class="understroked">Recent News Articles</h2>
-        
+        <ul class="stockList">
+          <googleNews:articles query="${simpleTitle.toString()}" num="6">
+            <li>
+              <strong><a href="${googleNews.article(req: "link")}" class="gray" target="_blank"><g:trim elipses="true" content="${googleNews.article(req: "title")}" chars="45" /></a></strong><br />
+              <span class="soft"><googleNews:article req="author" />, <g:toRecentTime date="${googleNews.article(req: "pubDate")}" />. <a class="small" href="${googleNews.article(req: "relatedLink")}" target="_blank">related</a></span><br />
+            </li>
+          </googleNews:articles>
+        </ul>
+        <p class="small italics">from a Google News search for ${simpleTitle} <g:link mapping="faq" fragment="google-news">what's this?</g:link></p>
       </div>
       
       <%-- third column --%>
@@ -98,7 +106,7 @@
         <ul class="stockList">
           <g:each var="relatedStock" in="${related}">
             <li>
-              <g:link mapping="stock" params="${[ticker: relatedStock]}">
+              <g:link mapping="stock" params="${[ticker: relatedStock]}" class="block">
                 <strong><finance:simpleName name="${finance.stock(ticker: relatedStock, req: "name")}" /></strong>
                 <span class="soft">${relatedStock}</span>
                 <br />

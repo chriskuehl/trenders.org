@@ -118,11 +118,27 @@ span.stockStats {
     color: #6F6F6F;
 }
 
-ul.stockList a {
+ul.stockList a.block {
     color: inherit !important;
     display: block;
 }
 
-ul.stockList a:hover {
+ul.stockList a.gray {
+    color: #6F6F6F !important;
+}
+
+ul.stockList li {
+    color: #6F6F6F !important;
+}
+
+ul.stockList a.block:hover {
     background-color: #FFEDCA !important;
+}
+
+a.small {
+    font-size: 10px !important;
+}
+
+span.description {
+    font-size: 12px !important;
 }
