@@ -17,10 +17,6 @@ class MarketIndex {
     }
     
     def getPercentChangeText() {
-        if (! isUp()) {
-            return percentChange
-        }
-        
-        "+" + percentChange
+        percentChange
     }
 }
