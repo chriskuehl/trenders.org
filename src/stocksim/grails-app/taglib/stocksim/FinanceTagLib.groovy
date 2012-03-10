@@ -7,6 +7,7 @@ class FinanceTagLib {
     static namespace = "finance"
     
     def financeService
+    def cacheService
     
     def stocks = { attrs, body ->
         def tickers = attrs.tickers
@@ -21,7 +22,7 @@ class FinanceTagLib {
     
     def index = { attrs ->
         def fullAssetName = ".${attrs.index}"
-        def index = servletContext["index_${fullAssetName}"]
+        def index = cacheService.fetchFromCache("indices", fullAssetName, (- 1))
         
         if (index) {
             out << render(template: "/marketIndex/marketIndex", model: [index: index])

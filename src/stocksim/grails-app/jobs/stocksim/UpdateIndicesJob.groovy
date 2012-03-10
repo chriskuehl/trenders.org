@@ -6,7 +6,7 @@ class UpdateIndicesJob {
     def timeout = 60 * 30 * 1000 // every 30 minutes
     
     def googleFinanceService
-    def servletContext
+    def cacheService
 
     def execute() {
         def assets = [
@@ -23,8 +23,8 @@ class UpdateIndicesJob {
             index.title = asset.title
             index.percentChange = results.c
             index.currentValue = results.l_cur
-
-            servletContext["index_${asset.id}"] = index
+            
+            cacheService.storeInCache("indices", asset.id, index)
             println "Updated asset: ${asset.id}"
         }
     }
