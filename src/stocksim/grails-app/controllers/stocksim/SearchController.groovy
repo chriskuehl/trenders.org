@@ -4,7 +4,8 @@ import stocksim.temp.*
 import grails.converters.JSON
 
 class SearchController {
-    SearchService searchService
+    def searchService
+    def utilService
     
     def refresh() {
         def start = new Date().getTime()
@@ -59,7 +60,7 @@ class SearchController {
             def map = [:]
             
             map.name = result.getName()
-            map.sector = result.getSector()
+            map.sector = utilService.trim(result.getSector(), 15, true)
             map.ticker = result.getTicker()
             map.lastSale = result.getLastSale()
             
