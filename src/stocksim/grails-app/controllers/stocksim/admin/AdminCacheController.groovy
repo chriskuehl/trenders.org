@@ -14,7 +14,8 @@ class AdminCacheController {
     }
     
     def flush() {
-        servletContext["cache"] = null
+        servletContext["cache"] = [:]
+        UpdateIndicesJob.triggerNow()
         
         new UserAlert(type: "success", title: "All done!", message: "The cache has been flushed.").add(flash)
         redirect(action: "index")
