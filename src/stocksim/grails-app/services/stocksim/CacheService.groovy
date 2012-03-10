@@ -32,7 +32,7 @@ class CacheService {
     def fetchFromCache(def service, def key, def minutes) {
         initService(service)
             
-        if (minutes <= 0 || ! hasExpired(service, key, minutes)) {
+        if ((minutes <= 0 || ! hasExpired(service, key, minutes)) && servletContext["cache"][service][key] != null)  {
             return servletContext["cache"][service][key]["value"]
         }
         
