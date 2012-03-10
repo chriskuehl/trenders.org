@@ -5,6 +5,8 @@ import com.ocpsoft.pretty.time.PrettyTime
 class UtilTagLib {
     static returnObjectForTags = ["pickRandom"]
     
+    def utilService
+    
     def addToCollection = { attrs ->
         attrs.collection.add(attrs.element)
     }
@@ -19,21 +21,7 @@ class UtilTagLib {
         def chars = attrs.chars.toInteger()
         def content = attrs.content
         
-        if (content.length() <= chars) {
-            out << content
-        } else {
-            content = content.substring(0, chars - 3).trim()
-            
-            if (content.endsWith(".") || content.endsWith(",")) {
-                content = content.substring(0, content.length() - 1).trim()
-            }
-            
-            out << content
-            
-            if (elipses) {
-                out << "..."
-            }
-        }
+        out << utilService.trim(content, chars, elipses)
     }
     
     def pickRandom = { attrs ->
