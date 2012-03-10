@@ -36,7 +36,7 @@ class FinanceService {
         // build a ticker list & ensure all tickers are alphanumeric
         tickers.each { ticker ->
             if (! YahooQueryService.isAlphaNumeric(ticker)) {
-                throw new BadTickerSymbolException("Bad ticket symbol: " + ticker);
+                throw new BadTickerSymbolException("Bad ticker symbol: " + ticker);
             }
             
             tickerList += "\"${ticker.toUpperCase()}\","
