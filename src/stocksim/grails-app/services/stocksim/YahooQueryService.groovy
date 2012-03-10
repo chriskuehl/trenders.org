@@ -14,6 +14,10 @@ class YahooQueryService {
         test ==~ /^[a-zA-Z0-9]*$/;
     }
     
+    static boolean isAlphaNumericOrSlash(def test) {
+        test ==~ /^[a-zA-Z0-9\\/]*$/;
+    }
+    
     static String makeAlphaNumeric(def str) {
         def result = ""
         
