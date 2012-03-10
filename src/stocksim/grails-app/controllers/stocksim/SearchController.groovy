@@ -53,6 +53,19 @@ class SearchController {
     
     def json() {
         def results = searchService.searchForStocks(params["query"], 5)
-        render results as JSON
+        def resultsPlain = []
+        
+        results.each { result ->
+            def map = [:]
+            
+            map.name = result.getName()
+            map.sector = result.getSector()
+            map.ticker = result.getTicker()
+            map.lastSale = result.getLastSale()
+            
+            resultsPlain.add(map)
+        }
+        
+        render resultsPlain as JSON
     }
 }
