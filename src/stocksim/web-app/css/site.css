@@ -528,13 +528,13 @@ div.sidebar p, div.sidebar li, div.sidebar th, div.sidebar td {
     text-decoration: none;
     padding: 2px;
     padding-left: 4px;
+    border-radius: 3px;
     
     position: relative;
 }
 
 #autoComplete a:hover {
     background-color: #FFEDCA;
-    border-radius: 3px;
 }
 
 div.autoCompleteTicker {
