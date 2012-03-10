@@ -63,7 +63,7 @@ class FinanceService {
                 yearRange: stock.YearRange,
                 marketCap: stock.MarketCapitalization,
                 peRatio: stock.PERatio,
-                value: stock.LastTradePriceOnly,
+                value: (stock.LastTradePriceOnly.toDouble() * 100).toInteger() / 100,
                 exchange: stock.StockExchange.startsWith("Nasdaq") ? "nasdaq" : "nyse"
             )
             
