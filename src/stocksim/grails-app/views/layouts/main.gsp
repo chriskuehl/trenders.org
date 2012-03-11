@@ -76,7 +76,7 @@
 					<ul id="navBar">
 						<li class="blueNavBar" id="searchTab">
 							<form method="GET" action="${createLink(controller: "search", action: "browse")}" autocomplete="off">
-								<input type="text" class="searchBar" name="query" value="" />
+								<input type="text" class="searchBar" name="q" value="" />
 							</form>
 						</li>
 						<li><a href="#">Join</a></li>

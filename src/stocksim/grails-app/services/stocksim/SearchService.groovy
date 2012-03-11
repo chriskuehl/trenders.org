@@ -15,7 +15,7 @@ class SearchService {
     def dataSource_temp
     def financeService
     
-    def searchForStocks(query, int limit) {
+    def getResults(def query, int limit) {
         def results = []
         def sql = new Sql(dataSource_temp)
         def term = YahooQueryService.makeAlphaNumeric(query).toLowerCase() + "%"

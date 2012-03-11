@@ -15,15 +15,11 @@ class SearchController {
     }*/
     
     def browse() {
-        if (params.query) {
-            redirect(action: "browse", id: params.query)
-        } else {
-            render(view: "/search")
-        }
+        render(view: "/search")
     }
     
     def json() {
-        def results = searchService.searchForStocks(params["query"], 5)
+        def results = searchService.getResults(params["query"], 5)
         def resultsPlain = []
         
         results.each { result ->
