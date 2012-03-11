@@ -15,4 +15,8 @@ modules = {
     page_stock {
         resource url: "css/pages/stock.css", disposition: 'head'
     }
+    
+    page_search {
+        resource url: "css/pages/search.css", disposition: "head"
+    }
 }

@@ -5,6 +5,7 @@
 <!doctype html>
 <html>
   <head>
+    <r:require modules="page_search" />
     <meta name="layout" content="main" />
     <content tag="noRobots">true</content>
     
