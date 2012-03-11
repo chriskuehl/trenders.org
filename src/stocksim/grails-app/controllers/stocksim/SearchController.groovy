@@ -4,6 +4,8 @@ import stocksim.temp.*
 import grails.converters.JSON
 
 class SearchController {
+    static defaultAction = "browse"
+    
     def searchService
     def utilService
     
