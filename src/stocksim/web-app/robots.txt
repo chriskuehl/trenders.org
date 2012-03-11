@@ -1,6 +1,3 @@
 User-agent: *
-Disallow: /googleNews/
-Disallow: /adminCache/
-Disallow: /sandbox/
-Disallow: /searchableStock/
-Disallow: /wikipedia/
+Disallow: /dev/
+Disallow: /admin/
