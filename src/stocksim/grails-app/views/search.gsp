@@ -13,7 +13,7 @@
   </head>
   <body>
     <div id="page-body" role="main">
-      <h1>${query ? "Search Results: $query" : "Search"}</h2>
+      <h1>${query ? "Search Results: $query" : "Search"}</h1>
       
       <g:if test="${query}">
         <search:results query="${query}" offset="${offset}">
