@@ -3,8 +3,15 @@
     list-style: none !important;
 }
 
+#searchResults li {
+    margin-bottom: 5px;
+}
+
 #searchResults li a {
     color: inherit !important;
+    display: block;
+    
+    padding: 5px;
 }
 
 #pageNavHolder {
@@ -33,4 +40,11 @@
 #nextPage {
     right: 0px;
     text-align: right;
+}
+
+.searchTitle {
+    font-family: Cabin, Arimo, Helvetica, Arial, sans-serif;
+    color: #193441;
+    font-size: 16px;
+    font-weight: 500;
 }
