@@ -2,3 +2,35 @@
     margin-left: 0px !important;
     list-style: none !important;
 }
+
+#searchResults li a {
+    color: inherit !important;
+}
+
+#pageNavHolder {
+    position: relative;
+    
+    height: 40px;
+}
+
+#prevPage, #nextPage {
+    position: absolute;
+    top: 0px;
+    
+    display: block;
+    
+    width: 449px;
+    
+    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#prevPage {
+    left: 0px;
+}
+
+#nextPage {
+    right: 0px;
+    text-align: right;
+}

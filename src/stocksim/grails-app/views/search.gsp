@@ -1,6 +1,7 @@
 <g:set var="resultsPerPage" value="${10}" />
 <g:set var="query" value="${params.q}" />
-<g:set var="offset" value="${(params.p ? params.p.toInteger() : 0) * resultsPerPage}" />
+<g:set var="page" value="${params.p ? params.p.toInteger() : 0}" />
+<g:set var="offset" value="${page * resultsPerPage}" />
 
 <!doctype html>
 <html>
@@ -26,6 +27,22 @@
               </li>
             </search:eachResult>
           </ul>
+          
+          <%-- previous and next page --%>
+          <g:set var="hasPrev" value="${offset > 0}" />
+          <g:set var="hasNext" value="${search.getNumResults() > offset + resultsPerPage}" />
+          
+          <g:if test="${hasPrev || hasNext}">
+            <div id="pageNavHolder">
+              <g:if test="${hasPrev}">
+                <a id="prevPage" href="${createLink(params: [q: query, p: (page - 1)])}">&laquo; Previous Page</a>
+              </g:if>
+              
+              <g:if test="${hasNext}">
+                <a id="nextPage" href="${createLink(params: [q: query, p: (page + 1)])}">Next Page &raquo;</a>
+              </g:if>
+            </div>
+          </g:if>
         </search:results>
       </g:if>
       

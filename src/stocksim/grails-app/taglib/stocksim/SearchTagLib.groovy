@@ -2,7 +2,7 @@ package stocksim
 
 class SearchTagLib {
     static namespace = "search"
-    static returnObjectForTags = ["resultReturn"]
+    static returnObjectForTags = ["resultReturn", "getNumResults"]
     
     def searchService
     
@@ -11,6 +11,8 @@ class SearchTagLib {
         def offset = attrs.offset.toInteger()
         
         def results = searchService.getResults(query, 100)
+        
+        request.numResults = results.size()
         
         if (offset > 1) {
             for (i in (1..offset)) {
@@ -21,6 +23,10 @@ class SearchTagLib {
         request.searchResults = results
         
         out << body()
+    }
+    
+    def getNumResults = {
+        request.numResults
     }
     
     def eachResult = { attrs, body ->
