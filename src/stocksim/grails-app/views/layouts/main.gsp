@@ -15,6 +15,10 @@
                   <meta name="robots" content="noindex" />
                 </g:if>		
                 
+                <g:if test="${pageProperty(name: "page.canonical") != null}">
+                  <link rel="canonical" href="${pageProperty(name: "page.canonical")}" />
+                </g:if>		
+                
                 <%-- page-specific --%>
                 <title><layout:genTitle><g:layoutTitle default="trenders.org" /></layout:genTitle></title>
                 <g:layoutHead />

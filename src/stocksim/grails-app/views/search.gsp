@@ -9,7 +9,10 @@
     <r:require modules="page_search" />
     <meta name="layout" content="main" />
     <content tag="noRobots">true</content>
-    <content tag="canonical">${createLink(params: [q:query, p: page])}</content>
+    
+    <g:if test="${query.length() > 0}">
+      <content tag="canonical">${createLink(params: [q: query.toLowerCase(), p: page], absolute: true)}</content>
+    </g:if>
     
     <title>${query ? query + " &ndash; " : ""} Search</title>
   </head>
