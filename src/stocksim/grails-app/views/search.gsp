@@ -22,31 +22,38 @@
       
       <g:if test="${query}">
         <search:results query="${query}" offset="${offset}">
-          <ul id="searchResults">
-            <search:eachResult max="${resultsPerPage}">
-              <li>
-                <a href="${createLink(mapping: "stock", params: [ticker: search.resultReturn(req: "ticker")])}">
-                  <search:result req="name" />
-                </a>
-              </li>
-            </search:eachResult>
-          </ul>
-          
-          <%-- previous and next page --%>
-          <g:set var="hasPrev" value="${offset > 0}" />
-          <g:set var="hasNext" value="${search.getNumResults() > offset + resultsPerPage}" />
-          
-          <g:if test="${hasPrev || hasNext}">
-            <div id="pageNavHolder">
-              <g:if test="${hasPrev}">
-                <a id="prevPage" href="${createLink(params: [q: query, p: (page - 1)])}">&laquo; Previous Page</a>
+          <g:if test="${search.getNumResults() > 0}">
+            <finance:stocks tickers="${search.getResultTickers(max: resultsPerPage)}">
+              <ul id="searchResults">
+                <search:eachResult max="${resultsPerPage}">
+                  <li>
+                    <a href="${createLink(mapping: "stock", params: [ticker: search.resultReturn(req: "ticker")])}">
+                      <span class="searchTitle"><search:result req="name" /></span><br />
+                    </a>
+                  </li>
+                </search:eachResult>
+              </ul>
+
+              <%-- previous and next page --%>
+              <g:set var="hasPrev" value="${offset > 0}" />
+              <g:set var="hasNext" value="${search.getNumResults() > offset + resultsPerPage}" />
+
+              <g:if test="${hasPrev || hasNext}">
+                <div id="pageNavHolder">
+                  <g:if test="${hasPrev}">
+                    <a id="prevPage" href="${createLink(params: [q: query, p: (page - 1)])}">&laquo; Previous Page</a>
+                  </g:if>
+
+                  <g:if test="${hasNext}">
+                    <a id="nextPage" href="${createLink(params: [q: query, p: (page + 1)])}">Next Page &raquo;</a>
+                  </g:if>
+                </div>
               </g:if>
-              
-              <g:if test="${hasNext}">
-                <a id="nextPage" href="${createLink(params: [q: query, p: (page + 1)])}">Next Page &raquo;</a>
-              </g:if>
-            </div>
+            </finance:stocks>
           </g:if>
+          <g:else>
+            <p>We didn't find any results for your query. Try again?</p>
+          </g:else>
         </search:results>
       </g:if>
       

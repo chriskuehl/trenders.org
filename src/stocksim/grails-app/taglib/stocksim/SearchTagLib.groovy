@@ -2,7 +2,7 @@ package stocksim
 
 class SearchTagLib {
     static namespace = "search"
-    static returnObjectForTags = ["resultReturn", "getNumResults"]
+    static returnObjectForTags = ["resultReturn", "getNumResults", "getResultTickers"]
     
     def searchService
     
@@ -37,6 +37,17 @@ class SearchTagLib {
             out << body()
             request.searchResults.remove(0)
         }
+    }
+    
+    def getResultTickers = { attrs ->
+        def max = Math.min(request.searchResults.size(), attrs.max)
+        def tickers = []
+        
+        for (i in (1..max)) {
+            tickers << request.searchResults[i - 1]["ticker"]
+        }
+        
+        tickers
     }
     
     def result = { attrs ->
