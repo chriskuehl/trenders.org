@@ -10,7 +10,7 @@ class SearchTagLib {
         def query = attrs.query
         def offset = attrs.offset.toInteger()
         
-        def results = searchService.getResults(query, 100)
+        def results = searchService.getResults(query, 1000)
         
         request.numResults = results.size()
         
