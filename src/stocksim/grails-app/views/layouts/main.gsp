@@ -18,7 +18,7 @@
                 
                 <g:if test="${pageProperty(name: "page.canonical") != null}">
                   <link rel="canonical" href="${pageProperty(name: "page.canonical")}" />
-                </g:if>		
+                </g:if>
                 
                 <%-- page-specific --%>
                 <title><layout:genTitle><g:layoutTitle default="trenders.org" /></layout:genTitle></title>
