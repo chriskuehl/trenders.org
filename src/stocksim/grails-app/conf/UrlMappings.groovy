@@ -1,7 +1,9 @@
 class UrlMappings {
     static mappings = {
         // home page
-        "/" (view:"/index")
+        name home: "/" {
+            view = "/index"
+        }
         
         // search
         "/search" (controller: "search", action: "browse")

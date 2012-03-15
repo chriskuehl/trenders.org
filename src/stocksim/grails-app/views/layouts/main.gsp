@@ -3,7 +3,7 @@
 	<head>
                 <r:require modules="site" />
 
-                <base href="/stocksim/" />
+                <base href="${createLink(absolute: true, mapping: "home")}" />
 
 		<%-- site-wide --%>
                 <r:layoutResources />
