@@ -10,7 +10,7 @@
                 
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=1024" />
-                <meta http-equiv=”X-UA-Compatible” content=”IE=9″ />
+                <meta http-equiv="X-UA-Compatible" content="IE=9" />
                 
                 <g:if test="${pageProperty(name: "page.noRobots") == "true"}">
                   <meta name="robots" content="noindex" />
