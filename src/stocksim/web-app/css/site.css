@@ -612,11 +612,11 @@ div.autoCompletePriceDown {
 	
 }
 
-#footerInner ul li a {
+#footerInner a {
 	text-decoration: none;
 	color: black;
 }
 
-#footerInner ul li a:hover {
+#footerInner a:hover {
 	text-decoration: underline;
 }
