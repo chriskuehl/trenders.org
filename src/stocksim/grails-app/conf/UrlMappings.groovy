@@ -20,6 +20,7 @@ class UrlMappings {
         }
         
         // admin pages
+        "/admin" (view: "admin/index")
         "/admin/cache/$action" (controller: "adminCache")
         
         // dev pages
