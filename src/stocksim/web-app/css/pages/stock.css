@@ -1,11 +1,19 @@
 .infoRow {
     border-bottom: dotted 1px #A1A1A1;
+    margin-bottom: 5px !important;
+    
+    padding-top: 5px;
+    padding-bottom: 10px;
 }
 
 .infoRow .key {
     float: left;
     font-weight: bold;
     color: #6E6E6E;
+}
+
+.infoRow div {
+    margin-bottom: 0px !important;
 }
 
 .infoRow .value {
