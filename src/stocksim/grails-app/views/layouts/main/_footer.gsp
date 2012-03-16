@@ -1,9 +1,13 @@
 <div id="footer">
   <div class="pageWidth centered" id="footerInner">
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et augue a magna elementum commodo.<br />
-      Phasellus a easdst sed tellus luctus imperdiet. <a href="#">Vivamus erat nibh</a>, tincidunt at auctor sit amet, tristique non tortor.<br />
-      Donec hendrerit vulputate tortor sit amet rhoncus.
+      All information and advice on this site is provided for educational purposes only and is not to be used for making any type of financial decision.
+      By using this site, you agree not to hold the makers of this site liable for any inaccurate or delayed information on this site, including any of our independent data sources.
+      We do not guarantee the accuracy, completeness, timeliness, or any other aspect of the information on this site.
+    </p>
+    
+    <p>
+      For information about this site, including the sources we get our data from, see <a href="#">about this site</a>.</p>
     </p>
 
     <!-- footer links -->
