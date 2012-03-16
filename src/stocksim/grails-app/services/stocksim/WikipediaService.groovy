@@ -11,7 +11,7 @@ class WikipediaService {
             def url = getURL(title)
             def content = url.toURL().text
             def source = between(content,
-                "<div lang=\"en\" dir=\"ltr\" class=\"mw-content-ltr\">",
+                "<div id=\"mw-content-text\" lang=\"en\" dir=\"ltr\" class=\"mw-content-ltr\">",
                 "</div>				<!-- /bodycontent -->"
             )
             
