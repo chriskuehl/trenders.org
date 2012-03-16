@@ -24,7 +24,7 @@
         <search:results query="${query}" offset="${offset}">
           <g:if test="${search.getNumResults() > 0}">
             <finance:stocks tickers="${search.getResultTickers(max: resultsPerPage)}">
-              <p>Displaying results ${offset + 1} to ${offset + resultsPerPage} of ${search.getNumResults()}.</p>
+              <p>Displaying results ${offset + 1} to ${Math.min(offset + resultsPerPage, search.getNumResults())} of ${search.getNumResults()}.</p>
               <ul id="searchResults">
                 <search:eachResult max="${resultsPerPage}">
                   <li>
