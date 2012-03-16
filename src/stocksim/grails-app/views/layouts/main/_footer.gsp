@@ -7,7 +7,7 @@
     </p>
     
     <p>
-      For information about this site, including the sources we get our data from, see <a href="#">about this site</a>.</p>
+      For information about this site, including the sources we get our data from, see <g:link mapping="about">about this site</g:link>.</p>
     </p>
 
     <!-- footer links -->
