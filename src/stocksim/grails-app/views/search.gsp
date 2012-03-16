@@ -30,7 +30,7 @@
                   <li>
                     <a href="${createLink(mapping: "stock", params: [ticker: search.resultReturn(req: "ticker")])}">
                       <span class="searchTitle"><search:result req="name" /></span><br />
-                      test
+                      <search:result req="ticker" /> &ndash; <finance:stock ticker="${search.result(req: "ticker").toLowerCase()}" req="value" /> &ndash; <search:result req="sector" />
                     </a>
                   </li>
                 </search:eachResult>
