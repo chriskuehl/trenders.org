@@ -19,6 +19,12 @@ class UrlMappings {
             view = "/faq"
         }
         
+        name about: "/about" {
+            view = "/about"
+        }
+        
+        // lessons
+        
         // admin pages
         "/admin" (view: "admin/index")
         "/admin/cache/$action" (controller: "adminCache")
