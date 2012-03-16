@@ -150,56 +150,5 @@
 		</div>
                 
                 <r:layoutResources />
-                
-                <%--
-                <div id="autoComplete" style="position: absolute; left: 300px; top: 200px;">
-                  <ul>
-                    <li class="first">
-                      <a href="#">
-                        <strong>Apple Inc.</strong><br />
-                        <div class="autoCompleteTicker">AAPL &ndash; Technology</div>
-                        <div class="autoCompletePrice autoCompletePriceUp">532.12</div>
-                        <div class="clear"></div>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#">
-                        <strong>Apple Inc.</strong><br />
-                        <div class="autoCompleteTicker">AAPL &ndash; Technology</div>
-                        <div class="autoCompletePrice autoCompletePriceDown">532.12</div>
-                        <div class="clear"></div>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#">
-                        <strong>Apple Inc.</strong><br />
-                        <div class="autoCompleteTicker">AAPL &ndash; Technology</div>
-                        <div class="autoCompletePrice autoCompletePriceUp">532.12</div>
-                        <div class="clear"></div>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#">
-                        <strong>Apple Inc.</strong><br />
-                        <div class="autoCompleteTicker">AAPL &ndash; Technology</div>
-                        <div class="autoCompletePrice autoCompletePriceUp">532.12</div>
-                        <div class="clear"></div>
-                      </a>
-                    </li>
-
-                    <li class="last">
-                      <a href="#">
-                        <strong>Apple Inc.</strong><br />
-                        <div class="autoCompleteTicker">AAPL &ndash; Technology</div>
-                        <div class="autoCompletePrice autoCompletePriceUp">532.12</div>
-                        <div class="clear"></div>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                --%>
 	</body>
 </html>
