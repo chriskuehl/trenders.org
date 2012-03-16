@@ -8,7 +8,6 @@ class WikipediaTagLib {
     def summary = { attrs, body ->
         def title = attrs.title
         def source = cacheService.fetchFromCache("wikipedia", title, 60 * 24)
-        source = null
         
         if (source == null) { // it wasn't in the cache
             source = wikipediaService.getArticleSource(title)
