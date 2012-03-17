@@ -5,9 +5,6 @@
     <title>trenders.org: a simple stock market sim for students &amp; teachers</title>
   </head>
   <body>
-    <div id="page-body" role="main">
-      <h1>Welcome to trenders.org</h1>
-      
-    </div>
+    test
   </body>
 </html>
