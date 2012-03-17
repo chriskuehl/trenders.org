@@ -12,6 +12,10 @@ modules = {
         resource url: "js/site.js", disposition: 'head'
     }
     
+    page_home {
+        resource url: "css/pages/home.css", disposition: "head"
+    }
+    
     page_stock {
         resource url: "css/pages/stock.css", disposition: 'head'
     }

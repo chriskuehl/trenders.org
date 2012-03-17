@@ -1,0 +1,23 @@
+#flag {
+    background-image: url("../../images/flag-bg.jpg");
+    margin-left: -20px;
+    margin-top: -20px;
+    
+    width: 928px;
+    padding: 15px;
+}
+
+#flag p {
+    font-size: 16px;
+    color: white;
+}
+
+#flag ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+#flag ul li {
+    list-style: none;
+    display: inline;
+}
