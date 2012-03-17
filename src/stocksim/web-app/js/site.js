@@ -6,6 +6,10 @@ $(function() {
             preloadImages(["static/images/yellowbutton_middle-hover.png"]);
         }
         
+        if ($("#flag").length > 0) {
+            preloadImages(["static/images/black-25.png"]);
+        }
+        
 	// hovering over user icons
 	$(".userIconsNoScript").removeClass("userIconsNoScript");
 	$("#userIcons li a").hover(function() {
