@@ -5,11 +5,14 @@
     
     width: 928px;
     padding: 15px;
+    padding-left: 5px;
 }
 
 #flag p {
     font-size: 16px;
     color: white;
+    margin-left: 10px;
+    margin-bottom: 5px !important;
 }
 
 #flag ul {
@@ -19,5 +22,57 @@
 
 #flag ul li {
     list-style: none;
-    display: inline;
+    display: block;
+    float: left;
+    
+    margin-left: 10px;
+}
+
+a.homeIcon {
+    display: block;
+    
+    background-image: url("../../images/black-10.png") !important;
+    box-shadow: 1px 1px 1px rgba(31, 75, 88, 0.2), -1px -1px 0px rgba(7, 51, 64, 0.2);
+    
+    padding: 8px;
+    border-radius: 15px;
+}
+
+a.homeIcon:hover {
+    background: none !important;
+    background-image: url("../../images/black-25.png") !important;
+    box-shadow: 1px 1px 1px rgba(31, 75, 88, 0.5), -1px -1px 0px rgba(7, 51, 64, 0.5);
+}
+
+div.flagIcon {
+    width: 54px;
+    height: 54px;
+    
+    text-indent: -2000em;
+    background-image: url("../../images/flagicon-bg.png");
+    
+    margin: 0px !important;
+}
+
+div.flagIcon div {
+    width: 54px;
+    height: 54px;
+    
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+#flagIconLessons div {
+    background-image: url("../../images/icons-home/lessons.png");
+    
+}
+
+#flagIconStockSim div {
+    background-image: url("../../images/icons-home/stocksim.png");
+    
+}
+
+#flagIconClassrooms div {
+    background-image: url("../../images/icons-home/classrooms.png");
+    
 }
