@@ -3,9 +3,10 @@
     margin-left: -20px;
     margin-top: -20px;
     
-    width: 928px;
+    width: 939px;
     padding: 15px;
-    padding-left: 5px;
+    padding-top: 10px;
+    padding-left: 4px;
 }
 
 #flag p {
@@ -41,6 +42,12 @@
 a.homeIcon {
     display: block;
     padding: 8px;
+    padding-left: 60px;
+    
+    position: relative;
+    
+    width: 226px;
+    height: 55px;
     
     background-image: url("../../images/flagicon-bg.png");
     background-repeat: no-repeat;
@@ -54,11 +61,20 @@ a.homeIcon:hover {
     background-position: 8px 8px !important;
 }
 
+a.homeIcon p {
+    font-size: 13px !important;
+    line-height: 1.2em !important;
+}
+
 div.flagIcon {
     width: 52px;
     height: 50px;
     
     text-indent: -2000em;
+    
+    position: absolute;
+    left: 8px;
+    top: 8px;
     
     margin: 0px !important;
     
@@ -66,17 +82,6 @@ div.flagIcon {
     background-position: 50% 50%;
 }
 
-#flagIconLessons {
-    background-image: url("../../images/icons-home/lessons.png");
-    
-}
-
-#flagIconStockSim {
-    background-image: url("../../images/icons-home/stocksim.png");
-    
-}
-
-#flagIconClassrooms {
-    background-image: url("../../images/icons-home/classrooms.png");
-    
-}
+#flagIconLessons { background-image: url("../../images/icons-home/lessons.png"); }
+#flagIconStockSim { background-image: url("../../images/icons-home/stocksim.png"); }
+#flagIconClassrooms { background-image: url("../../images/icons-home/classrooms.png"); }
