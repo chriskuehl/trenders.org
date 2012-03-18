@@ -26,53 +26,57 @@
     float: left;
     
     margin-left: 10px;
-}
-
-a.homeIcon {
-    display: block;
     
     background-image: url("../../images/black-10.png") !important;
-    box-shadow: 1px 1px 1px rgba(31, 75, 88, 0.2), -1px -1px 0px rgba(7, 51, 64, 0.2);
+    box-shadow: 1px 1px 1px rgba(31, 75, 88, 0.3), -1px -1px 0px rgba(7, 51, 64, 0.3);
     
-    padding: 8px;
     border-radius: 15px;
 }
 
-a.homeIcon:hover {
-    background: none !important;
+#flag ul li:hover {
     background-image: url("../../images/black-25.png") !important;
     box-shadow: 1px 1px 1px rgba(31, 75, 88, 0.5), -1px -1px 0px rgba(7, 51, 64, 0.5);
 }
 
-div.flagIcon {
-    width: 54px;
-    height: 54px;
+a.homeIcon {
+    display: block;
+    padding: 8px;
     
-    text-indent: -2000em;
     background-image: url("../../images/flagicon-bg.png");
-    
-    margin: 0px !important;
+    background-repeat: no-repeat;
+    background-position: 8px 8px;
 }
 
-div.flagIcon div {
-    width: 54px;
-    height: 54px;
+a.homeIcon:hover {
+    background: none !important;
+    background-image: url("../../images/flagicon-bg.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: 8px 8px !important;
+}
+
+div.flagIcon {
+    width: 52px;
+    height: 50px;
+    
+    text-indent: -2000em;
+    
+    margin: 0px !important;
     
     background-repeat: no-repeat;
     background-position: 50% 50%;
 }
 
-#flagIconLessons div {
+#flagIconLessons {
     background-image: url("../../images/icons-home/lessons.png");
     
 }
 
-#flagIconStockSim div {
+#flagIconStockSim {
     background-image: url("../../images/icons-home/stocksim.png");
     
 }
 
-#flagIconClassrooms div {
+#flagIconClassrooms {
     background-image: url("../../images/icons-home/classrooms.png");
     
 }
