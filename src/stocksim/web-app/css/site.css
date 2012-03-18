@@ -1,6 +1,7 @@
 body {
 	font-family: Arimo, Helvetica, Arial, sans-serif;
 	background-color: #D1DADD;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
 }
 
 .pageWidth {

@@ -9,8 +9,16 @@
                 <r:layoutResources />
                 
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=1024" />
+                <meta name="viewport" content="width=1024" />
                 <meta http-equiv="X-UA-Compatible" content="IE=9" />
+                <meta name="apple-mobile-web-app-capable" content="yes" />
+                
+                <link rel="shortcut icon" type="image/png" href="${resource(file: "favicon.png")}" />
+                <link rel="icon" type="image/png" href="${resource(file: "favicon.png")}" /> <%-- just in case --%>
+                <link rel="apple-touch-icon-precomposed" type="image/png" href="${resource(file: "apple-touch-icon-precomposed.png")}" />
+                <link rel="apple-touch-startup-image" sizes="768x1004" type="image/png" href="${resource(file: "apple-touch-startup-image.png")}" />
+                <link rel="apple-touch-startup-image" sizes="1024x748" type="image/png" href="${resource(file: "apple-touch-startup-image-landscape.png")}" />
+                
                 
                 <g:if test="${pageProperty(name: "page.noRobots") == "true"}">
                   <meta name="robots" content="noindex" />

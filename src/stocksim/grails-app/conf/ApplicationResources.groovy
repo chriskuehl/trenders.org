@@ -10,6 +10,7 @@ modules = {
         resource url: "js/jquery.inputLabel.js", disposition: 'head'
         
         resource url: "js/site.js", disposition: 'head'
+        resource url: "js/standalone.js", disposition: 'head'
     }
     
     page_home {
