@@ -2,9 +2,11 @@ package stocksim
 
 import stocksim.temp.*
 import stocksim.exception.*
+import groovy.sql.Sql
 
 class FinanceService {
     def cacheService
+    def dataSource_temp
     
     def getStocks(def tickers) {
         def stocks = [:]
@@ -72,6 +74,19 @@ class FinanceService {
         }
         
         stocks
+    }
+    
+    def getSectors() {
+        def sectors = []
+        
+        def sql = new Sql(dataSource_temp)
+        sql.eachRow("select distinct sector from searchable_stock order by sector") { row ->
+            if (row.sector.trim().length() > 0) {
+                sectors.add(row.sector)
+            }
+        }
+        
+        sectors
     }
     
     def getRelatedStocks(def ticker) {

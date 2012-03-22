@@ -7,6 +7,7 @@ class UrlMappings {
         
         // search
         "/search" (controller: "search", action: "browse")
+        "/browse" (controller: "search", action: "sector")
         "/search/json" (controller: "search", action: "json")
         
         // stock page

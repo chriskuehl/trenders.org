@@ -85,3 +85,7 @@ div.flagIcon {
 #flagIconLessons { background-image: url("../../images/icons-home/lessons.png"); }
 #flagIconStockSim { background-image: url("../../images/icons-home/stocksim.png"); }
 #flagIconClassrooms { background-image: url("../../images/icons-home/classrooms.png"); }
+
+.column3 {
+    width: 329px !important;
+}

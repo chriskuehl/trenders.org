@@ -16,12 +16,16 @@ class SearchController {
         render "Refreshed cache in ${(new Date().getTime() - start) / 1000} seconds."
     }*/
     
+    def sector() {
+        render(view: "/browse")
+    }
+    
     def browse() {
         render(view: "/search")
     }
     
     def json() {
-        def results = searchService.getResults(params["query"], 5)
+        def results = searchService.getResults(params["query"], 5, false)
         def resultsPlain = []
         
         results.each { result ->

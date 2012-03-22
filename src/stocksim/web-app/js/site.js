@@ -10,6 +10,12 @@ $(function() {
             preloadImages(["static/images/black-25.png"]);
         }
         
+        // stock rows (TODO: fix this)
+        $("#trendingTable tr.stock").click(function() {
+           var stock = $(this).attr("id").substring(4);
+           window.location = "stock/" + stock;
+        });
+        
 	// hovering over user icons
 	$(".userIconsNoScript").removeClass("userIconsNoScript");
 	$("#userIcons li a").hover(function() {

@@ -7,10 +7,17 @@ class SearchTagLib {
     def searchService
     
     def results = { attrs, body ->
-        def query = attrs.query
+        def query
+        
+        if (attrs.query) {
+            query = attrs.query
+        } else {
+            query = attrs.sector
+        }
+        
         def offset = attrs.offset.toInteger()
         
-        def results = searchService.getResults(query, 1000)
+        def results = searchService.getResults(query, 1000, attrs.sector ? true : false)
         
         request.numResults = results.size()
         

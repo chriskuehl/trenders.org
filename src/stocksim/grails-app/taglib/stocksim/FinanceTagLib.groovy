@@ -39,4 +39,22 @@ class FinanceTagLib {
         
         out << name
     }
+    
+    def eachSector = { attrs, body ->
+        request.sectors = financeService.getSectors()
+        def max = request.sectors.size()
+        
+        for (i in (1..max)) {
+            request.sectorIndex = i - 1
+            out << body()
+        }
+    }
+    
+    def sector = { attrs, body ->
+        if (attrs.url == "true") {
+            out << URLEncoder.encode(request.sectors[request.sectorIndex])
+        } else {
+            out << request.sectors[request.sectorIndex]
+        }
+    }
 }

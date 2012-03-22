@@ -40,5 +40,124 @@
       
       <div class="clear"></div>
     </div>
+    
+    <div class="sidebar">
+      <h1>Get started</h1>
+      <p>Signing up is quick, easy, and doesn’t require an email or password; click below to get started.</p>
+    
+      <h1>Have an iPad?</h1>
+      <p>This site is optimized for use on iPads. Visit this site to install the trenders.org app.</p>
+      
+      <h1>Browse</h1>
+      <ul>
+        <finance:eachSector>
+          <li><a href="browse?s=${finance.sector(url: "true")}"><finance:sector url="false" /></a></li>
+        </finance:eachSector>
+      </ul>
+    </div>
+    
+    <div class="column3">
+      <h1>Market Movement</h1>
+      <p><strong>Dow Jones Industrial Average</strong></p>
+      <g:set var="chartWidth" value="329" />
+      <g:set var="chartHeight" value="90" />
+      <div id="chart" style="background-image: url('http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=${chartWidth}&height=${chartHeight}&symbol=.DJI&duration=5&headertype=none'); width: ${chartWidth}px; height: ${chartHeight}px;">
+        <p>Chart powered by Reuters.</p>
+      </div>
+      
+      
+      <p><strong>S&amp;P 500</strong></p>
+      <g:set var="chartWidth" value="329" />
+      <g:set var="chartHeight" value="90" />
+      <div id="chart" style="background-image: url('http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=${chartWidth}&height=${chartHeight}&symbol=.INX&duration=5&headertype=none'); width: ${chartWidth}px; height: ${chartHeight}px;">
+        <p>Chart powered by Reuters.</p>
+      </div>
+      
+      <h1>Trending</h1>
+      <table id="trendingTable">
+        <tr>
+          <th style="width: 230px;">&nbsp;</th>
+          <th style="width: 80px;">% Change</th>
+          <th style="width: 80px;">Mkt. Cap</th>
+        </tr>
+        
+        <tr>
+          <th>Gainers</th>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+        </tr>
+        
+        <tr id="row-USG" class="stock">
+          <td>USG Corporation</td>
+          <td class="green">11.05%</td>
+          <td>2.00B</td>
+        </tr>
+        
+        <tr id="row-GMCR" class="stock">
+          <td>Green Mountain Coffee Roasters</td>
+          <td class="green">10.04%</td>
+          <td>8.64B</td>
+        </tr>
+        
+        <tr id="row-WPI" class="stock">
+          <td>Watson Pharmaceutircals, Inc.</td>
+          <td class="green">8.82%</td>
+          <td>8.10B</td>
+        </tr>
+        
+        <tr id="row-PCYC" class="stock">
+          <td>Pharmacyclics, Inc.</td>
+          <td class="green">6.52%</td>
+          <td>1.92B</td>
+        </tr>
+        
+        <tr>
+          <th>Losers</th>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+        </tr>
+        
+        <tr id="row-AGO" class="stock">
+          <td>Assured Guaranty Ltd.</td>
+          <td class="red">-13/38%</td>
+          <td>2.97B</td>
+        </tr>
+        
+        <tr id="row-GDI" class="stock">
+          <td>Gardner Denver, Inc.</td>
+          <td class="red">-8.57%</td>
+          <td>3.24B</td>
+        </tr>
+        
+        <tr id="row-HNP" class="stock">
+          <td>Huaneng Power International</td>
+          <td class="red">-7.10%</td>
+          <td>7.86B</td>
+        </tr>
+        
+        <tr id="row-PVG" class="stock">
+          <td>Pretium Resources</td>
+          <td class="red">-6.12%</td>
+          <td>2.29B</td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="column3">
+      <h1>News &amp; Advice</h1>
+      <ul class="stockList" style="margin-top: 7px !important;">
+        <googleNews:articles query="finance" num="5">
+          <li>
+            <strong><a href="${googleNews.article(req: "link")}" class="gray" target="_blank"><g:trim elipses="true" content="${googleNews.article(req: "title")}" chars="45" /></a></strong><br />
+            <span class="soft"><googleNews:article req="author" />, <g:toRecentTime date="${googleNews.article(req: "pubDate")}" />. <a class="small" href="${googleNews.article(req: "relatedLink")}" target="_blank">related</a></span><br />
+            <p><g:trim elipses="true" content="${googleNews.article(req: "description")}" chars="150" /></p>
+          </li>
+        </googleNews:articles>
+      </ul>
+      <p class="small italics">from a Google News search for finance <g:link mapping="faq" fragment="google-news">what's this?</g:link></p>
+      
+    </div>
+    
+    <div class="clear"></div>
   </body>
 </html>
