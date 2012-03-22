@@ -7,6 +7,9 @@
   </head>
   <body>
     <div id="flag">
+      <g:resource dir="images/icons-128" file="lessons-128.png" />
+      <g:resource dir="images/icons-128" file="classrooms-128.png" />
+      <g:resource dir="images/icons-128" file="trending-128.png" />
       <p>trenders.org is an educational site where you can learn about personal investing and personal finance alone or as part of a class.</p>
       
       <ul>
