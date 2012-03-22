@@ -119,6 +119,25 @@ $(function() {
 	});
 });
 
+// lightbox
+function lightbox(html) {
+    if ($("#lightboxBack").length > 0) {
+        $("#lightboxBack").remove();
+    }
+    
+    var lbBack = $("<div id=\"lightboxBack\" />").hide().appendTo("#content");
+    var lb = $("<div id=\"lightbox\" />").appendTo(lbBack);
+    lb.html(html);
+    
+    $("#closeLightbox").click(function() {
+        $("#lightboxBack").fadeOut(200, function() {
+            $("#lightboxBack").remove();
+        });
+    });
+    
+    lbBack.fadeIn(200);
+}
+
 // http://stackoverflow.com/questions/476679/preloading-images-with-jquery
 function preloadImages(arrayOfImages) {
     $(arrayOfImages).each(function(){

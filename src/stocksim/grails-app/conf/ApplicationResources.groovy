@@ -15,6 +15,7 @@ modules = {
     
     page_home {
         resource url: "css/pages/home.css", disposition: "head"
+        resource url: "js/pages/home.js", disposition: "head"
     }
     
     page_stock {
