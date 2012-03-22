@@ -42,11 +42,11 @@
             <g:if test="${hasPrev || hasNext}">
               <div id="pageNavHolder">
                 <g:if test="${hasPrev}">
-                  <a id="prevPage" href="${createLink(params: [q: query, p: (page - 1)])}">&laquo; Previous Page</a>
+                  <a id="prevPage" href="${createLink(action: "sector", params: [s: query, p: (page - 1)])}">&laquo; Previous Page</a>
                 </g:if>
 
                 <g:if test="${hasNext}">
-                  <a id="nextPage" href="${createLink(params: [q: query, p: (page + 1)])}">Next Page &raquo;</a>
+                  <a id="nextPage" href="${createLink(action: "sector", params: [s: query, p: (page + 1)])}">Next Page &raquo;</a>
                 </g:if>
               </div>
             </g:if>

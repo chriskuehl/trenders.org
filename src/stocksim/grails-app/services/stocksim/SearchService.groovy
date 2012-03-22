@@ -20,14 +20,17 @@ class SearchService {
         def sql = new Sql(dataSource_temp)
         def term = YahooQueryService.makeAlphaNumeric(query).toLowerCase() + "%"
         def mquery
+        def p
         
         if (sector) {
-            mquery = "SELECT * FROM searchable_stock WHERE sector = ? AND ? != 1 ORDER BY market_cap DESC LIMIT ?"
+            mquery = "SELECT * FROM searchable_stock WHERE sector = ? ORDER BY market_cap DESC LIMIT ?"
+            p = [query, limit]
         } else {
             mquery = "SELECT * FROM searchable_stock WHERE LOWER(name) LIKE ? OR LOWER(ticker) LIKE ? ORDER BY market_cap DESC LIMIT ?"
+            p = [term, term, limit]
         }
         
-        sql.eachRow(mquery, [term, term, limit]) { row ->
+        sql.eachRow(mquery, p) { row ->
             def stock = new SearchableStock()
             
             stock.setIndustry(row.industry)
