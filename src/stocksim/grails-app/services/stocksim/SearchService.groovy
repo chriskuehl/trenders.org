@@ -196,7 +196,7 @@ class SearchService {
                 continue
             }
             
-            stock.setTicker(nextLine[0]) // this *should* always be set
+            stock.setTicker(nextLine[0].trim()) // this *should* always be set
             stock.setName(nextLine[1] == "n/a" ? nextLine[0] : nextLine[1])
             stock.setLastSale(nextLine[2] == "n/a" ? (- 1) : nextLine[2].toDouble())
             stock.setMarketCap(nextLine[3].toDouble())
