@@ -1,6 +1,7 @@
 package stocksim.dev
 
 import stocksim.*
+import stocksim.temp.*
 import stocksim.exception.*
 import grails.converters.XML
 
@@ -8,6 +9,48 @@ class SandboxController {
     static defaultAction = "viewstocks"
     def userService
     def cacheService
+    def financeService
+    
+    def putAllInCache() {
+        def allStocks = SearchableStock.findAll()
+        def allTickers = []
+        
+        allStocks.each{ stock ->
+            allTickers.add(stock.getTicker())
+        }
+        
+        def m = 50
+        
+        for (int i = 0; i < allTickers.size(); i += m) {
+            def tickers = []
+                
+            for (int j = 0; j < m; j ++) {
+                if (allTickers[i + j]) {
+                    tickers.add(allTickers[i + j])
+                }
+            }
+            
+            def bad = true
+            
+            while (bad) {
+                println "Trying: ${tickers}"
+                try {
+                    financeService.getStocks(tickers)
+                    bad = false
+                    println "GOOD"
+                    break;
+                } catch (Exception ex) {
+                    println "BAD"
+                    
+                    try {
+                        Thread.sleep(1000)
+                    } catch (Exception exx) {
+                        
+                    }
+                }
+            }
+        }
+    }
     
     def cacheTest() {
         def obj = cacheService.fetchFromCache("test", "date", 0.1)

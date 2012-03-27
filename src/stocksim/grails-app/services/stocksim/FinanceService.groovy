@@ -32,8 +32,10 @@ class FinanceService {
         
         
         // can't just use the cache, so fetch the data via YQL
-        tickers.add("MSFT")
-        tickers.add("YHOO") // TODO: fix this
+        if (tickers.size() < 2) {
+            tickers.add("MSFT")
+            tickers.add("YHOO") // TODO: fix this
+        }
         
         // build a ticker list & ensure all tickers are alphanumeric
         tickers.each { ticker ->
@@ -41,7 +43,7 @@ class FinanceService {
                 throw new BadTickerSymbolException("Bad ticker symbol: " + ticker);
             }
             
-            tickerList += "\"${ticker.toUpperCase()}\","
+            tickerList += "\"${ticker.trim().toUpperCase()}\","
         }
         
         tickerList = tickerList[0..tickerList.size() - 2]
