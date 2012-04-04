@@ -11,6 +11,8 @@ class SearchService {
     def servletContext = SCH.servletContext
     def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
     
+    def hasSuccessfullyLoaded = false
+    
     def sessionFactory
     def dataSource_temp
     def financeService
@@ -67,11 +69,14 @@ class SearchService {
         
         // now that we know what to do, execute the actions
         SearchableStock.withTransaction {
+            def successfulMarkets = []
+            
             markets.each { market ->
                 def action = actions[market]
                 
                 if (action.command == "replace") {
                     // clear the table of existing stocks for this market
+                    successfulMarkets.add(market)
                     SearchableStock.executeUpdate("DELETE FROM SearchableStock WHERE market = ?", [market]) // GORM is just too slow for this
                     
                     // now add them back
@@ -85,6 +90,10 @@ class SearchService {
                 } else if (action.command == "giveup") {
                     println "Unable to find any stocks for market ${market}, try again soon."
                 }
+            }
+            
+            if (! hasSuccessfullyLoaded && successfulMarkets.size() >= 2) {
+                hasSuccessfullyLoaded = true
             }
         }
         
@@ -158,6 +167,10 @@ class SearchService {
         }
         
         action
+    }
+    
+    def cacheHasLoaded() {
+        hasSuccessfullyLoaded
     }
     
     private URL buildURLForMarketStocksDownload(market) {

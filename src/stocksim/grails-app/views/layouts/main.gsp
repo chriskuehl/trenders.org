@@ -20,6 +20,10 @@
                 <link rel="apple-touch-startup-image" sizes="1024x748" type="image/png" href="${resource(file: "apple-touch-startup-image-landscape.png")}" />
                 
                 
+                <g:if test="${pageProperty(name: "page.refresh")}">
+                  <meta http-equiv="refresh" content="${pageProperty(name: "page.refresh")}" />
+                </g:if>	
+                
                 <g:if test="${pageProperty(name: "page.noRobots") == "true"}">
                   <meta name="robots" content="noindex" />
                 </g:if>		

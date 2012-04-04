@@ -2,7 +2,8 @@ class UrlMappings {
     static mappings = {
         // home page
         name home: "/" {
-            view = "/index"
+            controller = "viewProxy"
+            proxyView = "/index"
         }
         
         // search
@@ -12,16 +13,19 @@ class UrlMappings {
         
         // stock page
         name stock: "/stock/$ticker" {
-            view = "/stock"
+            controller = "viewProxy"
+            proxyView = "/stock"
         }
         
         // content pages
         name faq: "/faq" {
-            view = "/faq"
+            controller = "viewProxy"
+            proxyView = "/faq"
         }
         
         name about: "/about" {
-            view = "/about"
+            controller = "viewProxy"
+            proxyView = "/about"
         }
         
         // lessons
@@ -37,7 +41,7 @@ class UrlMappings {
         "/dev/wikipedia/$action" (controller: "wikipedia")
 
         // errors
-        "500"(view:'/error')
-        "404"(view:'/error')
+       // "500"(view:'/error')
+       // "404"(view:'/error')
     }
 }
