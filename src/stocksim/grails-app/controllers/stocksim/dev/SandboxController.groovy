@@ -10,6 +10,12 @@ class SandboxController {
     def userService
     def cacheService
     def financeService
+    def googleFinanceService
+    
+    def gainersLosers() {
+        def map = GoogleFinanceService.getGainersLosers()
+        render map
+    }
     
     def putAllInCache() {
         def allStocks = SearchableStock.findAll()

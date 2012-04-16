@@ -2,11 +2,10 @@ package filters
 
 class UserFilters {
     def filters = {
-        checkUserFilters(controller: "*", action: "*") {
+        checkUserFilters(uri: "/**") {
             before = {
                 println "Checking the user!"
             }
         }
     }
 }
-
