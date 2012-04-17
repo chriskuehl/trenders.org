@@ -63,7 +63,6 @@ class GoogleFinanceService {
                 
                 if (tempStock != null && tempStock.getMarketCap() > 0) {
                     def marketCap = utilService.formatBigNumber(tempStock.getMarketCap())
-                    println "got back: $marketCap"
                     
                     stockList.add([
                         stock: tempStock,
