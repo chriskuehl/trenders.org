@@ -43,21 +43,16 @@ class UserFilters {
                 // TODO: use the user too, and probably hash it or so with lots
                 // of extra entropy so it's less revealing
                 // TODO: hash the session token since it's a p-word equivalent
-                println "-----------------------"
-                println "session token: $sessionToken"
+                
                 def user = null
                 
                 if (sessionToken) {
                     user = userService.getUserForSessionToken(sessionToken)
                 }
                 
-                println "==========="
-                
                 if (user != null) {
                     println "here's the user: ${user}"
                     println "here's the user i got: ${user.getEmail()}"
-                } else {
-                    println "NO USER LOGIN"
                 }
             }
         }

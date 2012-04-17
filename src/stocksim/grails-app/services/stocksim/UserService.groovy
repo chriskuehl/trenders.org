@@ -67,12 +67,8 @@ class UserService {
         def session = UserSession.findBySessionTokenHash(sessionToken)
         
         if (session != null) {
-            println "here's the session: ${session} and the user: ${session.getUser()}"
-            println "user: ${session.getUser()} AND session: ${session}"
             return session.getUser()
         }
-        
-        println "it's bad"
         
         null
     }
