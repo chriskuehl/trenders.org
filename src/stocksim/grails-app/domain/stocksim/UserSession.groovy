@@ -1,6 +1,13 @@
 package stocksim
 
 class UserSession {
+    static constraints = {
+        lastSeenIP(nullable: true)
+        lastSeenTime(nullable: true)
+        lastSeenUserAgent(nullable: true)
+        lastSeenURL(nullable: true)
+    }
+    
     User user
     String sessionTokenHash
     
