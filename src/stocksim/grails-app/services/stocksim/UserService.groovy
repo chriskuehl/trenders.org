@@ -24,7 +24,7 @@ class UserService {
         userSession
     }
     
-    def become(def flash, def user) {
+    def become(def response, def user) {
         def userSession = makeNewSession(user)
         
         /* IGNORE BELOW, SEEMS FIXED (TODO: testing?)
