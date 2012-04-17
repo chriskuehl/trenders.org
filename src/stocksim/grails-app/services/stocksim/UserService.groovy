@@ -25,10 +25,6 @@ class UserService {
     
     def addUser(def email) {
         def user = new User(email: email)
-        println "saving: $user"
-        println "null? ${user.getEmail()}"
-        println "Save: ${user.save(failOnError: true)}"
-        
         user
     }
 }
