@@ -1,7 +1,7 @@
 $(function() {
     $("#homeIcon-lessons").click(function(e) {
         lightbox("<div class=\"floatRight\">" +
-                  "  <img src=\"static/images/icons-128/lessons-128.png\" alt=\"\" />" +
+                  "  <img src=\"static/images/lessons.png\" alt=\"\" />" +
                   "  <a id=\"closeLightbox\" class=\"button\">Close</a>" +
                   "</div>" +
                   "" +
@@ -18,7 +18,7 @@ $(function() {
     
     $("#homeIcon-stocksim").click(function(e) {
         lightbox("<div class=\"floatRight\">" +
-                  "  <img src=\"static/images/icons-128/trending-128.png\" alt=\"\" />" +
+                  "  <img src=\"static/images/trending.png\" alt=\"\" />" +
                   "  <a id=\"closeLightbox\" class=\"button\">Close</a>" +
                   "</div>" +
                   "" +
@@ -35,7 +35,7 @@ $(function() {
     
     $("#homeIcon-classrooms").click(function(e) {
         lightbox("<div class=\"floatRight\">" +
-                  "  <img src=\"static/images/icons-128/classrooms-128.png\" alt=\"\" />" +
+                  "  <img src=\"static/images/classrooms.png\" alt=\"\" />" +
                   "  <a id=\"closeLightbox\" class=\"button\">Close</a>" +
                   "</div>" +
                   "" +

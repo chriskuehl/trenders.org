@@ -6,6 +6,11 @@
     <title>trenders.org: a simple stock market sim for students &amp; teachers</title>
   </head>
   <body>
+    <!--
+    ${resource(dir: "images", file: "trending.png")}
+    ${resource(dir: "images", file: "classrooms.png")}
+    ${resource(dir: "images", file: "lessons.png")}
+    -->
     <div id="flag">
       <p>trenders.org is an educational site where you can learn about personal investing and personal finance alone or as part of a class.</p>
       
