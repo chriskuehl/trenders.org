@@ -1,6 +1,7 @@
 package stocksim
 
 import java.util.Random
+import javax.servlet.http.Cookie
 
 class UserService {
     def random = new Random()
@@ -21,6 +22,24 @@ class UserService {
     def makeNewSession(def user) {
         def userSession = new UserSession(user: user, sessionTokenHash: generateTokenHash()).save()
         userSession
+    }
+    
+    def become(def response, def user) {
+        def userSession = makeNewSession(user)
+        
+        def userIdCookie = new Cookie("user", user.getId().toString())
+        userIdCookie.maxAge = 60 * 60 * 24 * 365 * 10 // 10 years
+        userIdCookie.setHttpOnly(true)
+        userIdCookie.setPath("/")
+        
+        response.addCookie(userIdCookie)
+        
+        def userHashCookie = new Cookie("token", userSession.getSessionTokenHash())
+        userHashCookie.maxAge = 60 * 60 * 24 * 365 * 10 // 10 years
+        userHashCookie.setHttpOnly(true)
+        userHashCookie.setPath("/")
+        
+        response.addCookie(userHashCookie)
     }
     
     def addUser(def email) {
