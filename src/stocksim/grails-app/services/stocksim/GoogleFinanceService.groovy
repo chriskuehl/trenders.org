@@ -5,6 +5,7 @@ import stocksim.temp.*
 
 class GoogleFinanceService {
     def wikipediaService
+    def cacheService
     def utilService
     
     // in reality we are using this for the indicies more than stocks
@@ -32,17 +33,23 @@ class GoogleFinanceService {
     }
     
     def getGainersLosers() {
-        def body = "http://www.google.com/finance".toURL().getText()
-        def content = WikipediaService.betweenMore(body, "<td class=\"title chg\">Gainers<td class=change>Change", "</table>", 2)
+        def stats = cacheService.fetchFromCache("googlefinance-gainerslosers", "stats", 60)
         
-        def gainers = "<tr>" + WikipediaService.between(content, "<tr>", "<tr><td style=\"height:.7em\">")
-        def losers = WikipediaService.between(content, "<td class=\"title chr\">Losers<td class=change>Change", "<tr><td style=\"height:.7em\">")
-        losers = losers.substring(32)
-        
-        def stats = [:]
-        
-        stats.gainers = parseStockList(gainers)
-        stats.losers = parseStockList(losers)
+        if (stats == null) {
+            def body = "http://www.google.com/finance".toURL().getText()
+            def content = WikipediaService.betweenMore(body, "<td class=\"title chg\">Gainers<td class=change>Change", "</table>", 2)
+
+            def gainers = "<tr>" + WikipediaService.between(content, "<tr>", "<tr><td style=\"height:.7em\">")
+            def losers = WikipediaService.between(content, "<td class=\"title chr\">Losers<td class=change>Change", "<tr><td style=\"height:.7em\">")
+            losers = losers.substring(32)
+
+            stats = [:]
+
+            stats.gainers = parseStockList(gainers)
+            stats.losers = parseStockList(losers)
+
+            cacheService.storeInCache("googlefinance-gainerslosers", "stats", stats)
+        }
         
         stats
     }
