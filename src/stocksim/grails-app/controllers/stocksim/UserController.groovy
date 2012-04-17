@@ -12,6 +12,9 @@ class UserController {
         cookiesToRemove.each { name ->
             def cookie = request.cookies.find { it.getName() == name }
             cookie.setMaxAge(0)
+            cookie.setHttpOnly(true)
+            cookie.setPath("/")
+            cookie.setValue("")
             
             response.addCookie(cookie)
         }
@@ -21,6 +24,14 @@ class UserController {
         } else {
             redirect(mapping: "home")
         }
+        
+        /*
+        if (params.r) { // TODO: fix XSS vulnerability
+            render("<script>window.location = \"" + params.r + "\";</script>")
+        } else {
+            render("<script>window.location = \"" + createLink(mapping: "home") + "\";</script>")
+        }
+        */
         
         render "You've been logged out. Redirecting..."
     }

@@ -51,8 +51,7 @@ class UserFilters {
                 }
                 
                 if (user != null) {
-                    println "here's the user: ${user}"
-                    println "here's the user i got: ${user.getEmail()}"
+                    request.user = user
                 }
             }
         }
