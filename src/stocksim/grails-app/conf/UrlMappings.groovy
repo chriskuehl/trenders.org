@@ -6,6 +6,11 @@ class UrlMappings {
             proxyView = "/index"
         }
         
+        name logout: "/logout" {
+            controller = "user"
+            action = "logout"
+        }
+        
         // search
         "/search" (controller: "search", action: "browse")
         "/browse" (controller: "search", action: "sector")

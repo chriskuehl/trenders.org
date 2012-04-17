@@ -24,8 +24,17 @@ class UserService {
         userSession
     }
     
-    def become(def response, def user) {
+    def become(def flash, def user) {
         def userSession = makeNewSession(user)
+        
+        /* IGNORE BELOW, SEEMS FIXED (TODO: testing?)
+           Safari has problems accepting cookies on 302 redirects, so set it in
+           the next flash instead:
+           http://stackoverflow.com/questions/1144894/safari-doesnt-set-cookie-but-ie-ff-does
+           
+           Chrome/Chromium occasionaly has this issue too based on some random
+           Google reports, but it seems to mostly be a Safari issue
+        */
         
         def userIdCookie = new Cookie("user", user.getId().toString())
         userIdCookie.maxAge = 60 * 60 * 24 * 365 * 10 // 10 years
@@ -40,11 +49,31 @@ class UserService {
         userHashCookie.setPath("/")
         
         response.addCookie(userHashCookie)
+        
+        /* see above
+        flash.userCookies = [:]
+        flash.userCookies.user = user.getId().toString()
+        flash.userCookies.token = userSession.getSessionTokenHash() */
     }
     
     def addUser(def email) {
         def user = new User(email: email).save()
         // TODO: send them an email
         user
+    }
+    
+    def getUserForSessionToken(def sessionToken) {
+        // TODO: hash this session token in the database
+        def session = UserSession.findBySessionTokenHash(sessionToken)
+        
+        if (session != null) {
+            println "here's the session: ${session} and the user: ${session.getUser()}"
+            println "user: ${session.getUser()} AND session: ${session}"
+            return session.getUser()
+        }
+        
+        println "it's bad"
+        
+        null
     }
 }

@@ -1,7 +1,8 @@
 package stocksim
 
 class User {
-    // some injections
+    // TODO: add some of these other features like passwords, etc.
+    
     static constraints = {
         email(email: true, unique: true)
         displayName(nullable: true)

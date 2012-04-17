@@ -17,8 +17,10 @@ class AdminUserController {
     def become() {
         // create a new session
         def user = User.get(params.user)
-        userService.become(response, user)
+        userService.become(flash, user)
         
+        new UserAlert(type: "success", title: "You're now ${user.getEmail()}!", message: "You've assumed your new identity.").add(flash)
+               
         redirect(action: "index")
     }
 }

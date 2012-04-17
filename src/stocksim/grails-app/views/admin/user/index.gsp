@@ -36,14 +36,18 @@
       <h2>User Sessions</h2>
       <table>
         <tr>
+          <th>User ID</th>
           <th>Email</th>
           <th>Token Hash</th>
+          <th>&nbsp;</th>
         </tr>
         
         <g:each var="userSession" in="${admin.getUserSessions()}">
           <tr>
+            <td>${userSession.getUser().getId()}</td>
             <td>${userSession.getUser().getEmail()}</td>
             <td>${userSession.getSessionTokenHash()}</td>
+            <td><g:link action="invalidateSession" params="${[session: userSession.getId()]}">Invalidate</g:link></td>
           </tr>
         </g:each>
       </table>
