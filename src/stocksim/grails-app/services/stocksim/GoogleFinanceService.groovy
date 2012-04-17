@@ -5,6 +5,7 @@ import stocksim.temp.*
 
 class GoogleFinanceService {
     def wikipediaService
+    def utilService
     
     // in reality we are using this for the indicies more than stocks
     // since we use YQL to get stocks
@@ -30,7 +31,7 @@ class GoogleFinanceService {
         result
     }
     
-    static def getGainersLosers() {
+    def getGainersLosers() {
         def body = "http://www.google.com/finance".toURL().getText()
         def content = WikipediaService.betweenMore(body, "<td class=\"title chg\">Gainers<td class=change>Change", "</table>", 2)
         
@@ -46,26 +47,33 @@ class GoogleFinanceService {
         stats
     }
     
-    static def parseStockList(html) {
+    def parseStockList(html) {
         def stockList = []
         def stocks = html.split("<tr>")
         
         stocks.each { stock ->
-            println "========"
-            
             def ticker = WikipediaService.between(stock, "<a", "<td")
             ticker = WikipediaService.between(ticker, ">", "</a>")
+            
+            def change = WikipediaService.between(stock, "\"change ch", "\n")
+            change = WikipediaService.between(change, ">", "%") + "%"
             
             if (ticker != null) {
                 def tempStock = SearchableStock.findByTicker(ticker)
                 
-                stockList.add([
-                    ticker: ticker,
-                    change: change
-                ])
+                if (tempStock != null && tempStock.getMarketCap() > 0) {
+                    def marketCap = utilService.formatBigNumber(tempStock.getMarketCap())
+                    println "got back: $marketCap"
+                    
+                    stockList.add([
+                        stock: tempStock,
+                        marketCap: marketCap,
+                        ticker: ticker,
+                        name: tempStock.getName(),
+                        change: change
+                    ])
+                }
             }
-            
-            println "========"
         }
         
         stockList

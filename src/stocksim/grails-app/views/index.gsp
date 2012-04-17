@@ -87,29 +87,13 @@
           <th>&nbsp;</th>
         </tr>
         
-        <tr id="row-USG" class="stock">
-          <td>USG Corporation</td>
-          <td class="green">11.05%</td>
-          <td>2.00B</td>
-        </tr>
-        
-        <tr id="row-GMCR" class="stock">
-          <td>Green Mountain Coffee Roasters</td>
-          <td class="green">10.04%</td>
-          <td>8.64B</td>
-        </tr>
-        
-        <tr id="row-WPI" class="stock">
-          <td>Watson Pharmaceutircals, Inc.</td>
-          <td class="green">8.82%</td>
-          <td>8.10B</td>
-        </tr>
-        
-        <tr id="row-PCYC" class="stock">
-          <td>Pharmacyclics, Inc.</td>
-          <td class="green">6.52%</td>
-          <td>1.92B</td>
-        </tr>
+        <finance:gainers num="4">
+          <tr id="row-${finance.mover(req: "ticker").toUpperCase()}" class="stock">
+            <td>${finance.mover(req: "name")}</td>
+            <td class="green">${finance.mover(req: "change")}</td>
+            <td>${finance.mover(req: "marketCap")}</td>
+          </tr>
+        </finance:gainers>
         
         <tr>
           <th>Losers</th>
@@ -117,29 +101,13 @@
           <th>&nbsp;</th>
         </tr>
         
-        <tr id="row-AGO" class="stock">
-          <td>Assured Guaranty Ltd.</td>
-          <td class="red">-13/38%</td>
-          <td>2.97B</td>
-        </tr>
-        
-        <tr id="row-GDI" class="stock">
-          <td>Gardner Denver, Inc.</td>
-          <td class="red">-8.57%</td>
-          <td>3.24B</td>
-        </tr>
-        
-        <tr id="row-HNP" class="stock">
-          <td>Huaneng Power International</td>
-          <td class="red">-7.10%</td>
-          <td>7.86B</td>
-        </tr>
-        
-        <tr id="row-PVG" class="stock">
-          <td>Pretium Resources</td>
-          <td class="red">-6.12%</td>
-          <td>2.29B</td>
-        </tr>
+        <finance:losers num="4">
+          <tr id="row-${finance.mover(req: "ticker").toUpperCase()}" class="stock">
+            <td>${finance.mover(req: "name")}</td>
+            <td class="red">${finance.mover(req: "change")}</td>
+            <td>${finance.mover(req: "marketCap")}</td>
+          </tr>
+        </finance:losers>
       </table>
     </div>
     

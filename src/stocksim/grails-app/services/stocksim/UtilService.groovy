@@ -22,4 +22,24 @@ class UtilService {
         
         str
     }
+    
+    def formatBigNumber(def number) {
+        number = Double.valueOf(number)
+        
+        def units = [
+            [1000, "K"],
+            [1000000, "M"],
+            [1000000000, "B"]
+        ]
+        
+        def ret = number
+        
+        units.each { unit ->
+            if (unit[0] < number) {
+                ret = (Math.floor(number / unit[0] * 10) / 10) + unit[1]
+            }
+        }
+        
+        return ret
+    }
 }
