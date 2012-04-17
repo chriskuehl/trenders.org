@@ -5,7 +5,7 @@ import java.util.Random
 class UserService {
     def random = new Random()
     
-    public def generateTokenHash() {
+    def generateTokenHash() {
         def randomCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         def tokenLength = 50 // TODO: move this to a config file
         def hash = ""
@@ -16,5 +16,19 @@ class UserService {
         }
         
         hash
+    }
+    
+    def makeNewSession(user) {
+        def userSession = new UserSession()
+        userSession.setUser(user)
+    }
+    
+    def addUser(def email) {
+        def user = new User(email: email)
+        println "saving: $user"
+        println "null? ${user.getEmail()}"
+        println "Save: ${user.save(failOnError: true)}"
+        
+        user
     }
 }

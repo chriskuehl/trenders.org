@@ -33,6 +33,7 @@ class UrlMappings {
         // admin pages
         "/admin" (view: "admin/index")
         "/admin/cache/$action" (controller: "adminCache")
+        "/admin/user/$action" (controller: "adminUser")
         
         // dev pages
         "/dev/googleNews/$action" (controller: "googleNews")

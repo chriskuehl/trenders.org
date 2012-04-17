@@ -2,8 +2,18 @@ package stocksim
 
 class User {
     // some injections
-    static contraints = {
+    static constraints = {
         email(email: true, unique: true)
+        displayName(nullable: true)
+        passwordHash(nullable: true)
+        classroom(nullable: true)
+        registerIP(nullable: true)
+        registerTime(nullable: true)
+        registerUserAgent(nullable: true)
+        lastSeenIP(nullable: true)
+        lastSeenTime(nullable: true)
+        lastSeenUserAgent(nullable: true)
+        lastSeenURL(nullable: true)
     }
     
     String email

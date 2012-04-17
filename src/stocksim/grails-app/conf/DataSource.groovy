@@ -41,6 +41,7 @@ environments {
     development {
         dataSource {
             driverClassName = "org.h2.Driver"
+            dialect = "org.hibernate.dialect.H2Dialect"
             
             username = "sa"
             password = ""
