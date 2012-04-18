@@ -60,7 +60,7 @@ environments {
     }
     production {
         dataSource {
-            dbCreate = "update"
+            dbCreate = "create-drop"
             url = "jdbc:mysql://wctp.us/stocksim?useUnicode=yes&characterEncoding=UTF-8"
             username = "stocksim"
             password = "Fc5mPSnHtBs4mvmQ"
