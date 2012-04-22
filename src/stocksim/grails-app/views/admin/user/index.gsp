@@ -51,6 +51,27 @@
           </tr>
         </g:each>
       </table>
+      
+      <h2>Classrooms</h2>
+      <table>
+        <tr>
+          <th>Teacher ID</th>
+          <th>Class Code</th>
+        </tr>
+        
+        <g:each var="classroom" in="${admin.getClassrooms()}">
+          <tr>
+            <td>${classroom.getTeacher().getId()}</td>
+            <td>${classroom.getClassCode()}</td>
+          </tr>
+        </g:each>
+      </table>
+      
+      <h3>Create Classroom</h3>
+      <form method="POST" action="${createLink(action: "createClassroom")}">
+        <p><label for="classroomEmail">Email:</label> <input type="text" name="email" id="classroomEmail" value="" /></p>
+        <p><input type="submit" value="Add" /></p>
+      </form>
     </div>
   </body>
 </html>

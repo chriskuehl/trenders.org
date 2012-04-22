@@ -63,7 +63,7 @@
                                                                 <li><a href="#" id="portfolioIcon">Portfolio</a></li>
                                                                 <li><a href="#" id="historyIcon">History</a></li>
                                                                 <li><a href="#" id="lessonsIcon">Lessons</a></li>
-                                                                <li><a href="#" id="searchIcon">Search</a></li>
+                                                                <li><a href="${createLink(controller: "search")}/?q=" id="searchIcon">Search</a></li>
                                                                 <li><a href="#" id="trendingIcon">Trending</a></li>
                                                                 <li><a href="#" id="inNewsIcon">In News</a></li>
                                                                 <li><a href="#" id="myClassIcon">My Class</a></li>
@@ -76,9 +76,9 @@
                                                         <div id="userStatusBar">
                                                                 <p>
                                                                         <strong>Welcome, <user:att req="email" /></strong><br />
-                                                                        <strong>Current Balance:</strong> $143,293
+                                                                        <strong>Total Assets:</strong> $<user:totalAssets />
                                                                 </p>
-                                                                <a id="changeLanguageBar" class="changeLanguageBarNoScript" rel="nofollow" href="/changeLanguage?lang=en">Usar español</a>
+                                                                <%-- <a id="changeLanguageBar" class="changeLanguageBarNoScript" rel="nofollow" href="/changeLanguage?lang=en">Usar español</a> --%>
                                                         </div>
                                                 </div>
                                         </user:ifLoggedIn>

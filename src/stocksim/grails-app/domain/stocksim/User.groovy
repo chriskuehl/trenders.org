@@ -22,6 +22,7 @@ class User {
     String displayName = null
     String passwordHash = null
     Classroom classroom = null
+    double balance = 100000
     
     // status
     boolean disabled = false

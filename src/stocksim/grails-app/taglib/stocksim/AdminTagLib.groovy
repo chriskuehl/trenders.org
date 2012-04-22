@@ -2,7 +2,7 @@ package stocksim
 
 class AdminTagLib {
     static namespace = "admin"
-    static returnObjectForTags = ["getUsers", "getUserSessions"]
+    static returnObjectForTags = ["getUsers", "getUserSessions", "getClassrooms"]
     
     def getUsers = {
         User.list()
@@ -10,5 +10,9 @@ class AdminTagLib {
     
     def getUserSessions = {
         UserSession.list()
+    }
+    
+    def getClassrooms = {
+        Classroom.list()
     }
 }

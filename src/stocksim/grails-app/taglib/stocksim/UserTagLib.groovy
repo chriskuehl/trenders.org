@@ -1,6 +1,7 @@
 package stocksim
 
 import org.springframework.web.context.request.RequestContextHolder as RCH 
+import java.text.DecimalFormat
 
 class UserTagLib {
     static namespace = "user"
@@ -29,5 +30,13 @@ class UserTagLib {
         } else {
             out << attrs.other
         }
+    }
+    
+    def totalAssets = {
+        
+        def amount = request.user.balance
+        def formatter = new DecimalFormat("#,###")
+
+        out << formatter.format(amount)
     }
 }

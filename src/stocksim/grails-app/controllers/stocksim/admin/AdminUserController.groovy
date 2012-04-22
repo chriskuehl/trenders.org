@@ -14,6 +14,12 @@ class AdminUserController {
         redirect(action: "become", params: [user: user.getId()])
     }
     
+    def createClassroom() {
+        def user = userService.addUser(params.email)
+        def classroom = userService.createClassroom(user)
+        redirect(action: "become", params: [user: user.getId()])
+    }
+    
     def become() {
         // create a new session
         def user = User.get(params.user)

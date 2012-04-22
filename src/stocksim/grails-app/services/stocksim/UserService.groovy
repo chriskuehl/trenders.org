@@ -19,6 +19,19 @@ class UserService {
         hash
     }
     
+    def generateClassCode() {
+        def randomCharacters = "0123456789"
+        def tokenLength = 5 // TODO: move this to a config file
+        def code = ""
+        
+        (0..tokenLength).each {
+            def randomChar = randomCharacters[random.nextInt(randomCharacters.length())]
+            code += randomChar
+        }
+        
+        code
+    }
+    
     def makeNewSession(def user) {
         def userSession = new UserSession(user: user, sessionTokenHash: generateTokenHash()).save()
         userSession
@@ -60,6 +73,10 @@ class UserService {
         def user = new User(email: email).save()
         // TODO: send them an email
         user
+    }
+    
+    def createClassroom(def teacher) {
+        new Classroom(teacher: teacher, classCode: generateClassCode()).save()
     }
     
     def getUserForSessionToken(def sessionToken) {
