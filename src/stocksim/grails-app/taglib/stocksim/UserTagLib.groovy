@@ -38,8 +38,12 @@ class UserTagLib {
         }
     }
     
+    def displayName = {
+        out << request.user.getDisplayName()
+    }
+    
     def totalAssets = {
-        out << request.getPrettyTotalAssets()
+        out << request.user.getPrettyTotalAssets()
     }
     
     def getClassmates = {

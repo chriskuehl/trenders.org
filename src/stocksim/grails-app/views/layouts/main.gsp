@@ -75,7 +75,7 @@
 
                                                         <div id="userStatusBar">
                                                                 <p>
-                                                                        <strong>Welcome, <user:att req="email" /></strong><br />
+                                                                        <strong>Welcome, <user:displayName /></strong><br />
                                                                         <strong>Total Assets:</strong> $<user:totalAssets />
                                                                 </p>
                                                                 <%-- <a id="changeLanguageBar" class="changeLanguageBarNoScript" rel="nofollow" href="/changeLanguage?lang=en">Usar español</a> --%>

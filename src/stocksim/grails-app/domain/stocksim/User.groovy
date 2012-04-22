@@ -2,6 +2,7 @@ package stocksim
 
 class User {
     // TODO: add some of these other features like passwords, etc.
+    def utilService
     
     static constraints = {
         email(email: true, unique: true)
@@ -39,11 +40,6 @@ class User {
     String lastSeenUserAgent
     String lastSeenURL
     
-    // some custom getters
-    def getDisplayName() {
-        displayName
-    }
-    
     // some helper methods
     def updateLastSeen(def request) {
         lastSeenIP = request.getRemoteAddr()
@@ -75,12 +71,10 @@ class User {
     }
     
     def getPrettyTotalAssets() {
-        def utilService
         utilService.makePretty(getTotalAssets())
     }
     
     def getPrettyBalance() {
-        def utilService
         utilService.makePretty(getBalance())
     }
 }
