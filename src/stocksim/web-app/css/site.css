@@ -68,6 +68,30 @@ em, i, .italics {
 	height: 33px;
 }
 
+#signupButton {
+	background-image: url("../images/black-25.png");
+	
+        display: block;
+        
+	position: absolute;
+	
+	top: 0px;
+	right: 0px;
+        
+        padding: 15px;
+        
+        font-weight: bold;
+        font-size: 16px;
+        text-decoration: none;
+	
+	color: #D9E5E9;
+	
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	
+	box-shadow: 3px 3px 1px rgba(255, 255, 255, 0.05), -3px -3px 1px rgba(0, 0, 0, 0.05);
+}
+
 #userBar {
 	background-image: url("../images/black-25.png");
 	

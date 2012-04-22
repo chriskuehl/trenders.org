@@ -82,6 +82,10 @@
                                                         </div>
                                                 </div>
                                         </user:ifLoggedIn>
+                                        
+                                        <user:ifNotLoggedIn>
+                                          <a href="#" id="signupButton">Get Started</a>
+                                        </user:ifNotLoggedIn>
 				</div>
 			</div>
 			

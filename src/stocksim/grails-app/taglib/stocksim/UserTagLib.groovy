@@ -8,7 +8,13 @@ class UserTagLib {
     def webRequest
     
     def ifLoggedIn = { attrs, body ->
-        if (request.user) { // TODO: add some logged-in logic here
+        if (request.user) {
+            out << body()
+        }
+    }
+    
+    def ifNotLoggedIn = { attrs, body ->
+        if (! request.user) {
             out << body()
         }
     }
