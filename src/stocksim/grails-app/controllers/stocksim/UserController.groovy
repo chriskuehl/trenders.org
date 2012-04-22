@@ -39,6 +39,8 @@ class UserController {
             
             def classroom = userService.createClassroom(user)
             
+            user.setClassroom(classroom).save()
+            
             render(view: "/signupTeacherSuccess", model: [classroom: classroom])
         } else {
             render(view: "/signupTeacher")
