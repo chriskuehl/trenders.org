@@ -2,6 +2,14 @@ package stocksim
 import javax.servlet.http.Cookie
 
 class UserController {
+    def signup() {
+        render(view: "/signup")
+    }
+    
+    // TODO: email user on account creation
+    // TODO: login (less important since permanent login upon account creation)
+    // TODO: recover password via email
+    
     def logout() {
         if (! params.s) { // silent?
             new UserAlert(type: "success", title: "You've logged out!", message: "Visit the home page to log in again.").add(flash)

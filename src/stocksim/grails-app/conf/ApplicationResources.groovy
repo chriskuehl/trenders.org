@@ -22,6 +22,10 @@ modules = {
         resource url: "css/pages/stock.css", disposition: 'head'
     }
     
+    page_signup {
+        resource url: "css/pages/signup.css", disposition: 'head'
+    }
+    
     page_search {
         resource url: "css/pages/search.css", disposition: "head"
     }

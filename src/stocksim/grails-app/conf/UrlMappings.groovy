@@ -6,6 +6,11 @@ class UrlMappings {
             proxyView = "/index"
         }
         
+        name signup: "/signup" {
+            controller = "user"
+            action = "signup"
+        }
+        
         name logout: "/logout" {
             controller = "user"
             action = "logout"
