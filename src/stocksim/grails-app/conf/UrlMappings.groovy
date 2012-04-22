@@ -11,6 +11,16 @@ class UrlMappings {
             action = "signup"
         }
         
+        name signupStudent: "/signupStudent" {
+            controller = "user"
+            action = "signupStudent"
+        }
+        
+        name signupTeacher: "/signupTeacher" {
+            controller = "user"
+            action = "signupTeacher"
+        }
+        
         name logout: "/logout" {
             controller = "user"
             action = "logout"

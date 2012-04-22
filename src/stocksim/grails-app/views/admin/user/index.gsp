@@ -15,6 +15,7 @@
         <tr>
           <th>Email</th>
           <th>Confirmed</th>
+          <th>Class Code</th>
           <th>&nbsp;</th>
         </tr>
         
@@ -22,6 +23,7 @@
           <tr>
             <td>${user.getEmail()}</td>
             <td>${user.isEmailConfirmed()}</td>
+            <td>${user.getClassroom() ? user.getClassroom().getClassCode() : "<em>none</em>"}</td>
             <td><g:link action="become" params="${[user: user.getId()]}">Become</g:link></td>
           </tr>
         </g:each>

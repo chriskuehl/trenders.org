@@ -2,8 +2,47 @@ package stocksim
 import javax.servlet.http.Cookie
 
 class UserController {
+    def userService
+    
     def signup() {
         render(view: "/signup")
+    }
+    
+    def signupStudent() {
+        if (params.signup) { // TODO: redirect after POST
+            def email = params.email
+            def name = params.name
+            def classID = params.classid
+            
+            def classroom = Classroom.findByClassCode(classID)
+            
+            if (! classroom) {
+                render "That wasn't a valid class ID." // TODO: make this prettier
+            } else {
+                def user = new User(name: name, email: email, classroom: classroom).save()
+                userService.become(response, user)
+
+                render(view: "/signupStudentSuccess")
+            }
+        } else {
+            render(view: "/signupStudent")
+        }
+    }
+    
+    def signupTeacher() {
+        if (params.signup) { // TODO: redirect after POST
+            def email = params.email
+            def name = params.name
+            
+            def user = new User(name: name, email: email).save()
+            userService.become(response, user)
+            
+            def classroom = userService.createClassroom(user)
+            
+            render(view: "/signupTeacherSuccess", model: [classroom: classroom])
+        } else {
+            render(view: "/signupTeacher")
+        }
     }
     
     // TODO: email user on account creation
