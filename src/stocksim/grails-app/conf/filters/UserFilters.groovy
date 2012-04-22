@@ -52,6 +52,7 @@ class UserFilters {
                 
                 if (user != null) {
                     request.user = user
+                    request.suser = user
                 }
             }
         }

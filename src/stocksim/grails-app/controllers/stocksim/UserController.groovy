@@ -19,7 +19,7 @@ class UserController {
             if (! classroom) {
                 render "That wasn't a valid class ID." // TODO: make this prettier
             } else {
-                def user = new User(name: name, email: email, classroom: classroom).save()
+                def user = new User(displayName: name, email: email, classroom: classroom).save()
                 userService.become(response, user)
 
                 render(view: "/signupStudentSuccess")
@@ -34,12 +34,13 @@ class UserController {
             def email = params.email
             def name = params.name
             
-            def user = new User(name: name, email: email).save()
+            def user = new User(displayName: name, email: email).save()
             userService.become(response, user)
             
             def classroom = userService.createClassroom(user)
             
-            user.setClassroom(classroom).save()
+            user.setClassroom(classroom)
+            user.save()
             
             render(view: "/signupTeacherSuccess", model: [classroom: classroom])
         } else {

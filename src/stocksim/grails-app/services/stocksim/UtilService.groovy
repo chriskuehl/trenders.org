@@ -1,5 +1,7 @@
 package stocksim
 
+import java.text.DecimalFormat
+
 class UtilService {
     def trim(def content, def chars, def elipses) {
         def str = ""
@@ -41,5 +43,11 @@ class UtilService {
         }
         
         return ret
+    }
+    
+    def makePretty(def number) {
+        def formatter = new DecimalFormat("#,###")
+
+        formatter.format(number)
     }
 }

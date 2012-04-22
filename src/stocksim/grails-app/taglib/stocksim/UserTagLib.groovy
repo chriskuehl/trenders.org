@@ -1,7 +1,6 @@
 package stocksim
 
-import org.springframework.web.context.request.RequestContextHolder as RCH 
-import java.text.DecimalFormat
+import org.springframework.web.context.request.RequestContextHolder as RCH
 
 class UserTagLib {
     static namespace = "user"
@@ -40,14 +39,10 @@ class UserTagLib {
     }
     
     def totalAssets = {
-        
-        def amount = request.user.balance
-        def formatter = new DecimalFormat("#,###")
-
-        out << formatter.format(amount)
+        out << request.getPrettyTotalAssets()
     }
     
     def getClassmates = {
-        User.findByClassroom(request.user.getClassroom())
+        return User.findByClassroom(request.user.getClassroom())
     }
 }

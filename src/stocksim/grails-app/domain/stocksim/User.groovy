@@ -41,10 +41,6 @@ class User {
     
     // some custom getters
     def getDisplayName() {
-        if (isGuest) {
-            return "Guest"
-        }
-        
         displayName
     }
     
@@ -68,5 +64,23 @@ class User {
         session.lastSeenTime = new Date()
         session.lastSeenUserAgent = request.getHeader("User-Agent")
         session.lastSeenURL = request.getRequestURL()
+    }
+    
+    def getClassmates() {
+        User.findAllByClassroom(getClassroom())
+    }
+    
+    def getTotalAssets() {
+        getBalance()
+    }
+    
+    def getPrettyTotalAssets() {
+        def utilService
+        utilService.makePretty(getTotalAssets())
+    }
+    
+    def getPrettyBalance() {
+        def utilService
+        utilService.makePretty(getBalance())
     }
 }
