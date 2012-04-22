@@ -5,6 +5,7 @@ import java.text.DecimalFormat
 
 class UserTagLib {
     static namespace = "user"
+    static returnObjectForTags = ["getClassmates"]
     def webRequest
     
     def ifLoggedIn = { attrs, body ->
@@ -44,5 +45,9 @@ class UserTagLib {
         def formatter = new DecimalFormat("#,###")
 
         out << formatter.format(amount)
+    }
+    
+    def getClassmates = {
+        User.findByClassroom(request.user.getClassroom())
     }
 }

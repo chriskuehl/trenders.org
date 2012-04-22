@@ -6,6 +6,8 @@ class UrlMappings {
             proxyView = "/index"
         }
         
+        // user pages
+        
         name signup: "/signup" {
             controller = "user"
             action = "signup"
@@ -24,6 +26,11 @@ class UrlMappings {
         name logout: "/logout" {
             controller = "user"
             action = "logout"
+        }
+        
+        name classroom: "/classroom" {
+            controller = "viewProxy"
+            proxyView = "/classroom"
         }
         
         // search
