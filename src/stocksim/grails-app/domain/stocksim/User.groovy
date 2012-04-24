@@ -77,4 +77,19 @@ class User {
     def getPrettyBalance() {
         utilService.makePretty(getBalance())
     }
+    
+    def getMaxPurchasableStocks(price) {
+        Math.floor((getBalance() - 8.95) / price)
+    }
+    
+    def purchaseStocks(def stock, def num) {
+        if (num > getMaxPurchasableStocks(stock.getValue())) {
+            return false
+        }
+        
+        balance -= 8.95
+        balance -= (stock.getValue() * num)
+        
+        save()
+    }
 }

@@ -3,6 +3,7 @@ import javax.servlet.http.Cookie
 
 class UserController {
     def userService
+    def financeService
     
     def signup() {
         render(view: "/signup")
@@ -44,15 +45,25 @@ class UserController {
             def email = params.email
             def name = params.name
             
-            def user = new User(displayName: name, email: email).save()
-            userService.become(response, user)
+            def user = new User(displayName: name, email: email)
             
-            def classroom = userService.createClassroom(user)
-            
-            user.setClassroom(classroom)
-            user.save()
-            
-            redirect(mapping: "signupTeacherSuccess")
+            if (user.validate()) {
+                user.save()
+                userService.become(response, user)
+
+                def classroom = userService.createClassroom(user)
+
+                user.setClassroom(classroom)
+                user.save()
+
+                redirect(mapping: "signupTeacherSuccess")
+            } else {
+                render "Please use valid information." // TODO: prettier
+
+                user.errors.allErrors.each { error ->
+                    println error
+                }
+            }
         } else {
             render(view: "/signupTeacher")
         }
@@ -64,6 +75,25 @@ class UserController {
     
     def signupStudentSuccess() {
         render(view: "/signupStudentSuccess")
+    }
+    
+    def invest() {
+        def num = Math.floor(params.num.toDouble())
+        def ticker = params.ticker
+        def stock = financeService.getStocks([ticker])[ticker]
+        
+        def success = false
+        
+        if (num > 0) {
+            success = request.user.purchaseStocks(stock, num)
+        }
+        
+        if (success) {
+            render "ok"
+            //redirect(mapping: "portfolio")
+        } else {
+            redirect(mapping: "invest", params: [ticker: ticker])
+        }
     }
     
     // TODO: email user on account creation

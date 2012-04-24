@@ -49,4 +49,8 @@ class UserTagLib {
     def getClassmates = {
         return User.findByClassroom(request.user.getClassroom())
     }
+    
+    def maxPurchasableStocks = { attrs ->
+        out << request.user.getMaxPurchasableStocks(attrs.price.toDouble()).toInteger()
+    }
 }

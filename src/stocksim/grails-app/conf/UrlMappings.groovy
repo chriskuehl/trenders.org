@@ -38,6 +38,11 @@ class UrlMappings {
             action = "logout"
         }
         
+        name portfolio: "/portfolio" {
+            controller = "viewProxy"
+            proxyView = "/portfolio"
+        }
+        
         name classroom: "/classroom" {
             controller = "viewProxy"
             proxyView = "/classroom"
@@ -45,7 +50,12 @@ class UrlMappings {
         
         name invest: "/invest/$ticker" {
             controller = "viewProxy"
-            proxyView = "invest"
+            proxyView = "/invest"
+        }
+        
+        name doInvest: "/doInvest" {
+            controller = "user"
+            action = "invest"
         }
         
         // search
