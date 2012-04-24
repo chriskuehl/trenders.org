@@ -60,7 +60,15 @@ environments {
     }
     production {
         dataSource {
-            dbCreate = "create-drop"
+            // we are at the stage where production updates should be made
+            // using migration scripts rather than letting Hibernate attempt
+            // to work magic (which fails too often to be useful with valuable
+            // data, i.e. student data)
+            // 
+            // be sure to backup data first, though, as the daily server backups
+            // are taken late at night and you're probably going to lose the
+            // day's data otherwise
+            dbCreate = "none" //create-drop"
             url = "jdbc:mysql://wctp.us/stocksim?useUnicode=yes&characterEncoding=UTF-8"
             username = "stocksim"
             password = "Fc5mPSnHtBs4mvmQ"
