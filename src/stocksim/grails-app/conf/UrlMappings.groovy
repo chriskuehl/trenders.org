@@ -89,7 +89,7 @@ class UrlMappings {
             action = "index"
         }
         
-        name lessons: "/lessons/$lesson" {
+        name lesson: "/lessons/$lesson" {
             controller = "lessons"
             action = "viewLesson"
         }
