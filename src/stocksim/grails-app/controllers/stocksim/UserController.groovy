@@ -19,10 +19,20 @@ class UserController {
             if (! classroom) {
                 render "That wasn't a valid class ID." // TODO: make this prettier
             } else {
-                def user = new User(displayName: name, email: email, classroom: classroom).save()
-                userService.become(response, user)
+                def user = new User(displayName: name, email: email, classroom: classroom)
+                
+                if (user.validate()) {
+                    user.save()
+                    userService.become(response, user)
 
-                render(view: "/signupStudentSuccess")
+                    redirect(mapping: "signupTeacherSuccess")
+                } else {
+                    render "Please use valid information." // TODO: prettier
+                    
+                    user.errors.allErrors.each { error ->
+                        println error
+                    }
+                }
             }
         } else {
             render(view: "/signupStudent")
@@ -42,10 +52,18 @@ class UserController {
             user.setClassroom(classroom)
             user.save()
             
-            render(view: "/signupTeacherSuccess", model: [classroom: classroom])
+            redirect(mapping: "signupTeacherSuccess")
         } else {
             render(view: "/signupTeacher")
         }
+    }
+    
+    def signupTeacherSuccess() {
+        render(view: "/signupTeacherSuccess")
+    }
+    
+    def signupStudentSuccess() {
+        render(view: "/signupStudentSuccess")
     }
     
     // TODO: email user on account creation

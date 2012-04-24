@@ -47,9 +47,12 @@
           </div>
         </g:each>
         
-        <%-- <user:ifLoggedIn> --%>
-          <a class="yellowButton" href="#">Invest</a>
-        <%-- </user> --%>
+        <user:ifLoggedIn>
+          <g:link mapping="invest" params="${[ticker: ticker]}" class="yellowButton">Invest</g:link>
+        </user:ifLoggedIn>
+        <user:ifNotLoggedIn>
+          <p>Log in to invest in this company.</p>
+        </user:ifNotLoggedIn>
       </div>
       
       <%-- second column --%>

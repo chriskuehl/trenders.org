@@ -18,9 +18,19 @@ class UrlMappings {
             action = "signupStudent"
         }
         
+        name signupStudentSuccess: "/signupStudentSuccess" {
+            controller = "user"
+            action = "signupStudentSuccess"
+        }
+        
         name signupTeacher: "/signupTeacher" {
             controller = "user"
             action = "signupTeacher"
+        }
+        
+        name signupTeacherSuccess: "/signupTeacherSuccess" {
+            controller = "user"
+            action = "signupTeacherSuccess"
         }
         
         name logout: "/logout" {
@@ -31,6 +41,11 @@ class UrlMappings {
         name classroom: "/classroom" {
             controller = "viewProxy"
             proxyView = "/classroom"
+        }
+        
+        name invest: "/invest/$ticker" {
+            controller = "viewProxy"
+            proxyView = "invest"
         }
         
         // search
