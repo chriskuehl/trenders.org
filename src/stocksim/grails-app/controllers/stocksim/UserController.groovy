@@ -89,8 +89,7 @@ class UserController {
         }
         
         if (success) {
-            render "ok"
-            //redirect(mapping: "portfolio")
+            redirect(mapping: "portfolio")
         } else {
             redirect(mapping: "invest", params: [ticker: ticker])
         }

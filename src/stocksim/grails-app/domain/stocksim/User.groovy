@@ -97,21 +97,20 @@ class User {
         balance -= (stock.getValue() * num)
         
         def ownedStock = ownedStocks.find { it.getTicker().toLowerCase() == stock.getTicker().toLowerCase() }
-        def existed = ownedStock == null
+        def existed = ownedStock != null
         
         if (! existed) {
-            println "didnt exist"
-            ownedStock = new OwnedStock(ticker: stock.getTicker()).addToUser(this)
-        } else {
-            println "existed"
+            ownedStock = new OwnedStock(ticker: stock.getTicker())
+            
+            addToOwnedStocks(ownedStock)
         }
         
         ownedStock.quantity += num
         ownedStock.totalSpent += 8.95 + (stock.getValue() * num)
         
-        println "now own: ${ownedStock.quantity}"
-        
         ownedStock.save()
         save()
+        
+        true
     }
 }
