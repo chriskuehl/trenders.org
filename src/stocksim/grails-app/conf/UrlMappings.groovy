@@ -43,6 +43,26 @@ class UrlMappings {
             proxyView = "/portfolio"
         }
         
+        name history: "/history" {
+            controller = "viewProxy"
+            proxyView = "/history"
+        }
+        
+        name trending: "/trending" {
+            controller = "viewProxy"
+            proxyView = "/trending"
+        }
+        
+        name news: "/news" {
+            controller = "viewProxy"
+            proxyView = "/news"
+        }
+        
+        name rankings: "/rankings" {
+            controller = "viewProxy"
+            proxyView = "/rankings"
+        }
+        
         name classroom: "/classroom" {
             controller = "viewProxy"
             proxyView = "/classroom"
@@ -61,6 +81,17 @@ class UrlMappings {
         name doInvest: "/doInvest" {
             controller = "user"
             action = "invest"
+        }
+        
+        // lessons
+        name lessons: "/lessons" {
+            controller = "lessons"
+            action = "index"
+        }
+        
+        name lessons: "/lessons/$lesson" {
+            controller = "lessons"
+            action = "viewLesson"
         }
         
         // search
