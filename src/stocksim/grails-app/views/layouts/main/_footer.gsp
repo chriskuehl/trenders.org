@@ -11,6 +11,7 @@
     </p>
 
     <!-- footer links -->
+    <%--
     <ul>
       <li><strong>Donec hendrerit</strong></li>
       <li><a href="#">Lorem ipsum</a></li>
@@ -30,7 +31,7 @@
       <li><a href="#">Lorem ipsum</a></li>
       <li><a href="#">Dolor sit</a></li>
       <li><a href="#">Amet consectetur</a></li>
-    </ul>
+    </ul>--%>
 
     <div class="clear"></div>
   </div>

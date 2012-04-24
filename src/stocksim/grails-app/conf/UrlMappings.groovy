@@ -53,6 +53,11 @@ class UrlMappings {
             proxyView = "/invest"
         }
         
+        name sell: "/sell/$ticker" {
+            controller = "viewProxy"
+            proxyView = "/sell"
+        }
+        
         name doInvest: "/doInvest" {
             controller = "user"
             action = "invest"

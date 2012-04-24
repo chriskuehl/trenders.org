@@ -3,6 +3,7 @@ package stocksim
 class User {
     // TODO: add some of these other features like passwords, etc.
     def utilService
+    def financeService
     
     static constraints = {
         email(email: true, unique: true)
@@ -72,8 +73,57 @@ class User {
         User.findAllByClassroom(getClassroom())
     }
     
+    def getOwnedTickers() {
+        def tickers = []
+        def s = ownedStocks
+        
+        s.each { stock ->
+            tickers.add(stock.getTicker())
+        }
+        
+        tickers
+    }
+    
+    def getPortfolioValue() {
+        def tickers = []
+        def portfolioValue = 0
+        
+        def s = ownedStocks
+        
+        s.each { stock ->
+            tickers.add(stock.getTicker())
+        }
+        
+        def stocks = financeService.getStocks(tickers)
+        
+        s.each { stock ->
+            portfolioValue += stocks[stock.getTicker().toLowerCase()].getValue() * stock.getQuantity()
+        }
+        
+        portfolioValue
+    }
+    
+    def getMoneySpentOnPortfolio() {
+        def money = 0
+        def s = ownedStocks
+        
+        s.each { stock ->
+            money += stock.getTotalSpent()
+        }
+        
+        money
+    }
+    
+    def getPrettyMoneySpentOnPortfolio() {
+        utilService.makePretty(getMoneySpentOnPortfolio())
+    }
+    
+    def getPrettyPortfolioValue() {
+        utilService.makePretty(getPortfolioValue())
+    }
+    
     def getTotalAssets() {
-        getBalance()
+        getBalance() + getPortfolioValue()
     }
     
     def getPrettyTotalAssets() {
