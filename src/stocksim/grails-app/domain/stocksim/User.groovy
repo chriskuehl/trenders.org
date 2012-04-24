@@ -18,6 +18,12 @@ class User {
         lastSeenURL(nullable: true)
     }
     
+    static mapping = {
+        ownedStocks lazy: false
+    }
+    
+    static hasMany = [ownedStocks: OwnedStock]
+    
     String email
     boolean emailConfirmed = false
     String displayName = null
@@ -90,6 +96,22 @@ class User {
         balance -= 8.95
         balance -= (stock.getValue() * num)
         
+        def ownedStock = ownedStocks.find { it.getTicker().toLowerCase() == stock.getTicker().toLowerCase() }
+        def existed = ownedStock == null
+        
+        if (! existed) {
+            println "didnt exist"
+            ownedStock = new OwnedStock(ticker: stock.getTicker()).addToUser(this)
+        } else {
+            println "existed"
+        }
+        
+        ownedStock.quantity += num
+        ownedStock.totalSpent += 8.95 + (stock.getValue() * num)
+        
+        println "now own: ${ownedStock.quantity}"
+        
+        ownedStock.save()
         save()
     }
 }
