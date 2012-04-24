@@ -46,7 +46,7 @@ environments {
             username = "sa"
             password = ""
 
-            dbCreate = "upgrade" //create-drop"
+            dbCreate = "create-drop"
             url = "jdbc:h2:mem:temp"
         }
     }
