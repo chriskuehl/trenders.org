@@ -102,8 +102,9 @@
 								<input type="text" class="searchBar" name="q" value="" />
 							</form>
 						</li>
-						<li><a href="${createLink(mapping: "signup")}">Join trenders.org</a></li>
-						<li><a href="${createLink(mapping: "about")}">About</a></li>
+                                                <user:ifNotLoggedIn><li><a href="${createLink(mapping: "signup")}">Join trenders.org</a></li></user:ifNotLoggedIn>
+						<li><a href="${createLink(mapping: "lessons")}">Lessons</a></li>
+                                                <li><a href="${createLink(mapping: "about")}">About</a></li>
 					</ul>
 				</div>
 			</div>

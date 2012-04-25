@@ -2,11 +2,11 @@ package stocksim
 
 class LessonsController {
     def index() {
-        // TODO: description of lessons, listing of lessons
+        render(view: "/lessons/index")
     }
     
     def view() {
         def lesson = params.lesson
-        // TODO: render lesson (if existing) or show error page
+        render(view: "/lessons/$lesson") // TODO: fix user-input vulnerability (e.g. inputting slashes or ../)
     }
 }
