@@ -170,7 +170,7 @@ class User {
         ownedStock.setQuantity((ownedStock.getQuantity() + num).toInteger())
         ownedStock.setTotalSpent(ownedStock.getTotalSpent() + totalPrice)
         
-        ownedStock.save(failOnError: true, flush: true)
+        ownedStock.save(flush: true)
         
         // add the history event
         def event = new HistoryEvent(ticker: stock.getTicker().toLowerCase(), date: new Date())
@@ -187,7 +187,7 @@ class User {
         // save
         
         setBalance(balance - totalPrice)
-        save(failOnError: true, flush: true)
+        save(flush: true)
         
         true
     }
@@ -201,32 +201,34 @@ class User {
         
         def totalPrice = (stock.getValue() * num)
         
-        balance = Math.max(balance - 8.95, 0)
+        setBalance(Math.max(getBalance() - 8.95, 0))
+        setBalance(getBalance() + totalPrice)
         
         ownedStock.quantity -= num
         ownedStock.totalSpent += 8.95
         ownedStock.totalSpent -= totalPrice
         
         if (ownedStock.quantity > 0) {
-            ownedStock.save()
+            ownedStock.save(flush: true)
         } else {
-            ownedStock.delete()
+            removeFromOwnedStocks(ownedStock)
+            ownedStock.delete(flush: true)
         }
         
         // add the history event
-        def event = new HistoryEvent()
+        def event = new HistoryEvent(ticker: stock.getTicker().toLowerCase(), date: new Date())
         addToHistoryEvents(event)
         
-        event.setDate(date)
+        event.setDate(new Date())
         event.setTicker(stock.getTicker().toLowerCase())
         event.setWasPurchase(false)
         event.setQuantity(num)
         event.setMoney(totalPrice)
         
-        event.save()
+        event.save(flush: true)
         
         // save
-        save()
+        save(flush: true)
         
         true
     }

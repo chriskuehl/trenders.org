@@ -97,14 +97,14 @@ class UserController {
     }
     
     def sell() {
-        def num = Math.floor(params.num.toDouble())
+        def num = Math.floor(params.num.toDouble()).toInteger()
         def ticker = params.ticker
         def stock = financeService.getStocks([ticker])[ticker]
         
         def success = false
         
         if (num > 0) {
-            success = request.user.sellStock(stock, num)
+            success = request.user.sellStocks(stock, num)
         }
         
         if (success) {
