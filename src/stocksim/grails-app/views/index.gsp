@@ -12,7 +12,7 @@
     ${resource(dir: "images", file: "lessons.png")}
     -->
     <div id="flag">
-      <p>trenders.org is an educational site where you can learn about personal investing and personal finance alone or as part of a class.</p>
+      <p>trenders.org is an educational site where you can learn about personal investing and personal finance as part of a class.</p>
       
       <ul>
         <%-- lessons --%>
@@ -29,7 +29,7 @@
           <a href="${createLink(mapping: "about_stocksim")}" class="homeIcon" id="homeIcon-stocksim">
             <div class="flagIcon" id="flagIconStockSim">Stock Simulator</div>
             <p><strong>Stock Simulator</strong></p>
-            <p>Start with a virtual $50k and invest it in the stock market.</p>
+            <p>Start with a virtual $100k and invest it in the stock market.</p>
           </a>
         </li>
         

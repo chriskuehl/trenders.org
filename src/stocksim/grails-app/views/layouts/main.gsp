@@ -67,7 +67,7 @@
                                                                 <li><a href="${createLink(mapping: "trending")}" id="trendingIcon">Trending</a></li>
                                                                 <li><a href="${createLink(mapping: "news")}" id="inNewsIcon">In News</a></li>
                                                                 <li><a href="${createLink(mapping: "classroom")}" id="myClassIcon">My Class</a></li>
-                                                                <li><a href="${createLink(mapping: "classroom-rankings")}" id="rankingsIcon">Rankings</a></li>
+                                                                <li><a href="${createLink(mapping: "rankings")}" id="rankingsIcon">Rankings</a></li>
                                                                 <li><a href="${createLink(mapping: "logout")}" id="logOutIcon">Log Out</a></li>
                                                         </ul>
 

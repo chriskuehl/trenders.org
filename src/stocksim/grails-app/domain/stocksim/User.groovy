@@ -261,6 +261,19 @@ class User {
         }
     }
     
+    def getClassmatesByTotalAssets() {
+        def classmates = getClassmates()
+        classmates.sort { a, b ->
+            if (a.getTotalAssets() == b.getTotalAssets()) {
+                return 0
+            } else if (a.getTotalAssets() < b.getTotalAssets()) {
+                return 1
+            } else {
+                return (- 1)
+            }
+        }
+    }
+    
     def getAllHistoryCompanies() {
         def tickers = []
         
