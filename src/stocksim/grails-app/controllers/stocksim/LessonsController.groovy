@@ -6,7 +6,9 @@ class LessonsController {
     }
     
     def view() {
+        def cat = params.cat
         def lesson = params.lesson
-        render(view: "/lessons/$lesson") // TODO: fix user-input vulnerability (e.g. inputting slashes or ../)
+        
+        render(view: "/lessons/$cat/$lesson") // TODO: fix user-input vulnerability (e.g. inputting slashes or ../)
     }
 }

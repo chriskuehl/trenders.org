@@ -94,9 +94,9 @@ class UrlMappings {
             action = "index"
         }
         
-        name lesson: "/lessons/$lesson" {
+        name lesson: "/lessons/$cat/$lesson" {
             controller = "lessons"
-            action = "viewLesson"
+            action = "view"
         }
         
         // search
