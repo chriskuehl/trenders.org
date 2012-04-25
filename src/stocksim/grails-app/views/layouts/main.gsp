@@ -64,8 +64,8 @@
                                                                 <li><a href="${createLink(mapping: "history")}" id="historyIcon">History</a></li>
                                                                 <li><a href="${createLink(mapping: "lessons")}" id="lessonsIcon">Lessons</a></li>
                                                                 <li><a href="${createLink(controller: "search")}/?q=" id="searchIcon">Search</a></li>
-                                                                <li><a href="${createLink(mapping: "trending")}" id="trendingIcon">Trending</a></li>
-                                                                <li><a href="${createLink(mapping: "news")}" id="inNewsIcon">In News</a></li>
+                                                                <%--<li><a href="${createLink(mapping: "trending")}" id="trendingIcon">Trending</a></li>
+                                                                <li><a href="${createLink(mapping: "news")}" id="inNewsIcon">In News</a></li>--%>
                                                                 <li><a href="${createLink(mapping: "classroom")}" id="myClassIcon">My Class</a></li>
                                                                 <li><a href="${createLink(mapping: "rankings")}" id="rankingsIcon">Rankings</a></li>
                                                                 <li><a href="${createLink(mapping: "logout")}" id="logOutIcon">Log Out</a></li>
