@@ -1,6 +1,7 @@
 package stocksim
 
 import java.util.Date
+import java.text.DecimalFormat
 
 class User {
     // TODO: add some of these other features like passwords, etc.
@@ -20,6 +21,8 @@ class User {
         lastSeenUserAgent(nullable: true)
         lastSeenURL(nullable: true)
     }
+    
+    static transients = ["orderedHistoryEvents"]
     
     static mapping = {
         ownedStocks lazy: false
@@ -118,11 +121,11 @@ class User {
     }
     
     def getPrettyMoneySpentOnPortfolio() {
-        utilService.makePretty(getMoneySpentOnPortfolio())
+        makePretty(getMoneySpentOnPortfolio())
     }
     
     def getPrettyPortfolioValue() {
-        utilService.makePretty(getPortfolioValue())
+        makePretty(getPortfolioValue())
     }
     
     def getTotalAssets() {
@@ -130,11 +133,11 @@ class User {
     }
     
     def getPrettyTotalAssets() {
-        utilService.makePretty(getTotalAssets())
+        makePretty(getTotalAssets())
     }
     
     def getPrettyBalance() {
-        utilService.makePretty(getBalance())
+        makePretty(getBalance())
     }
     
     def getMaxPurchasableStocks(price) {
@@ -231,5 +234,48 @@ class User {
         save(flush: true)
         
         true
+    }
+    
+    def getOrderedHistoryEvents() {
+        //def events = []
+        
+        // make a copy
+        /*historyEvents.each { event ->
+            events.add(event)
+        }*/
+        //Collections.copy(events, historyEvents)
+        
+        
+        // now sort events
+        historyEvents.sort { a, b ->
+            def ad = a.getDate()
+            def bd = b.getDate()
+            
+            if (ad == bd) {
+                return 0
+            } else if (ad.getTime() < bd.getTime()) {
+                return -1
+            } else {
+                return 1
+            }
+        }
+    }
+    
+    def getAllHistoryCompanies() {
+        def tickers = []
+        
+        historyEvents.each { event ->
+            if (! tickers.contains(event.getTicker().toLowerCase())) {
+                tickers.add(event.getTicker().toLowerCase())
+            }
+        }
+        
+        tickers
+    }
+    
+    def makePretty(def number) {
+        def formatter = new DecimalFormat("#,###")
+
+        formatter.format(number)
     }
 }
