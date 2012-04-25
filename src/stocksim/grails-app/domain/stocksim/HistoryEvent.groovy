@@ -1,7 +1,11 @@
 package stocksim
 
 class HistoryEvent {
-
-    static constraints = {
-    }
+    static belongsTo = [user: User]
+    
+    Date date
+    String ticker
+    boolean wasPurchase
+    int quantity
+    double money
 }

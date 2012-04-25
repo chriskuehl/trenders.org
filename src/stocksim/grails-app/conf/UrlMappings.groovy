@@ -83,6 +83,11 @@ class UrlMappings {
             action = "invest"
         }
         
+        name doSell: "/doSell" {
+            controller = "user"
+            action = "sell"
+        }
+        
         // lessons
         name lessons: "/lessons" {
             controller = "lessons"

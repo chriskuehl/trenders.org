@@ -76,7 +76,7 @@
                                                         <div id="userStatusBar">
                                                                 <p>
                                                                         <strong>Welcome, <user:displayName /></strong><br />
-                                                                        <strong>Total Assets:</strong> $<user:totalAssets />
+                                                                        <strong>Balance:</strong> $<user:currentBalance /> &nbsp;<strong>Assets:</strong> $<user:totalAssets />
                                                                 </p>
                                                                 <%-- <a id="changeLanguageBar" class="changeLanguageBarNoScript" rel="nofollow" href="/changeLanguage?lang=en">Usar español</a> --%>
                                                         </div>
@@ -102,9 +102,8 @@
 								<input type="text" class="searchBar" name="q" value="" />
 							</form>
 						</li>
-						<li><a href="#">Join</a></li>
-						<li><a href="#">Getting Started</a></li>
-						<li><a href="#">About</a></li>
+						<li><a href="${createLink(mapping: "signup")}">Join trenders.org</a></li>
+						<li><a href="${createLink(mapping: "about")}">About</a></li>
 					</ul>
 				</div>
 			</div>

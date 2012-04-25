@@ -16,6 +16,7 @@
         <table>
           <tr>
             <th>Company</th>
+            <th># of Shares</th>
             <th>Current Price</th>
             <th>Total Spent</th>
             <th>Current Value</th>
@@ -26,10 +27,11 @@
           <g:each in="${request.user.getOwnedStocks()}" var="stock">
             <tr>
               <td><g:link mapping="stock" params="${[ticker: stock.getTicker()]}">${finance.stock(ticker: stock.getTicker(), req: "name")}</g:link></td>
+              <td>${stock.getQuantity()}</td>
               <td>$${finance.stock(ticker: stock.getTicker(), req: "value").toDouble().trunc(2)}</td>
               <td>$${stock.getTotalSpent().toDouble().trunc(2)}</td>
-              <td>$${(finance.stock(ticker: stock.getTicker(), req: "value").toDouble() * stock.getQuantity()).trunc(2)}</td>
-              <td>$${((finance.stock(ticker: stock.getTicker(), req: "value").toDouble() * stock.getQuantity()) - stock.getTotalSpent().toDouble()).round(2)}</td>
+              <td>$${(finance.stock(ticker: stock.getTicker(), req: "value").toDouble() * stock.getQuantity().toDouble()).trunc(2)}</td>
+              <td>$${((finance.stock(ticker: stock.getTicker(), req: "value").toDouble() * stock.getQuantity().toDouble()) - stock.getTotalSpent().toDouble()).round(2)}</td>
               <td><g:link mapping="sell" params="${[ticker: stock.getTicker()]}">Sell</g:link></td>
               <td><g:link mapping="invest" params="${[ticker: stock.getTicker()]}">Buy More</g:link></td>
             </tr>

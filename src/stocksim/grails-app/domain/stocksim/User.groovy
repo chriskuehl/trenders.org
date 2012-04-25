@@ -1,5 +1,7 @@
 package stocksim
 
+import java.util.Date
+
 class User {
     // TODO: add some of these other features like passwords, etc.
     def utilService
@@ -21,9 +23,10 @@ class User {
     
     static mapping = {
         ownedStocks lazy: false
+        historyEvents lazy: false
     }
     
-    static hasMany = [ownedStocks: OwnedStock]
+    static hasMany = [ownedStocks: OwnedStock, historyEvents: HistoryEvent]
     
     String email
     boolean emailConfirmed = false
@@ -138,27 +141,91 @@ class User {
         Math.floor((getBalance() - 8.95) / price)
     }
     
+    def getNumberOwned(def ticker) {
+        def ownedStock = ownedStocks.find { it.getTicker().toLowerCase() == ticker.toLowerCase() }
+        
+        if (ownedStock) {
+            return ownedStock.getQuantity()
+        }
+        
+        0
+    }
+    
     def purchaseStocks(def stock, def num) {
         if (num > getMaxPurchasableStocks(stock.getValue())) {
             return false
         }
         
-        balance -= 8.95
-        balance -= (stock.getValue() * num)
-        
+        def totalPrice = 8.95 + (stock.getValue() * num)
         def ownedStock = ownedStocks.find { it.getTicker().toLowerCase() == stock.getTicker().toLowerCase() }
         def existed = ownedStock != null
         
         if (! existed) {
             ownedStock = new OwnedStock(ticker: stock.getTicker())
-            
             addToOwnedStocks(ownedStock)
+        } else {
+            ownedStock = OwnedStock.get(ownedStock.getId())
         }
         
-        ownedStock.quantity += num
-        ownedStock.totalSpent += 8.95 + (stock.getValue() * num)
+        ownedStock.setQuantity((ownedStock.getQuantity() + num).toInteger())
+        ownedStock.setTotalSpent(ownedStock.getTotalSpent() + totalPrice)
         
-        ownedStock.save()
+        ownedStock.save(failOnError: true, flush: true)
+        
+        // add the history event
+        def event = new HistoryEvent(ticker: stock.getTicker().toLowerCase(), date: new Date())
+        addToHistoryEvents(event)
+        
+        event.setTicker(stock.getTicker())
+        event.setDate(new Date())
+        event.setWasPurchase(true)
+        event.setQuantity(num.toInteger())
+        event.setMoney(totalPrice)
+        
+        event.save()
+        
+        // save
+        
+        setBalance(balance - totalPrice)
+        save(failOnError: true, flush: true)
+        
+        true
+    }
+    
+    def sellStocks(def stock, def num) {
+        def ownedStock = ownedStocks.find { it.getTicker().toLowerCase() == stock.getTicker().toLowerCase() }
+        
+        if (ownedStock == null || ownedStock.getQuantity() < num) {
+            return false
+        }
+        
+        def totalPrice = (stock.getValue() * num)
+        
+        balance = Math.max(balance - 8.95, 0)
+        
+        ownedStock.quantity -= num
+        ownedStock.totalSpent += 8.95
+        ownedStock.totalSpent -= totalPrice
+        
+        if (ownedStock.quantity > 0) {
+            ownedStock.save()
+        } else {
+            ownedStock.delete()
+        }
+        
+        // add the history event
+        def event = new HistoryEvent()
+        addToHistoryEvents(event)
+        
+        event.setDate(date)
+        event.setTicker(stock.getTicker().toLowerCase())
+        event.setWasPurchase(false)
+        event.setQuantity(num)
+        event.setMoney(totalPrice)
+        
+        event.save()
+        
+        // save
         save()
         
         true

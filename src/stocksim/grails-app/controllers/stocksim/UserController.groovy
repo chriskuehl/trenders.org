@@ -89,9 +89,29 @@ class UserController {
         }
         
         if (success) {
+            new UserAlert(type: "success", title: "You've successfully made a purchase!", message: "You're now the owner of ${num.toInteger()} share${num != 1 ? "s" : ""} of ${stock.getName()} stock.").add(flash)
             redirect(mapping: "portfolio")
         } else {
             redirect(mapping: "invest", params: [ticker: ticker])
+        }
+    }
+    
+    def sell() {
+        def num = Math.floor(params.num.toDouble())
+        def ticker = params.ticker
+        def stock = financeService.getStocks([ticker])[ticker]
+        
+        def success = false
+        
+        if (num > 0) {
+            success = request.user.sellStock(stock, num)
+        }
+        
+        if (success) {
+            new UserAlert(type: "success", title: "You've successfully made a sale!", message: "You've sold ${num.toInteger()} share${num != 1 ? "s" : ""} of ${stock.getName()} stock.").add(flash)
+            redirect(mapping: "portfolio") 
+        } else {
+            redirect(mapping: "sell", params: [ticker: ticker])
         }
     }
     

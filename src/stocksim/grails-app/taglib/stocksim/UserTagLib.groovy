@@ -46,11 +46,19 @@ class UserTagLib {
         out << request.user.getPrettyTotalAssets()
     }
     
+    def currentBalance = {
+        out << request.user.getPrettyBalance()
+    }
+    
     def getClassmates = {
         return User.findByClassroom(request.user.getClassroom())
     }
     
     def maxPurchasableStocks = { attrs ->
         out << request.user.getMaxPurchasableStocks(attrs.price.toDouble()).toInteger()
+    }
+    
+    def getNumberOwned = { attrs ->
+        out << request.user.getNumberOwned(attrs.ticker)
     }
 }
