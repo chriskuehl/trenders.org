@@ -824,3 +824,10 @@ ul.stockList li {
 ul.stockList a.block:hover {
     background-color: #FFEDCA !important;
 }
+
+img.floatRight {
+    float: right;
+    
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
