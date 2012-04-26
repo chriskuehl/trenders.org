@@ -6,6 +6,39 @@
   </head>
   <body>
     <h1>About This Site</h1>
-    <p>This page is currently expected to be blank. This is the only part of the site that should not currently be functioning.</p>
+    <p>This site was developed as part of the Oracle Education Foundation ThinkQuest 2012 Application Development competition by students at Woodford County High School.</p>
+    
+    <h2>Site Platform</h2>
+    <p>This site runs on <a target="_blank" href="http://grails.org/">Grails</a>, a nifty web framework for the nifty programming language <a target ="_blank" href="http://groovy.codehaus.org/">Groovy</a>, which has the incredibly convenient property of running on the JVM. The application is hosted on the <a target="_blank" href="http://tomcat.apache.org/">Apache Tomcat</a> servlet engine with Apache's <a target="_blank" href="http://httpd.apache.org/docs/2.2/mod/mod_proxy_ajp.html">mod_proxy_ajp</a>. In addition, <a target="_blank" href="https://www.varnish-cache.org/">Varnish</a> proxies requests to and from the Apache server, and enables us to serve static resources extremely quickly.</p>
+    <p>A <a target="_blank" href="http://www.mysql.com/">MySQL server</a> acts as the datasource for this application.</p>
+    
+    <h2>APIs and Data Sources</h2>
+    <p>We use publicly-available APIs to get data pertaining to companies or to the stock market. The following sites or services provide us with data:</p>
+    <ul>
+      <li><a target="_blank" href="http://finance.yahoo.com/">Yahoo! Finance</a>, through their YQL public data API, is used for company financial information</li>
+      <li><a target="_blank" href="http://news.google.com/">Google News</a> is used to provide relevant news articles on company pages and on the home page</li>
+      <li><a target="_blank" href="http://finance.google.com/">Google Finance</a>, through their JSON API, is used to provide information on stock market indices (DJI, S&amp;P 500)</li>
+      <li>The <a target="_blank" href="http://en.wikipedia.org/">English Wikipedia</a> is used to provide short summaries of companies on their information pages</li>
+      <li>The <a target="_blank" href="http://nasdaq.com/">NASDAQ stock exchange</a> company CSV download provides an updated list of all companies on both the NASDAQ and NYSE stock exchanges</li>
+    </ul>
+    
+    <h2>Graphics</h2>
+    <p>We use a number of graphics which have been licensed under terms permitting their use on non-commercial websites:</p>
+    <ul>
+      <li><a target="_blank" href="http://www.iconfinder.com/icondetails/27849/24/folder_yellow_icon">Folder Icon</a> by Visual Pharm</li>
+      <li><a target="_blank" href="http://www.iconfinder.com/icondetails/45350/24/history_icon">History Icon</a> by Iconshock</li>
+      <li><a target="_blank" href="http://www.iconfinder.com/icondetails/63127/24/lessons_icon">Lessons Icon</a> by Custom Icon Design</li>
+      <li><a target="_blank" href="http://www.iconfinder.com/icondetails/23505/24/magnifier_original_search_zoom_icon">Search Icon</a> by Oliver Scholtz</li>
+      <li><a target="_blank" href="http://www.iconfinder.com/icondetails/17224/24/chart_graph_graphic_line_icon">Chart Icon</a> by Visual Pharm</li>
+      <li><a target="_blank" href="http://www.iconfinder.com/icondetails/53973/24/blue_news_newspapers_icon">News Icon</a> by Sketchdock</li>
+      <li><a target="_blank" href="http://www.iconfinder.com/icondetails/45036/24/teacher_icon">Teacher Icon</a> by Iconshock</li>
+      <li><a target="_blank" href="http://www.iconfinder.com/icondetails/70642/24/_icon">Medal Icon</a> by Custom Icon Design</li>
+      <li><a target="_blank" href="http://www.iconfinder.com/icondetails/30010/24/log_out_system_icon">Log Out Icon</a> by Hbons</li>
+      <li><a target="_blank" href="http://www.iconfinder.com/icondetails/10249/48/accept_check_ok_tick_icon">Accept Icon</a> by Liam McKay</li>
+      <li><a target="_blank" href="http://www.iconfinder.com/icondetails/10277/48/cancel_close_icon">Cancel Icon</a> by Liam McKay</li>
+      <li><a target="_blank" href="http://www.iconfinder.com/icondetails/10279/48/ball_blue_circle_icon">Blue Circle Icon</a> by Liam McKay</li>
+      <li><a target="_blank" href="http://www.iconfinder.com/icondetails/8829/32/2%2B2%3D4_blackboard_calculate_education_math_school_icon?r=1">Blackboard Icon</a> by Oxygen Team</li>
+      <li><a target="_blank" href="http://www.iconfinder.com/icondetails/44907/128/graduated_man_student_user_icon">Graduated Icon</a> by Iconshock</li>
+    </ul>
   </body>
 </html>
