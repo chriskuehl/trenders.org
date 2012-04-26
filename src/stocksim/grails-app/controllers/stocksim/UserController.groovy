@@ -26,7 +26,7 @@ class UserController {
                     user.save()
                     userService.become(response, user)
 
-                    redirect(mapping: "signupTeacherSuccess")
+                    redirect(mapping: "signupStudentSuccess")
                 } else {
                     render "Please use valid information." // TODO: prettier
                     
