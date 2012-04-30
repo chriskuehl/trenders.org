@@ -102,3 +102,19 @@ log4j = {
 // application settings
 stocksim.trading.fee = 8.95 // flat fee for trading
 stocksim.trading.delay = 20 * 60 * 60 // seconds mandated between trades (20 hours)
+
+grails {
+    mail {
+        host = "email-smtp.us-east-1.amazonaws.com"
+        port = 465
+        username = "AKIAIKISSLZK6YVJ33XA"
+        password = "AvK0lRUxJhWQhfoUsO9d5sHO1Rl+m2PM4NeWh9mallZP"
+        
+        props = [ "mail.smtp.auth":"true",
+                       "mail.smtp.socketFactory.port":"465",
+                       "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                       "mail.smtp.socketFactory.fallback":"false"  ]
+        
+        from = "chris@trenders.org"
+    }
+}

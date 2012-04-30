@@ -1,10 +1,14 @@
 package filters
 
 class AdminFilters {
+    def dependsOn = [UserFilters]
+    def request
+    
     def filters = {
         noCachingFilter(uri: "/admin/**") {
-            before = {
-                if (grails.util.GrailsUtil.getEnvironment().equals(org.codehaus.groovy.grails.commons.GrailsApplication.ENV_PRODUCTION)) {
+            before = { 
+                if (! (request.user != null && request.user.getIsAdmin())) {
+                    println "Not authorized!"
                     render(view: "/denied")    
                     return false
                 }

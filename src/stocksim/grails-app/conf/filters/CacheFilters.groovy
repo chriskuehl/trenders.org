@@ -9,7 +9,7 @@ class CacheFilters {
                 // so we do this to specifically tell them not to in order to
                 // prevent weird results (e.g. signing up and still appearing
                 // to not be logged in)
-                response.setHeader('Expires', '-1')
+                response.setHeader("Expires", "-1")
             }
         }
     }

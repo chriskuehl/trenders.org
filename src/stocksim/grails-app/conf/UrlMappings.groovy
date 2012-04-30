@@ -124,7 +124,7 @@ class UrlMappings {
         // lessons
         
         // admin pages
-        "/admin" (view: "admin/index")
+        "/admin" (controller: "viewProxy", proxyView: "admin/index")
         "/admin/cache/$action" (controller: "adminCache")
         "/admin/user/$action" (controller: "adminUser")
         

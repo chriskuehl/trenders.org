@@ -41,6 +41,7 @@ class User {
     // status
     boolean disabled = false
     boolean isGuest = true
+    boolean isAdmin = false
     
     // information from account creation
     String registerIP
