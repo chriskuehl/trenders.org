@@ -69,7 +69,6 @@ environments {
     production {
         grails.logging.jul.usebridge = false
         grails.serverURL = "http://trenders.org"
-        log4j.appender.'errors.File'="/var/log/trenders.org/stacktrace.log"
     }
 }
 
@@ -96,7 +95,7 @@ log4j = {
             'org.hibernate',
             'net.sf.ehcache.hibernate'
 
-    warn    'stocksim.log'
+    warn    'stocksim'
 
     info    'org.codehaus.groovy.grails.web.servlet',  //  controllers
             'org.codehaus.groovy.grails.web.pages', //  GSP
