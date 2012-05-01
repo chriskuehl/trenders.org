@@ -1,22 +1,29 @@
 package filters
 
+import org.codehaus.groovy.grails.commons.GrailsApplication
+import grails.util.GrailsUtil
+
 class AdminFilters {
     def dependsOn = [UserFilters]
     def request
-    def adminsOnly = {
-        if (! (request.user != null && request.user.getIsAdmin())) {
-            render(view: "/denied")    
-            return false
-        }
-    }
     
     def filters = {
         adminFilter(uri: "/admin/**") {
-            before = adminsOnly
+            before = {
+                if (! (request.user != null && request.user.getIsAdmin()) && GrailsUtil.getEnvironment().equals(GrailsApplication.ENV_PRODUCTION)) {
+                    render(view: "/denied")    
+                    return false
+                }
+            }
         }
         
         devFilter(uri: "/dev/**") {
-            before = adminsOnly
+            before = {
+                if (! (request.user != null && request.user.getIsAdmin()) && GrailsUtil.getEnvironment().equals(GrailsApplication.ENV_PRODUCTION)) {
+                    render(view: "/denied")    
+                    return false
+                }
+            }
         }
     }
 }

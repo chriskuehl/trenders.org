@@ -10,11 +10,26 @@ class SandboxController {
     def userService
     def cacheService
     def financeService
+    def mailService
     def googleFinanceService
     
     def gainersLosers() {
         def map = GoogleFinanceService.getGainersLosers()
         render map
+    }
+    
+    def email() {
+        mailService.sendMail {
+            multipart true
+            
+            to "chris@techxonline.net"
+            from "chris@trenders.org"
+            subject "Hello!"
+            html 'this is <b>some</b> text'
+            body 'this is some plain text'
+        }
+        
+        render "it worked!"
     }
     
     def putAllInCache() {
