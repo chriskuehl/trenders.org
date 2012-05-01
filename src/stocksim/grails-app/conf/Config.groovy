@@ -79,6 +79,7 @@ log4j = {
     // appender:
     //
     appenders {
+        'null' name: "stacktrace"
         file name:'file', file:'/var/log/trenders.org/out.log', append: false
         console name:'stdout'
     }
