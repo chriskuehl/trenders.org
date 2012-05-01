@@ -78,11 +78,12 @@ environments {
 log4j = {
     // appender:
     appenders {
-       rollingFile name:'stacktrace', file:"/var/log/tomcat7/catalina.out", layout: pattern(conversionPattern: '%c{2} %m%n')
+       null name:'stacktrace'
+       rollingFile name:'catalinaOut', file:"/var/log/trenders.org/error.log", layout: pattern(conversionPattern: '%c{2} %m%n')
     }
     
     root {
-        error 'stacktrace'
+        error 'catalinaOut'
         additivity = true
     }
     
