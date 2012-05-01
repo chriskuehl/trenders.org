@@ -127,6 +127,7 @@ log4j = {
 stocksim.trading.fee = 8.95 // flat fee for trading
 stocksim.trading.delay = 20 * 60 * 60 // seconds mandated between trades (20 hours)
 
+/*
 grails {
     mail {
         host = "email-smtp.us-east-1.amazonaws.com"
@@ -141,4 +142,4 @@ grails {
 
         from = "chris@trenders.org"
     }
-}
+}*/
