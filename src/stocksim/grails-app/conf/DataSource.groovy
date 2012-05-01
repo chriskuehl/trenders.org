@@ -68,7 +68,7 @@ environments {
             // be sure to backup data first, though, as the daily server backups
             // are taken late at night and you're probably going to lose the
             // day's data otherwise
-            dbCreate = "update" //create-drop"
+            dbCreate = "none" //create-drop"
             url = "jdbc:mysql://wctp.us/stocksim?useUnicode=yes&characterEncoding=UTF-8"
             username = "stocksim"
             password = "Fc5mPSnHtBs4mvmQ"
