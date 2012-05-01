@@ -80,8 +80,8 @@ log4j = {
     //
     appenders {
         'null' name: "stacktrace"
-        file name:'file', file:'/var/log/trenders.org/out.log', append: false
-        console name:'stdout'
+        file name: "file", file: '/var/log/trenders.org/out.log', append: false
+        console name: "stdout"
     }
     
     error   'org.codehaus.groovy.grails.web.servlet',  //  controllers
