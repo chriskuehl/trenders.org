@@ -17,18 +17,18 @@ grails.project.groupId = appName // change this to alter the default package nam
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false
 grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
-                      xml: ['text/xml', 'application/xml'],
-                      text: 'text/plain',
-                      js: 'text/javascript',
-                      rss: 'application/rss+xml',
-                      atom: 'application/atom+xml',
-                      css: 'text/css',
-                      csv: 'text/csv',
-                      all: '*/*',
-                      json: ['application/json','text/json'],
-                      form: 'application/x-www-form-urlencoded',
-                      multipartForm: 'multipart/form-data'
-                    ]
+    xml: ['text/xml', 'application/xml'],
+    text: 'text/plain',
+    js: 'text/javascript',
+    rss: 'application/rss+xml',
+    atom: 'application/atom+xml',
+    css: 'text/css',
+    csv: 'text/csv',
+    all: '*/*',
+    json: ['application/json','text/json'],
+    form: 'application/x-www-form-urlencoded',
+    multipartForm: 'multipart/form-data'
+]
 
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
@@ -74,32 +74,53 @@ environments {
 }
 
 // log4j configuration
-
-
+// log4j configuration
 log4j = {
+    // Example of changing the log pattern for the default console
     // appender:
+    //
     appenders {
-       rollingFile name:'catalinaOut', file:"/var/log/trenders.org/error.log", layout: pattern(conversionPattern: '%c{2} %m%n')
+        file name:'file', file:'/var/log/trenders.org/out.log', append: false
+        console name:'stdout'
     }
     
+    error   'org.codehaus.groovy.grails.web.servlet',  //  controllers
+            'org.codehaus.groovy.grails.web.pages', //  GSP
+            'org.codehaus.groovy.grails.web.sitemesh', //  layouts
+            'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
+            'org.codehaus.groovy.grails.web.mapping', // URL mapping
+            'org.codehaus.groovy.grails.commons', // core / classloading
+            'org.codehaus.groovy.grails.plugins', // plugins
+            'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
+            'org.springframework',
+            'org.hibernate',
+            'net.sf.ehcache.hibernate'
+
+    warn    'stocksim.log'
+
+    info    'org.codehaus.groovy.grails.web.servlet',  //  controllers
+            'org.codehaus.groovy.grails.web.pages', //  GSP
+            'org.codehaus.groovy.grails.web.sitemesh', //  layouts
+            'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
+            'org.codehaus.groovy.grails.web.mapping', // URL mapping
+            'org.codehaus.groovy.grails.commons', // core / classloading
+            'org.codehaus.groovy.grails.plugins', // plugins
+            'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
+            'org.springframework',
+            'org.hibernate',
+            'net.sf.ehcache.hibernate'
+
+    debug    'org.hibernate',
+             'net.sf.ehcache.hibernate'
+
     root {
-        error 'catalinaOut'
+        // change the root logger to my tomcatLog file
+        error 'file', stdout
+        info 'file', stdout
+        warn 'file', stdout
+        debug 'file', stdout
         additivity = true
     }
-    
-    error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
-           'org.codehaus.groovy.grails.web.pages', //  GSP
-           'org.codehaus.groovy.grails.web.sitemesh', //  layouts
-           'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-           'org.codehaus.groovy.grails.web.mapping', // URL mapping
-           'org.codehaus.groovy.grails.commons', // core / classloading
-           'org.codehaus.groovy.grails.plugins', // plugins
-           'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
-           'org.springframework',
-           'org.hibernate',
-           'net.sf.ehcache.hibernate'
-    
-    warn 'stocksim.exception'
 }
 
 // application settings
@@ -112,12 +133,12 @@ grails {
         port = 465
         username = "AKIAIKISSLZK6YVJ33XA"
         password = "AvK0lRUxJhWQhfoUsO9d5sHO1Rl+m2PM4NeWh9mallZP"
-        
+
         props = [ "mail.smtp.auth":"true",
-                       "mail.smtp.socketFactory.port":"465",
-                       "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-                       "mail.smtp.socketFactory.fallback":"false"  ]
-        
+                    "mail.smtp.socketFactory.port":"465",
+                    "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                    "mail.smtp.socketFactory.fallback":"false"  ]
+
         from = "chris@trenders.org"
     }
 }
