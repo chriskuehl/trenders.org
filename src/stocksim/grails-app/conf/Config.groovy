@@ -78,7 +78,7 @@ environments {
 log4j = {
     // appender:
     appenders {
-       null name:'stacktrace'
+       "null" name:'stacktrace'
        rollingFile name:'catalinaOut', file:"/var/log/trenders.org/error.log", layout: pattern(conversionPattern: '%c{2} %m%n')
     }
     
