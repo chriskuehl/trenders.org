@@ -133,12 +133,12 @@ class UrlMappings {
         "/dev/sandbox/$action" (controller: "sandbox")
         "/dev/searchableStock/$action/$id?" (controller: "searchableStock")
         "/dev/wikipedia/$action" (controller: "wikipedia")
-
+       
+        // api
+        "/api/$apiCategory/$apiItem/$apiAction" (controller: "JSObjectAPI", action: "handleRequest")
+        
         // errors
         "500"(view:'/error')
         "404"(view:'/error')
-       
-        // api
-        "api/info/$item/$method" (controller: "apiInfo", action: "")
     }
 }
