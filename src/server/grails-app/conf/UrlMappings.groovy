@@ -135,7 +135,10 @@ class UrlMappings {
         "/dev/wikipedia/$action" (controller: "wikipedia")
 
         // errors
-       // "500"(view:'/error')
-       // "404"(view:'/error')
+        "500"(view:'/error')
+        "404"(view:'/error')
+       
+        // api
+        "api/info/$item/$method" (controller: "apiInfo", action: "")
     }
 }
