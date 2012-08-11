@@ -10,18 +10,6 @@
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
 	<string>icon.png</string>
-	<key>CFBundleIconFiles</key>
-	<array>
-		<string>icon.png</string>
-		<string>apple-touch-icon-precomposed.png</string>
-		<string>apple icon 72.png</string>
-		<string>icon-72@2x.png</string>
-		<string>Default-Landscape~ipad.png</string>
-		<string>Default-Landscape~ipad.png</string>
-		<string>Default-Portrait~ipad.png</string>
-		<string>Default-Portrait~ipad.png</string>
-		<string>Default-Landscape~ipad.png</string>
-	</array>
 	<key>CFBundleIcons</key>
 	<dict>
 		<key>CFBundlePrimaryIcon</key>
@@ -29,17 +17,12 @@
 			<key>CFBundleIconFiles</key>
 			<array>
 				<string>icon.png</string>
-				<string>apple-touch-icon-precomposed.png</string>
-				<string>apple icon 72.png</string>
+				<string>icon@2x.png</string>
+				<string>icon-72.png</string>
 				<string>icon-72@2x.png</string>
-				<string>Default-Landscape~ipad.png</string>
-				<string>Default-Landscape~ipad.png</string>
-				<string>Default-Portrait~ipad.png</string>
-				<string>Default-Portrait~ipad.png</string>
-				<string>Default-Landscape~ipad.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
-			<true/>
+			<false/>
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
@@ -60,8 +43,6 @@
 	<string></string>
 	<key>NSMainNibFile~ipad</key>
 	<string></string>
-	<key>UIPrerenderedIcon</key>
-	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -71,7 +52,9 @@
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
+		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 </dict>
