@@ -1,17 +1,23 @@
 package stocksim.api
 
 import grails.converters.JSON
+import grails.converters.XML
 
 class JSObjectAPIController {
-    def APIService
+    def appInterfaceService
     
     def handleRequest() {
         def category = params.apiCategory
         def item = params.apiItem
         def action = params.apiAction
         
-        def response = APIService.generateResponse(category, item, action, params)
+        def response = appInterfaceService.generateResponse(category, item, action, params)
         
-        render response as JSON
+        if (params.xml) {
+            render response as XML
+        } else {
+            render response as JSON
+        }
     }
 }
+//

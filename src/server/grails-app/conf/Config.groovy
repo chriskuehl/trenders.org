@@ -140,3 +140,6 @@ grails {
         from = "chris@trenders.org"
     }
 }
+
+// API 
+grails.converters.default.pretty.print = true

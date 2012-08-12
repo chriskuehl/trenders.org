@@ -135,6 +135,8 @@ class UrlMappings {
         "/dev/wikipedia/$action" (controller: "wikipedia")
        
         // api
+        "/api/$apiCategory" (controller: "JSObjectAPI", action: "handleRequest", apiItem: "", apiAction: "")
+        "/api/$apiCategory/$apiItem" (controller: "JSObjectAPI", action: "handleRequest", apiAction: "")
         "/api/$apiCategory/$apiItem/$apiAction" (controller: "JSObjectAPI", action: "handleRequest")
         
         // errors
