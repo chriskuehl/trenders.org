@@ -62,10 +62,10 @@ class InfoInterfaceService {
         
         categories.each { category ->
             def group = gainersLosers[category]
-            response.gainersLosers[group] = [:]
+            response.gainersLosers[category] = [:]
             
             group.each { stock ->
-                response.gainersLosers[group][stock.ticker] = [
+                response.gainersLosers[category][stock.ticker] = [
                     ticker: stock.ticker,
                     name: stock.name,
                     lastSale: stock.lastSale,

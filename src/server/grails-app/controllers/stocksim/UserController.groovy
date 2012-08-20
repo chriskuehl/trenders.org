@@ -5,6 +5,10 @@ class UserController {
     def userService
     def financeService
     
+    def login() {
+        render(view: "/login")
+    }
+    
     def signup() {
         render(view: "/signup")
     }
