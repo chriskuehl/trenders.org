@@ -18,6 +18,11 @@ class UrlMappings {
             action = "login"
         }
         
+        name passwordReset: "/user/reset-password/$user/$token" {
+            controller = "user"
+            action = "passwordReset"
+        }
+        
         name signupStudent: "/signupStudent" {
             controller = "user"
             action = "signupStudent"

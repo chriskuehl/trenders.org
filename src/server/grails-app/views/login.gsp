@@ -22,7 +22,7 @@
         </tr>
 
         <tr>
-          <th>Password</th>
+          <th>Password:</th>
           <td>
             <input type="password" style="width: 200px;" name="password" /><br />
             <span style="font-size: 10px; font-style: italic;">(if you have one)</span>

@@ -9,6 +9,7 @@ class User {
     def financeService
     def mailService
     def userService
+    def hashingService
     
     static constraints = {
         email(email: true, unique: true)
@@ -67,6 +68,19 @@ class User {
         lastSeenURL = request.getRequestURL()
         
         save()
+    }
+    
+    def passwordMatches(def password) {
+        if (passwordHash == null) {
+            return false
+        }
+        
+        return hashingService.matches(passwordHash, password)
+    }
+    
+    def setPassword(def password) {
+        passwordHash = hashingService.hash(password)
+        println password + " --- " + passwordHash
     }
     
     def createNewSession() {
