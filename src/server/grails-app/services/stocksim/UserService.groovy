@@ -19,6 +19,19 @@ class UserService {
         hash
     }
     
+    def generateResetHash() {
+        def randomCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        def tokenLength = 30 // TODO: move this to a config file
+        def hash = ""
+        
+        (0..tokenLength).each {
+            def randomChar = randomCharacters[random.nextInt(randomCharacters.length())]
+            hash += randomChar
+        }
+        
+        hash
+    }
+    
     def generateClassCode() {
         def randomCharacters = "0123456789"
         def tokenLength = 5 // TODO: move this to a config file

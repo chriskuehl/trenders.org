@@ -6,6 +6,39 @@ class UserController {
     def financeService
     
     def login() {
+        if (params.login) {
+            def email = params.email
+            def password = params.password
+            
+            println email
+            println password
+            
+            if (email == null || email.length() <= 0) {
+                new UserAlert(type: "error", title: "Please fill in your email.", message: "Without it, we can't tell who you're trying to log in as!").add(flash)
+                redirect(mapping: "login")
+                
+                return
+            } else {
+                def user = User.findByEmail(email)
+                
+                if (user == null) {
+                    new UserAlert(type: "error", title: "I've never heard of that email.", message: "Are you sure that's the one you used to sign up?").add(flash)
+                    redirect(mapping: "login", params: [email: email])
+
+                    return
+                }
+                
+                // does the user have a password?
+                if (user.passwordHash == null) {
+                    user.sendResetPasswordEmail()
+                    redirect(mapping: "no-password", params: [email: email])
+                    return
+                } else {
+                    println "has password"
+                }
+            }
+        }
+        
         render(view: "/login")
     }
     

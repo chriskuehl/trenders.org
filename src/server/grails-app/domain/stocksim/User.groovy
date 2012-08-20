@@ -7,6 +7,8 @@ class User {
     // TODO: add some of these other features like passwords, etc.
     def utilService
     def financeService
+    def mailService
+    def userService
     
     static constraints = {
         email(email: true, unique: true)
@@ -20,6 +22,7 @@ class User {
         lastSeenTime(nullable: true)
         lastSeenUserAgent(nullable: true)
         lastSeenURL(nullable: true)
+        passwordResetToken(nullable: true)
     }
     
     static transients = ["orderedHistoryEvents"]
@@ -37,6 +40,8 @@ class User {
     String passwordHash = null
     Classroom classroom = null
     double balance = 100000
+    
+    String passwordResetToken = null
     
     // status
     boolean disabled = false
@@ -74,6 +79,49 @@ class User {
         session.lastSeenTime = new Date()
         session.lastSeenUserAgent = request.getHeader("User-Agent")
         session.lastSeenURL = request.getRequestURL()
+    }
+    
+    def sendEmail(def msgSubject, def msgBody) {
+        mailService.sendMail {
+            //multipart true
+            
+            to email
+            from "trenders.org <chris@trenders.org>"
+            subject msgSubject
+            //html 'this is <b>some</b> text'
+            body msgBody
+        }
+    }
+    
+    def getResetPasswordURL() {
+        passwordResetToken = userService.generateResetHash()
+        return "http://trenders.org/user/reset-password/" + id + "/" + passwordResetToken
+    }
+    
+    def sendResetPasswordEmail() {
+        def subject = "Password Reset Request for trenders.org"
+        def body =
+            "Howdy there, ${displayName}!\n" +
+            "\n" +
+            "Somebody (probably you) asked us to reset your password on trenders.org. If you want to go ahead and change your password now, just visit this link:\n" +
+            getResetPasswordURL() + "\n" +
+            "\n" +
+            "If you've got any questions, feel free to reply to this message, or visit our site: http://trenders.org/"
+        
+        if (passwordHash == null) {
+            // send a different email if they haven't set a password yet
+            subject = "Password Creation Request for trenders.org"
+            
+            body =
+                "Howdy there, ${displayName}!\n" +
+                "\n" +
+                "Somebody (probably you) asked us to create a password for your account on trenders.org. If you want to go ahead and create a password now, just visit this link:\n" +
+                getResetPasswordURL() + "\n" +
+                "\n" +
+                "If you've got any questions, feel free to reply to this message, or visit our site: http://trenders.org/"
+        }
+        
+        sendEmail(subject, body)
     }
     
     def getClassmates() {

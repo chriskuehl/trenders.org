@@ -18,7 +18,7 @@
       <table>
         <tr>
           <th>Email:</th>
-          <td><input type="email" style="width: 200px;" name="email" placeholder="joe&#64;example.com" /></td>
+          <td><input type="email" style="width: 200px;" name="email" placeholder="joe&#64;example.com" value="${params.email}" /></td>
         </tr>
 
         <tr>
