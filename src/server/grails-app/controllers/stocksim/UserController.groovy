@@ -65,7 +65,7 @@ class UserController {
                 // does the user have a password?
                 if (user.passwordHash == null) {
                     user.sendResetPasswordEmail()
-                    redirect(mapping: "no-password", params: [email: email])
+                    redirect(mapping: "noPassword")
                     return
                 } else {
                     if (user.passwordMatches(password)) {

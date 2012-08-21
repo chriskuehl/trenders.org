@@ -18,6 +18,11 @@ class UrlMappings {
             action = "login"
         }
         
+        name noPassword: "/no-password" {
+            controller = "viewProxy"
+            proxyView = "/no-password"
+        }
+        
         name passwordReset: "/user/reset-password/$user/$token" {
             controller = "user"
             action = "passwordReset"
