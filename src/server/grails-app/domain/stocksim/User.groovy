@@ -80,7 +80,6 @@ class User {
     
     def setPassword(def password) {
         passwordHash = hashingService.hash(password)
-        println password + " --- " + passwordHash
     }
     
     def createNewSession() {
