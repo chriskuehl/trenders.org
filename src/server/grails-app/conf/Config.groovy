@@ -73,7 +73,27 @@ environments {
 }
 
 // log4j configuration
-// log4j configuration
+log4j = {
+    error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
+                   'org.codehaus.groovy.grails.web.pages' //  GSP
+    warn 'org.mortbay.log' 
+
+
+    appenders {
+        rollingFile  name:'infoLog', file:'/var/log/trenders.org/info.log', threshold: org.apache.log4j.Level.INFO
+        rollingFile  name:'warnLog', file:'/var/log/trenders.org/warn.log', threshold: org.apache.log4j.Level.WARN
+        rollingFile  name:'errorLog', file:'/var/log/trenders.org/error.log', threshold: org.apache.log4j.Level.ERROR
+        rollingFile  name:'custom', file:'/var/log/trenders.org/custom.log'
+    }
+
+    root {
+        info 'infoLog','warnLog','errorLog','custom', stdout
+        error()
+        additivity = true
+    }
+}
+
+/*
 log4j = {
     // Example of changing the log pattern for the default console
     // appender:
@@ -95,7 +115,7 @@ log4j = {
             'org.hibernate',
             'net.sf.ehcache.hibernate'
 
-    warn    'stocksim'
+    //warn    'stocksim'
 
     info    'org.codehaus.groovy.grails.web.servlet',  //  controllers
             'org.codehaus.groovy.grails.web.pages', //  GSP
@@ -111,15 +131,15 @@ log4j = {
 
     debug    'org.hibernate',
              'net.sf.ehcache.hibernate'
-
+    
     root {
         error 'file'
-        info 'file'
+      //  info 'none'
         warn 'file'
-        debug 'file'
+      //  debug 'none'
         additivity = true
     }
-}
+}*/
 
 // application settings
 stocksim.trading.fee = 8.95 // flat fee for trading
