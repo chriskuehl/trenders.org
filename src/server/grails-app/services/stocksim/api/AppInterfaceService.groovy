@@ -28,7 +28,7 @@ class AppInterfaceService {
         // process for a response
         def categoryService = getCategoryService(category)
         
-        if (categoryService == null || item.startsWith("_")) {
+        if (categoryService == null || item.startsWith("_") || ! categoryService.hasProperty(item)) {
             response.apiCode = AppInterface.codes.NOT_AVAILABLE
         } else {
             // does a closure exist for the item requested?
