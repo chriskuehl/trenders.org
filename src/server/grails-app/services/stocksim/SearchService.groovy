@@ -1,15 +1,12 @@
 package stocksim
 
 import stocksim.temp.*
-import org.codehaus.groovy.grails.web.context.ServletContextHolder as SCH
-import grails.util.BuildSettingsHolder as BSH
 import au.com.bytecode.opencsv.CSVReader
 import groovy.sql.Sql
 import org.apache.commons.lang.StringEscapeUtils
 
 class SearchService {
-    def servletContext = SCH.servletContext
-    def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
+    def grailsApplication
     
     def hasSuccessfullyLoaded = false
     
@@ -146,12 +143,14 @@ class SearchService {
                 println "Database had no entries for market ${market}; using backup cache file"
 
                 // get stored cache file as a last backup
-                def baseDir = BSH.getSettings().baseDir
+                def resourcePath = grailsApplication.parentContext.getResource(File.separator).file.getAbsolutePath()
+                def appPath = resourcePath.substring(0, resourcePath.lastIndexOf(File.separator)) + File.separator + "grails-app" + File.separator
+                def cacheDir = appPath + "conf" + File.separator + "stockcsv-cache" + File.separator
+                def dir = new File(cacheDir)
                 
-                File dir = new File("${baseDir}/grails-app/conf/stockcsv-cache/")
                 FilenameFilter filter = new StockCacheFilenameFilter(market + "-")
                 File[] files = dir.listFiles(filter)
-
+                
                 if (files.length > 0) {
                     def file = files[0]
                     def stocks = getStocksFromSource(file)
@@ -183,7 +182,7 @@ class SearchService {
     }
     
     private def getStocksFromSource(File file) {
-        def reader = new CSVReader(FileReader(file))
+        def reader = new CSVReader(new FileReader(file))
         getStocksFromCSVReader(reader)
     }
     
