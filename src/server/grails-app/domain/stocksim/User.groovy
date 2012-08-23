@@ -93,6 +93,8 @@ class User {
         session.lastSeenTime = new Date()
         session.lastSeenUserAgent = request.getHeader("User-Agent")
         session.lastSeenURL = request.getRequestURL()
+        
+        session
     }
     
     def sendEmail(def msgSubject, def msgBody) {

@@ -82,6 +82,13 @@ class UserService {
         flash.userCookies.token = userSession.getSessionTokenHash() */
     }
     
+    def becomeAPI(def response, def user) {
+        def userSession = makeNewSession(user)
+        
+        response.user = user.getId()
+        response.token = userSession.getSessionTokenHash()
+    }
+    
     def addUser(def email) {
         def user = new User(email: email).save()
         // TODO: send them an email

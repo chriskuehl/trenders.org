@@ -19,7 +19,6 @@ class AppInterfaceService {
         // see if the request has an appropriate token, and if so, find the user
         // they're trying to login as
         def user = null
-        
         def sessionToken = params.token
         
         if (sessionToken) {
@@ -33,14 +32,13 @@ class AppInterfaceService {
             response.apiCode = AppInterface.codes.NOT_AVAILABLE
         } else {
             // does a closure exist for the item requested?
-            def publicMethod = categoryService[item]
-            def authMethod = categoryService["_" + item]
+            def method = categoryService[item]
             
-            def method = publicMethod
+            def authMethodName = "_" + item
             def requiresAuth = false
             
-            if (authMethod != null) {
-                method = authMethod
+            if (categoryService.hasProperty(authMethodName) != null) {
+                method = categoryService[authMethodName]
                 requiresAuth = true
             }
             
