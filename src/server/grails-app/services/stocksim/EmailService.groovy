@@ -1,6 +1,9 @@
 package stocksim
 
 class EmailService {
+    // TODO: support the actual SES API instead of using their SMTP bridge
+    // TODO: investigate whether we are better off using something besides SES
+    //       (for example, Mandrill looks promising)
     
     // TODO: support HTML emails
     // TODO: some logic to check that we aren't spamming (e.g. was an identical
