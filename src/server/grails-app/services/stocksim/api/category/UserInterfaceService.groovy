@@ -18,11 +18,16 @@ class UserInterfaceService {
         
         response.apiCode = AppInterface.codes.BAD_LOGIN_INFO
         
-        if (email != null && password != null) {
+        if (email != null) {
             def user = User.findByEmail(email)
             
             if (user != null) {
-                if (user.passwordMatches(password)) {
+                if (user.passwordHash == null) {
+                    // we need to send them a password set email (since this
+                    // is a beta-testing user)
+                    response.apiCode = AppInterface.codes.SET_PASSWORD_FIRST
+                    user.sendResetPasswordEmail()
+                } else if (password != null && user.passwordMatches(password)) {
                     response.apiCode = AppInterface.codes.OK
                     userService.becomeAPI(response, user)
                 }
