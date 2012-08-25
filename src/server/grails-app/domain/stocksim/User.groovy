@@ -10,6 +10,7 @@ class User {
     def mailService
     def userService
     def hashingService
+    def emailService
     
     static constraints = {
         email(email: true, unique: true)
@@ -96,16 +97,8 @@ class User {
         session
     }
     
-    def sendEmail(def msgSubject, def msgBody) {
-        mailService.sendMail {
-            //multipart true
-            
-            to email
-            from "trenders.org <chris@trenders.org>"
-            subject msgSubject
-            //html 'this is <b>some</b> text'
-            body msgBody
-        }
+    def sendEmail(def subject, def body) {
+        emailService.sendMail(email, subject, body)
     }
     
     def getResetPasswordURL() {
