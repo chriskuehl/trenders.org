@@ -228,14 +228,6 @@ class UserController {
             redirect(mapping: "home")
         }
         
-        /*
-        if (params.r) { // TODO: fix XSS vulnerability
-            render("<script>window.location = \"" + params.r + "\";</script>")
-        } else {
-            render("<script>window.location = \"" + createLink(mapping: "home") + "\";</script>")
-        }
-        */
-        
         render "You've been logged out. Redirecting..."
     }
 }
