@@ -114,7 +114,7 @@ class UserController {
 
                     redirect(mapping: "signupStudentSuccess")
                 } else {
-                    render "Please use valid information." // TODO: prettier
+                    render "Please use valid information." // TODO: make this prettier
                     
                     user.errors.allErrors.each { error ->
                         println error

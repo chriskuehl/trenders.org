@@ -41,8 +41,7 @@ class UserFilters {
                 
                 // find the user based on the session token
                 // TODO: use the user too, and probably hash it or so with lots
-                // of extra entropy so it's less revealing
-                // TODO: hash the session token since it's a p-word equivalent
+                //       of extra entropy so it's less revealing
                 
                 def user = null
                 

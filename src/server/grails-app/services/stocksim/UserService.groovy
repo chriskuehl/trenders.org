@@ -100,7 +100,8 @@ class UserService {
     }
     
     def getUserForSessionToken(def sessionToken) {
-        // TODO: hash this session token in the database
+        // TODO: hash this session token in the database (it's a password
+        //       equivalent, and thus should be treated like a password)
         def session = UserSession.findBySessionTokenHash(sessionToken)
         
         if (session != null) {
