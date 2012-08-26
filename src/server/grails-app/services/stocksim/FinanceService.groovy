@@ -54,7 +54,16 @@ class FinanceService {
         def json = YahooQueryService.getResultsFromQuery(query)
         
         json.query.results.quote.each { stock ->
-            def realName = SearchableStock.findByTicker(stock.symbol.toUpperCase()).name
+            def cachedStock = SearchableStock.findByTicker(stock.symbol.toUpperCase())
+            def realName = "(unknown)"
+            
+            if (cachedStock != null) {
+                realName = cachedStock.name
+            } else {
+                // TODO: handle these kind of errors (where a stock stops existing) better...
+                println "Error: Unable to find a stock with the ticker ${stock.Symbol} in the SearchableStock DB, but apparently it exists...?"
+            }
+            
             def stockO = new Stock(
                 ticker: stock.Symbol,
                 name: realName,
