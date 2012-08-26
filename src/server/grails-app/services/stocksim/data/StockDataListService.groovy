@@ -8,6 +8,9 @@ import org.apache.commons.lang.StringEscapeUtils
 class StockDataListService {
     def hasSuccessfullyLoaded = false
     
+    def grailsApplication
+    def dataSource_temp
+    
     def hasLoaded() {
         hasSuccessfullyLoaded
     }
@@ -43,11 +46,12 @@ class StockDataListService {
                     
                     // now add them back
                     action.data.each { stock ->
-                        def sql = new Sql(dataSource_temp)
+                        //def sql = new Sql(dataSource_temp) // TODO: is it necessary to do it manually for speed?
                         stock.exchange = exchange
+                        stock.save()
                         
-                        sql.execute("insert into stock (version, ticker, name, industry, sector, exchange, ipo_year, last_sale, exchange_cap) values (0.1, ?, ?, ?, ?, ?, ?, ?, ?)",
-                            [stock.getTicker(), stock.getName(), stock.getIndustry(), stock.getSector(), stock.getExchange(), stock.getIpoYear(), stock.getLastSale(), stock.getExchangeCap()])
+                        //sql.execute("insert into stock (version, ticker, name, industry, sector, exchange, ipo_year, last_sale, exchange_cap) values (0.1, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        //    [stock.getTicker(), stock.getName(), stock.getIndustry(), stock.getSector(), stock.getExchange(), stock.getIpoYear(), stock.getLastSale(), stock.getMarketCap()])
                     }
                 } else if (action.command == "giveup") {
                     println "Unable to find any stocks for exchange ${exchange}, try again soon."

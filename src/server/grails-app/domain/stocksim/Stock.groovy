@@ -1,5 +1,3 @@
-// this is created via FinanceServer#getStocks
-
 package stocksim
 
 class Stock {
@@ -9,6 +7,18 @@ class Stock {
     
     static constraints = {
         ticker unique: true
+        
+        name nullable: true
+        lastSale nullable: true
+        prevClose nullable: true
+        dayChange nullable: true
+        dayChangePercent nullable: true
+        open nullable: true
+        yearTarget nullable: true
+        dayRange nullable: true
+        yearRange nullable: true
+        marketCap nullable: true
+        peRatio nullable: true
     }
     
     String ticker
