@@ -3,12 +3,6 @@ package stocksim
 import groovy.sql.Sql
 
 class SearchService {
-    def grailsApplication
-    
-    def hasSuccessfullyLoaded = false
-    
-    def sessionFactory
-    def dataSource_temp
     def financeService
     
     def getResults(def query, int limit, def sector) {
@@ -19,15 +13,15 @@ class SearchService {
         def p
         
         if (sector) {
-            mquery = "SELECT * FROM searchable_stock WHERE sector = ? ORDER BY market_cap DESC LIMIT ?"
+            mquery = "SELECT * FROM stock WHERE sector = ? ORDER BY market_cap DESC LIMIT ?"
             p = [query, limit]
         } else {
-            mquery = "SELECT * FROM searchable_stock WHERE LOWER(name) LIKE ? OR LOWER(ticker) LIKE ? ORDER BY market_cap DESC LIMIT ?"
+            mquery = "SELECT * FROM stock WHERE LOWER(name) LIKE ? OR LOWER(ticker) LIKE ? ORDER BY market_cap DESC LIMIT ?"
             p = [term, term, limit]
         }
         
         sql.eachRow(mquery, p) { row ->
-            def stock = new SearchableStock()
+            /*def stock = new Stock()
             
             stock.setIndustry(row.industry)
             stock.setIpoYear(row.ipo_year)
@@ -37,7 +31,10 @@ class SearchService {
             stock.setName(financeService.getSimpleName(row.name))
             stock.setSector(row.sector)
             stock.setTicker(row.ticker)
-            
+            */
+           
+            // TODO: testing
+            def stock = financeService.getStock(row.ticker)
             results.add(stock)
         }
         
