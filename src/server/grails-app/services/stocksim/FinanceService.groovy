@@ -10,6 +10,13 @@ class FinanceService {
     
     def getStocks(def tickers) {
         def stocks = [:]
+        
+        tickers.each { ticker ->
+            stocks[ticker] = getStock(ticker)
+        }
+        
+        stocks
+        /*
         def tickerList = ""
         
         // see if we can just use the cache
@@ -85,6 +92,11 @@ class FinanceService {
         }
         
         stocks
+        */
+    }
+    
+    def getStock(def ticker) {
+        return Stock.findByTicker(ticker)
     }
     
     def getSectors() {
@@ -100,6 +112,7 @@ class FinanceService {
         sectors
     }
     
+    // TODO: have this return Stock objects
     def getRelatedStocks(def ticker) {
         def stock = SearchableStock.findByTicker(ticker)
         def sector = stock.getSector()

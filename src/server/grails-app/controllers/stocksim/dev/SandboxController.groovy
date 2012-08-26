@@ -18,6 +18,18 @@ class SandboxController {
         render map
     }
     
+    def getAllStocks() {
+        def stocks = OwnedStock.executeQuery("select distinct a.ticker from OwnedStock a")
+        def f = ""
+        
+        stocks.each { stock ->
+            f += stock + ","
+        }
+        
+        //render f
+        render SearchableStock.findAll().size()
+    }
+    
     def email() {
         mailService.sendMail {
             multipart true

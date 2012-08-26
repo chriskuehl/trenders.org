@@ -3,17 +3,28 @@
 package stocksim
 
 class Stock {
-    def ticker
-    def name
-    def prevClose
-    def dayChange
-    def dayChangePercent
-    def open
-    def yearTarget
-    def dayRange
-    def yearRange
-    def marketCap
-    def peRatio
-    def value
-    def exchange
+    static mapping = {
+        datasource "temp"
+    }
+    
+    static constraints = {
+        ticker unique: true
+    }
+    
+    String ticker
+    String name
+    double lastSale // USED TO BE "value"
+    String prevClose
+    String dayChange
+    String dayChangePercent
+    double open
+    double yearTarget
+    String dayRange
+    String yearRange
+    String marketCap
+    double peRatio
+    String exchange // USED TO BE "market"
+    int ipoYear
+    String sector
+    String industry
 }
