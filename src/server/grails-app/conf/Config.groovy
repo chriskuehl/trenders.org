@@ -84,10 +84,13 @@ log4j = {
         rollingFile  name:'warnLog', file:'/var/log/trenders.org/warn.log', threshold: org.apache.log4j.Level.WARN
         rollingFile  name:'errorLog', file:'/var/log/trenders.org/error.log', threshold: org.apache.log4j.Level.ERROR
         rollingFile  name:'custom', file:'/var/log/trenders.org/custom.log'
+        
+        console name: "errorLogDev", target: "System.err", threshold: org.apache.log4j.Level.ERROR
     }
 
     root {
         info 'infoLog','warnLog','errorLog','custom', stdout
+        debug 'stderr'
         error()
         additivity = true
     }

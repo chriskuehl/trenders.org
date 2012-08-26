@@ -5,6 +5,7 @@ class LoadingFilters {
     def searchService
     
     def filters = {
+        /*
         searchLoadedFilter(uri: "/**") {
             before = { // have searches been loaded?
                 if (! searchService.cacheHasLoaded()) {
@@ -14,6 +15,7 @@ class LoadingFilters {
                 }
             }
         }
+        */
     }
 }
 
