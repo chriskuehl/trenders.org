@@ -40,7 +40,7 @@ hibernate {
 environments {
     development {
         // this datasource is just an empty testing DB (using H2)
-        /*
+        
         dataSource {
             driverClassName = "org.h2.Driver"
             dialect = "org.hibernate.dialect.H2Dialect"
@@ -50,24 +50,16 @@ environments {
 
             dbCreate = "update"
             url = "jdbc:h2:mem:dev"
-        }*/
-        
+        }
+        /*
         // this datasource is for testing with a backup of the
         // prod data on the prod MySQL server (but on a separate DB)
         dataSource {
-            // we are at the stage where production updates should be made
-            // using migration scripts rather than letting Hibernate attempt
-            // to work magic (which fails too often to be useful with valuable
-            // data, i.e. student data)
-            // 
-            // be sure to backup data first, though, as the daily server backups
-            // are taken late at night and you're probably going to lose the
-            // day's data otherwise
             dbCreate = "update" //create-drop"
             url = "jdbc:mysql://trenders.org/stocksim_test-2012-08-25?useUnicode=yes&characterEncoding=UTF-8"
             username = "stocksim-dev"
             password = "6rcCszF9HqyaprKM"
-        }
+        }*/
     }
     test {
         dataSource {
