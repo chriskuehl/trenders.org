@@ -5,56 +5,104 @@ import au.com.bytecode.opencsv.CSVReader
 import groovy.sql.Sql
 import org.apache.commons.lang.StringEscapeUtils
 
+
 class StockDataListService {
     def hasSuccessfullyLoaded = false
     
     def grailsApplication
     def dataSource_temp
+    def sessionFactory_temp
     
     def hasLoaded() {
         hasSuccessfullyLoaded
     }
     
     def update() {
+        println "Updating stock list"
+        
         // download CSV files from nasdaq.com for the two important exchanges
         def exchanges = ["nasdaq", "nyse"] // TODO: read from config file
         def fullStart = new Date().getTime()
-        
-        // in order to keep Stock locked for updates for as little time as
-        // possible, we're going to download and process all CSV files and then
-        // start writing so we don't have to wait for a slow network while the
-        // stocks database is locked up
-        // 
-        // this will determine if we should delete rows or not (e.g. we won't delete
-        // rows if the API necessary to grab the stock files is down if newer ones than
-        // the backup caches are already loaded)
+
         def start = new Date().getTime()
         def actions = determineCacheActionForExchanges(exchanges)
         println "Found stock list for exchanges, time ${new Date().getTime() - start}"
         
+        // prepare column mappings
+        def metadata = sessionFactory_temp.getClassMetadata(Stock)
+        def columnMappings = [:]
+        
+        def propertyNames = metadata.getPropertyNames()
+        
+        propertyNames.eachWithIndex { propertyName, i ->
+            def columnName = metadata.getPropertyColumnNames(i)[0]
+            columnMappings[propertyName] = columnName
+        }
+        
         // now that we know what to do, execute the actions
         Stock.withTransaction {
+            def sql = new Sql(dataSource_temp) 
             def successfulExchanges = []
             
             exchanges.each { exchange ->
                 def action = actions[exchange]
                 
                 if (action.command == "replace") {
-                    // clear the table of existing stocks for this exchange
                     successfulExchanges.add(exchange)
-                    Stock.executeUpdate("DELETE FROM Stock WHERE exchange = ?", [exchange]) // GORM is just too slow for this
                     
                     // now add them back
-                    action.data.each { stock ->
-                        //def sql = new Sql(dataSource_temp) // TODO: is it necessary to do it manually for speed?
-                        stock.exchange = exchange
-                        stock.save()
+                    action.data.each { stockData ->
+                        stockData.exchange = exchange
+                        //stockData.dayChange = "just testing!"
                         
+                        // have we already created a Stock object for this stock?
+                        def stock = Stock.findByTicker(stockData.ticker)
+                        def alreadyExisted = stock != null
+                        
+                        // either update the existing stock, or add a non-existing one
+                        if (! alreadyExisted) { // stock hasn't been added yet, so create a new one
+                            def columns = "version, "
+                            def values = "?, "
+                            def valuesList = [0]
+                            
+                            // add actual properties
+                            stockData.keySet().each { propertyName ->
+                                columns += columnMappings[propertyName] + ", "
+                                values += "?, "
+                                
+                                valuesList.add(stockData[propertyName])
+                            }
+                            
+                            // add special properties that can't be null
+                            def specialProperties = ["lastSale", "open", "yearTarget", "peRatio"]
+                            
+                            specialProperties.each { propertyName ->
+                                columns += columnMappings[propertyName] + ", "
+                                values += "?, "
+                                
+                                valuesList.add(0)
+                            }
+                            
+                            // trim the lists to remove trailing commas and spaces
+                            columns = columns.substring(0, columns.length() - 2)
+                            values = values.substring(0, values.length() - 2)
+                            
+                            def query = "insert into stock ($columns) values ($values)"
+                            sql.execute(query, valuesList)
+                        } else {
+                            println "Already existed: ${stockData.ticker}"
+                            // TODO: update existing values
+                        }
+                        
+                        
+                        //// TODO: is it necessary to do it manually for speed?
                         //sql.execute("insert into stock (version, ticker, name, industry, sector, exchange, ipo_year, last_sale, exchange_cap) values (0.1, ?, ?, ?, ?, ?, ?, ?, ?)",
                         //    [stock.getTicker(), stock.getName(), stock.getIndustry(), stock.getSector(), stock.getExchange(), stock.getIpoYear(), stock.getLastSale(), stock.getMarketCap()])
                     }
                 } else if (action.command == "giveup") {
                     println "Unable to find any stocks for exchange ${exchange}, try again soon."
+                } else if (action.command == "ok") { // current version is fine
+                    successfulExchanges.add(exchange)
                 }
             }
             
@@ -108,6 +156,7 @@ class StockDataListService {
                 // there are, so the stocks in database are newer than our old backup caches
                 // therefore do nothing
                 println "Not touching stocks for exchange ${exchange}; can't download from server, database has newer than backups"
+                action.command = "ok"
             } else {
                 println "Database had no entries for exchange ${exchange}; using backup cache file"
 
@@ -129,6 +178,7 @@ class StockDataListService {
                 } else {
                     action.command = "giveup" // give up, nothing more we can do, but try again soon since
                                               // the index is empty at the moment
+                                              // TODO: try again soon
                     println "Couldn't find a backup cache file"
                 }
             }
@@ -163,7 +213,9 @@ class StockDataListService {
         while ((nextLine = reader.readNext()) != null) {
             // headers:
             // Symbol, Name, LastSale, ExchangeCap, ADR TSO, IPOyear, Sector, industry, Summary Quote
-            def stock = new Stock()
+            def stock = [:] // we'll return a map of some stock properties; these will
+                            // either update the existing ones, or be added as new
+                            // (if the stock isn't already in the stock list)
             
             (0..7).each { i ->
                 nextLine[i] = StringEscapeUtils.unescapeHtml(nextLine[i])

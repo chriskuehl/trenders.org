@@ -23,18 +23,18 @@ class Stock {
     
     String ticker
     String name
-    double lastSale // USED TO BE "value"
+    double lastSale = 0 // USED TO BE "value"
     String prevClose
     String dayChange
     String dayChangePercent
-    double open
-    double yearTarget
+    double open = 0
+    double yearTarget = 0
     String dayRange
     String yearRange
     String marketCap
-    double peRatio
+    double peRatio = 0
     String exchange // USED TO BE "market"
-    int ipoYear
+    int ipoYear = 0
     String sector
     String industry
 }
