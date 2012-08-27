@@ -146,6 +146,7 @@ class UrlMappings {
         // dev pages
         "/dev/googleNews/$action" (controller: "googleNews")
         "/dev/sandbox/$action" (controller: "sandbox")
+        "/dev/columnSandbox/$action" (controller: "columnSandbox")
         "/dev/searchableStock/$action/$id?" (controller: "searchableStock")
         "/dev/wikipedia/$action" (controller: "wikipedia")
        
