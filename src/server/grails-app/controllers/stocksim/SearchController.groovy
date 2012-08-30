@@ -9,13 +9,6 @@ class SearchController {
     def searchService
     def utilService
     
-    /*
-    def refresh() {
-        def start = new Date().getTime()
-        searchService.updateCache()
-        render "Refreshed cache in ${(new Date().getTime() - start) / 1000} seconds."
-    }*/
-    
     def sector() {
         render(view: "/browse")
     }
