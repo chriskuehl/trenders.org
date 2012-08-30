@@ -103,7 +103,7 @@ class FinanceService {
         def sectors = []
         
         def sql = new Sql(dataSource_temp)
-        sql.eachRow("select distinct sector from searchable_stock order by sector") { row ->
+        sql.eachRow("select distinct sector from stock order by sector") { row ->
             if (row.sector.trim().length() > 0) {
                 sectors.add(row.sector)
             }
@@ -114,10 +114,10 @@ class FinanceService {
     
     // TODO: have this return Stock objects
     def getRelatedStocks(def ticker) {
-        def stock = SearchableStock.findByTicker(ticker)
+        def stock = Stock.findByTicker(ticker)
         def sector = stock.getSector()
         
-        def allRelatedStocks = SearchableStock.findAll("from SearchableStock as s where s.sector = ? AND s.ticker != ? order by marketCap desc", [sector, ticker], [max: 15])
+        def allRelatedStocks = Stock.findAll("from Stock as s where s.sector = ? AND s.ticker != ? order by marketCap desc", [sector, ticker], [max: 15])
         def tickers = []
         allRelatedStocks.each { relatedStock -> 
             tickers.add(relatedStock.getTicker())

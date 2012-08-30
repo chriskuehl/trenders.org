@@ -66,7 +66,7 @@ class GoogleFinanceService {
             change = WikipediaService.between(change, ">", "%") + "%"
             
             if (ticker != null) {
-                def tempStock = SearchableStock.findByTicker(ticker)
+                def tempStock = Stock.findByTicker(ticker)
                 
                 if (tempStock != null && tempStock.getMarketCap() > 0) {
                     def marketCap = utilService.formatBigNumber(tempStock.getMarketCap())
