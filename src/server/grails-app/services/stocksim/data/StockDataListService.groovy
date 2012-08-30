@@ -4,6 +4,7 @@ import stocksim.*
 import au.com.bytecode.opencsv.CSVReader
 import groovy.sql.Sql
 import org.apache.commons.lang.StringEscapeUtils
+import org.h2.jdbc.JdbcSQLException
 
 
 class StockDataListService {
@@ -39,76 +40,116 @@ class StockDataListService {
             columnMappings[propertyName] = columnName
         }
         
+        // debug
+        def allTickers = []
+        
         // now that we know what to do, execute the actions
-        Stock.withTransaction {
-            def sql = new Sql(dataSource_temp) 
-            def successfulExchanges = []
-            
-            exchanges.each { exchange ->
-                def action = actions[exchange]
-                
-                if (action.command == "replace") {
-                    successfulExchanges.add(exchange)
-                    
-                    // now add them back
-                    action.data.each { stockData ->
-                        stockData.exchange = exchange
-                        //stockData.dayChange = "just testing!"
-                        
-                        // have we already created a Stock object for this stock?
-                        def stock = Stock.findByTicker(stockData.ticker)
-                        def alreadyExisted = stock != null
-                        
-                        // either update the existing stock, or add a non-existing one
-                        if (! alreadyExisted) { // stock hasn't been added yet, so create a new one
-                            def columns = "version, "
-                            def values = "?, "
-                            def valuesList = [0]
+        try {
+            Stock.withTransaction {
+                def sql = new Sql(dataSource_temp) 
+                def successfulExchanges = []
+
+                exchanges.each { exchange ->
+                    def action = actions[exchange]
+
+                    if (action.command == "replace") {
+                        successfulExchanges.add(exchange)
+
+                        // now add them back
+                        action.data.each { stockData ->
+                            println "Adding: " + stockData.ticker
                             
-                            // add actual properties
-                            stockData.keySet().each { propertyName ->
-                                columns += columnMappings[propertyName] + ", "
-                                values += "?, "
-                                
-                                valuesList.add(stockData[propertyName])
+                            if (allTickers.contains(stockData.ticker)) {
+                                println "BAD ALREADY EXISTS: " + stockData.ticker
                             }
                             
-                            // add special properties that can't be null
-                            def specialProperties = ["lastSale", "open", "yearTarget", "peRatio"]
+                            allTickers.add(stockData.ticker)
                             
-                            specialProperties.each { propertyName ->
-                                columns += columnMappings[propertyName] + ", "
-                                values += "?, "
+                            
+                            stockData.exchange = exchange
+                            //stockData.dayChange = "just testing!"
+
+                            // have we already created a Stock object for this stock?
+                            def stock = Stock.findByTicker(stockData.ticker)
+                            def alreadyExisted = stock != null
+
+                            // either update the existing stock, or add a non-existing one
+                            if (! alreadyExisted) { // stock hasn't been added yet, so create a new one
+                                def columns = "version, "
+                                def values = "?, "
+                                def valuesList = [0]
+
+                                // add actual properties
+                                stockData.keySet().each { propertyName ->
+                                    columns += columnMappings[propertyName] + ", "
+                                    values += "?, "
+
+                                    valuesList.add(stockData[propertyName])
+                                }
+
+                                // add special properties that can't be null
+                                def specialProperties = ["lastSale", "open", "yearTarget", "peRatio"]
+
+                                specialProperties.each { propertyName ->
+                                    columns += columnMappings[propertyName] + ", "
+                                    values += "?, "
+
+                                    valuesList.add(0)
+                                }
+
+                                // trim the lists to remove trailing commas and spaces
+                                columns = columns.substring(0, columns.length() - 2)
+                                values = values.substring(0, values.length() - 2)
+
+                                def query = "insert into stock ($columns) values ($values)"
+                                sql.execute(query, valuesList)
+                            } else {
+                                // TODO: this literally took 33 minutes to run through for all stocks, so
+                                // we definitely need a more performant way to do this
+                                // 
+                                // idea: http://stackoverflow.com/questions/2848857/batch-insert-using-groovy-sql
+                                // (need to test it)
                                 
-                                valuesList.add(0)
+                                // stock has already been added, so update the existing values
+                                stockData.yearRange = "nope"
+
+                                if (stockData.keySet().size() > 0) { // are there any properties to update?
+                                    def valuesList = []
+                                    def query = "update stock set "
+
+                                    stockData.keySet().each { propertyName ->
+                                        query += columnMappings[propertyName] + " = ?, "
+                                        valuesList.add(stockData[propertyName])
+                                    }
+
+                                    query = query.substring(0, query.length() - 2)
+                                    query += " where ticker = ?"
+
+                                    valuesList.add(stockData.ticker)
+
+                                    sql.execute(query, valuesList)
+                                }
                             }
-                            
-                            // trim the lists to remove trailing commas and spaces
-                            columns = columns.substring(0, columns.length() - 2)
-                            values = values.substring(0, values.length() - 2)
-                            
-                            def query = "insert into stock ($columns) values ($values)"
-                            sql.execute(query, valuesList)
-                        } else {
-                            println "Already existed: ${stockData.ticker}"
-                            // TODO: update existing values
+
+
+                            //// TODO: is it necessary to do it manually for speed?
+                            //sql.execute("insert into stock (version, ticker, name, industry, sector, exchange, ipo_year, last_sale, exchange_cap) values (0.1, ?, ?, ?, ?, ?, ?, ?, ?)",
+                            //    [stock.getTicker(), stock.getName(), stock.getIndustry(), stock.getSector(), stock.getExchange(), stock.getIpoYear(), stock.getLastSale(), stock.getMarketCap()])
                         }
-                        
-                        
-                        //// TODO: is it necessary to do it manually for speed?
-                        //sql.execute("insert into stock (version, ticker, name, industry, sector, exchange, ipo_year, last_sale, exchange_cap) values (0.1, ?, ?, ?, ?, ?, ?, ?, ?)",
-                        //    [stock.getTicker(), stock.getName(), stock.getIndustry(), stock.getSector(), stock.getExchange(), stock.getIpoYear(), stock.getLastSale(), stock.getMarketCap()])
+                    } else if (action.command == "giveup") {
+                        println "Unable to find any stocks for exchange ${exchange}, try again soon."
+                    } else if (action.command == "ok") { // current version is fine
+                        successfulExchanges.add(exchange)
                     }
-                } else if (action.command == "giveup") {
-                    println "Unable to find any stocks for exchange ${exchange}, try again soon."
-                } else if (action.command == "ok") { // current version is fine
-                    successfulExchanges.add(exchange)
+                }
+
+                if (! hasSuccessfullyLoaded && successfulExchanges.size() >= 2) {
+                    hasSuccessfullyLoaded = true
                 }
             }
-            
-            if (! hasSuccessfullyLoaded && successfulExchanges.size() >= 2) {
-                hasSuccessfullyLoaded = true
-            }
+        } catch (JdbcSQLException ex) {
+            // sometimes a constraint fails because the data is bad
+            ex.printStackTrace()
         }
         
         println "Finished, total time ${new Date().getTime() - fullStart}"
