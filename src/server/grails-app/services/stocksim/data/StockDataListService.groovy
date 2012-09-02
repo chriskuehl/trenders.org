@@ -115,12 +115,10 @@ class StockDataListService {
         
         // finish query
         query += ") values (" + blanks + ")"
-        println query
         
         // now perform the inserts with the query we just built
         sql.withBatch(20, query) { preparedStatement ->
             queryParamSet.each { queryParams ->
-                println queryParams
                 preparedStatement.addBatch(queryParams)
             }
         }
@@ -132,8 +130,25 @@ class StockDataListService {
             return
         }
         
-        queryParamSet.each { queryParams ->
-            println "update: " + queryParams
+        // build the query to use for updating based on the model
+        def query = "update stock set "
+        
+        // add all properties to the query
+        model.keySet().each { propertyName ->
+            query += columnMappings[propertyName] + " = ?, "
+        }
+        
+        // trim query and blanks to remove excess comma and space
+        query = query.substring(0, query.length() - 2)
+        
+        // finish query
+        query += " where ticker = ?"
+        
+        // now perform the updates with the query we just built
+        sql.withBatch(20, query) { preparedStatement ->
+            queryParamSet.each { queryParams ->
+                preparedStatement.addBatch(queryParams)
+            }
         }
     }
     
@@ -146,10 +161,17 @@ class StockDataListService {
         sqlActions.queryParams.insert = []
         sqlActions.queryParams.update = []
         
+        // get ticker list
+        def tickerList = []
+        
+        Stock.findAll().each { stock ->
+            tickerList.add(stock.ticker.toLowerCase())
+        }
+        
         // handle each exchange
         exchanges.each { exchange ->
             def action = actions[exchange]
-            def success = getSQLActionsForExchange(sqlActions, action, exchange)
+            def success = getSQLActionsForExchange(sqlActions, action, exchange, tickerList)
             
             if (success) {
                 successfulExchanges.add(exchange)
@@ -165,11 +187,11 @@ class StockDataListService {
         sqlActions
     }
     
-    def getSQLActionsForExchange(def sqlActions, def action, def exchange) {
+    def getSQLActionsForExchange(def sqlActions, def action, def exchange, def tickerList) {
         if (action.command == "replace") {
             // now add them back
             action.data.each { model ->
-                def query = handleStockForExchange(model, exchange)
+                def query = handleStockForExchange(model, exchange, tickerList)
                 
                 if (query != null) { // if null, nothing needed to be updated
                     if (query.type == Query.INSERT) {
@@ -180,7 +202,7 @@ class StockDataListService {
                             sqlActions.queryModels.insert = model
                         }
                     } else if (query.type == Query.UPDATE) {
-                        sqlActions.queryParams.insert.add(query.query)
+                        sqlActions.queryParams.update.add(query.query)
                         
                         // has a model not been set yet? if so, use this one
                         if (sqlActions.queryModels.update == null) {
@@ -203,13 +225,14 @@ class StockDataListService {
     }
     
     // returns the query for the stock
-    def handleStockForExchange(def stockData, def exchange) {
+    def handleStockForExchange(def stockData, def exchange, def tickerList) {
         stockData.exchange = exchange
         //stockData.dayChange = "just testing!"
+        
+        println "Add: ${stockData.ticker}"
 
         // have we already created a Stock object for this stock?
-        def stock = Stock.findByTicker(stockData.ticker)
-        def alreadyExisted = stock != null
+        def alreadyExisted = tickerList.contains(stockData.ticker.toLowerCase())
 
         // either update the existing stock, or add a non-existing one
         def query = null
