@@ -62,42 +62,85 @@ class StockDataListService {
     }
     
     def updateStockCachesWithData(def actions) {
-        // prepare column mappings
-        def columnMappings = getStockColumnMappings()
-        
         // get the list of SQL actions
         println "Creating list of SQL actions..."
-        def sqlActions = getSQLActions(actions, columnMappings)
+        def sqlActions = getSQLActions(actions)
         
         // perform all the SQL actions in batches
         println "Performing SQL actions..."
-        performSQLActions(sqlActions, columnMappings)
+        performSQLActions(sqlActions)
     }
     
-    def performSQLActions(def sqlActions, def columnMappings) {
+    def performSQLActions(def sqlActions) {
+        // prepare sql handler
+        def sql = new Sql(dataSource_temp)
+        
+        // prepare column mappings
+        def columnMappings = getStockColumnMappings()
+        
         println "Performing SQL inserts..."
-        performSQLInserts(sqlActions.queryParams.insert)
+        performSQLInserts(sql, columnMappings, sqlActions.queryParams.insert, sqlActions.queryModels.insert)
         
         println "Performing SQL updates..."
-        performSQLUpdates(sqlActions.queryParams.update)
+        performSQLUpdates(sql, columnMappings, sqlActions.queryParams.update, sqlActions.queryModels.update)
     }
     
-    def performSQLInserts(def queryParamSet) {
-        queryParamSet.each { queryParams ->
-            println "insert: " + queryParams
+    def performSQLInserts(def sql, def columnMappings, def queryParamSet, def model) {
+        if (queryParamSet.size() <= 0) {
+            println "No inserts to perform"
+            return
+        }
+        
+        // build the query to use for inserting based on the model
+        def query = "insert into stock (version, "
+        def blanks = "?, "
+        
+        // add property blanks
+        model.keySet().each { propertyName ->
+            query += columnMappings[propertyName] + ", "
+            blanks += "?, "
+        }
+
+        // add special properties that can't be null
+        def specialProperties = ["lastSale", "open", "yearTarget", "peRatio"]
+
+        specialProperties.each { propertyName ->
+            query += columnMappings[propertyName] + ", "
+            blanks += "?, "
+        }
+        
+        // trim query and blanks to remove excess comma and space
+        query = query.substring(0, query.length() - 2)
+        blanks = blanks.substring(0, blanks.length() - 2)
+        
+        // finish query
+        query += ") values (" + blanks + ")"
+        println query
+        
+        // now perform the inserts with the query we just built
+        sql.withBatch(20, query) { preparedStatement ->
+            queryParamSet.each { queryParams ->
+                println queryParams
+                preparedStatement.addBatch(queryParams)
+            }
         }
     }
     
-    def performSQLUpdates(def queryParamSet) {
+    def performSQLUpdates(def sql, def columnMappings, def queryParamSet, def model) {
+        if (queryParamSet.size() <= 0) {
+            println "No updates to perform"
+            return
+        }
+        
         queryParamSet.each { queryParams ->
             println "update: " + queryParams
         }
     }
     
-    def getSQLActions(def actions, def columnMappings) {
+    def getSQLActions(def actions) {
         def sql = new Sql(dataSource_temp)
         def successfulExchanges = []
-        def sqlActions = [queryParams: [:]]
+        def sqlActions = [queryParams: [:], queryModels: [:]]
         
         // setup map for actions
         sqlActions.queryParams.insert = []
@@ -125,14 +168,24 @@ class StockDataListService {
     def getSQLActionsForExchange(def sqlActions, def action, def exchange) {
         if (action.command == "replace") {
             // now add them back
-            action.data.each { stockData ->
-                def query = handleStockForExchange(stockData, exchange)
+            action.data.each { model ->
+                def query = handleStockForExchange(model, exchange)
                 
                 if (query != null) { // if null, nothing needed to be updated
                     if (query.type == Query.INSERT) {
                         sqlActions.queryParams.insert.add(query.query)
+                        
+                        // has a model not been set yet? if so, use this one
+                        if (sqlActions.queryModels.insert == null) {
+                            sqlActions.queryModels.insert = model
+                        }
                     } else if (query.type == Query.UPDATE) {
                         sqlActions.queryParams.insert.add(query.query)
+                        
+                        // has a model not been set yet? if so, use this one
+                        if (sqlActions.queryModels.update == null) {
+                            sqlActions.queryModels.update = model
+                        }
                     } // there shouldn't be any other types (yet)
                 }
             }
@@ -151,8 +204,6 @@ class StockDataListService {
     
     // returns the query for the stock
     def handleStockForExchange(def stockData, def exchange) {
-        println "Adding: " + stockData.ticker
-
         stockData.exchange = exchange
         //stockData.dayChange = "just testing!"
 
@@ -166,7 +217,7 @@ class StockDataListService {
         if (! alreadyExisted) { // stock hasn't been added yet, so create a new one
             query = [type: Query.INSERT, query: getQueryParamsForStockInsert(stockData)]
         } else { // stock already exists, so update the existing one with our new data
-            query = [type: Query.UPDATE, query: getQueryParamsForStuckUpdate(stockData)]
+            query = [type: Query.UPDATE, query: getQueryParamsForStockUpdate(stockData)]
         }
         
         query
