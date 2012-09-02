@@ -74,7 +74,23 @@ class StockDataListService {
     }
     
     def performSQLActions(def sqlActions, def columnMappings) {
+        println "Performing SQL inserts..."
+        performSQLInserts(sqlActions.queryParams.insert)
         
+        println "Performing SQL updates..."
+        performSQLUpdates(sqlActions.queryParams.update)
+    }
+    
+    def performSQLInserts(def queryParamSet) {
+        queryParamSet.each { queryParams ->
+            println queryParams
+        }
+    }
+    
+    def performSQLUpdates(def queryParamSet) {
+        queryParamSet.each { queryParams ->
+            println queryParams
+        }
     }
     
     def getSQLActions(def actions, def columnMappings) {
@@ -83,16 +99,18 @@ class StockDataListService {
         def sqlActions = [:]
         
         // setup map for actions
-        sqlActions.queries.insert = []
-        sqlActions.queries.update = []
+        sqlActions.queryParams.insert = []
+        sqlActions.queryParams.update = []
         
         // handle each exchange
         exchanges.each { exchange ->
             def action = actions[exchange]
             def success = getSQLActionsForExchange(sqlActions, action)
             
-            if (sqlActionMap.success) {
+            if (success) {
                 successfulExchanges.add(exchange)
+            } else {
+                println "Exchange failed: ${exchange}"
             }
         }
 
@@ -111,11 +129,13 @@ class StockDataListService {
             action.data.each { stockData ->
                 def query = handleStockForExchange(stockData, exchange)
                 
-                if (query.type == Query.INSERT) {
-                    sqlActions.queries.insert.add(query.query)
-                } else if (query.type == Query.UPDATE) {
-                    sqlActions.queries.insert.add(query.query)
-                } // there shouldn't be any other types (yet)
+                if (query != null) { // if null, nothing needed to be updated
+                    if (query.type == Query.INSERT) {
+                        sqlActions.queryParams.insert.add(query.query)
+                    } else if (query.type == Query.UPDATE) {
+                        sqlActions.queryParams.insert.add(query.query)
+                    } // there shouldn't be any other types (yet)
+                }
             }
             
             return true
@@ -145,24 +165,19 @@ class StockDataListService {
         def query = null
         
         if (! alreadyExisted) { // stock hasn't been added yet, so create a new one
-            query = [type: Query.INSERT, query: getQueryForStockInsert(stockData)]
+            query = [type: Query.INSERT, query: getQueryParamsForStockInsert(stockData)]
         } else { // stock already exists, so update the existing one with our new data
-            query = [type: Query.UPDATE, query: getQueryForStuckUpdate(stockData)]
+            query = [type: Query.UPDATE, query: getQueryParamsForStuckUpdate(stockData)]
         }
         
         query
     }
     
-    def getQueryForStockInsert(def stockData) {
-        def columns = "version, "
-        def values = "?, "
+    def getQueryParamsForStockInsert(def stockData) { // first column: version (TODO: remove this debug comment)
         def valuesList = [0]
 
         // add actual properties
         stockData.keySet().each { propertyName ->
-            columns += columnMappings[propertyName] + ", "
-            values += "?, "
-
             valuesList.add(stockData[propertyName])
         }
 
@@ -170,21 +185,13 @@ class StockDataListService {
         def specialProperties = ["lastSale", "open", "yearTarget", "peRatio"]
 
         specialProperties.each { propertyName ->
-            columns += columnMappings[propertyName] + ", "
-            values += "?, "
-
             valuesList.add(0)
         }
 
-        // trim the lists to remove trailing commas and spaces
-        columns = columns.substring(0, columns.length() - 2)
-        values = values.substring(0, values.length() - 2)
-
-        def query = "insert into stock ($columns) values ($values)"
-        sql.execute(query, valuesList)
+        valuesList
     }
     
-    def handleStockUpdate(def stockData) {
+    def getQueryParamsForStockUpdate(def stockData) {
         // TODO: this literally took 33 minutes to run through for all stocks, so
         // we definitely need a more performant way to do this
         // 
@@ -196,20 +203,16 @@ class StockDataListService {
 
         if (stockData.keySet().size() > 0) { // are there any properties to update?
             def valuesList = []
-            def query = "update stock set "
 
             stockData.keySet().each { propertyName ->
-                query += columnMappings[propertyName] + " = ?, "
                 valuesList.add(stockData[propertyName])
             }
 
-            query = query.substring(0, query.length() - 2)
-            query += " where ticker = ?"
-
             valuesList.add(stockData.ticker)
-
-            sql.execute(query, valuesList)
+            return valuesList
         }
+        
+        return null
     }
     
     def determineCacheActionForExchanges(def exchanges) {
