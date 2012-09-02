@@ -31,12 +31,6 @@ class StockDataService {
     
     // helper methods
     def getTickerList() {
-        def tickerList = []
-        
-        Stock.findAll().each { stock ->
-            tickerList.add(stock.ticker.toLowerCase())
-        }
-        
-        tickerList
+        Stock.findAll().collect { it.ticker.toLowerCase() }
     }
 }
