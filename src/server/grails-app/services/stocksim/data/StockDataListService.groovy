@@ -14,6 +14,13 @@ class StockDataListService {
     def dataSource_temp
     def sessionFactory_temp
     
+    // constants used for queries
+    enum Query {
+        INSERT,
+        UPDATE
+    }
+    
+    // methods called by other parts of the app
     def hasLoaded() {
         hasSuccessfullyLoaded
     }
@@ -26,10 +33,20 @@ class StockDataListService {
         def fullStart = new Date().getTime()
 
         def start = new Date().getTime()
+        
+        // fetch the download for all the exchanges
         def actions = determineCacheActionForExchanges(exchanges)
         println "Found stock list for exchanges, time ${new Date().getTime() - start}"
         
-        // prepare column mappings
+        // update the caches with the data
+        updateStockCachesWithData(actions)
+        
+        // finished
+        println "Finished, total time ${new Date().getTime() - fullStart}"
+    }
+    
+    // private methods
+    def getStockColumnMappings() {
         def metadata = sessionFactory_temp.getClassMetadata(Stock)
         def columnMappings = [:]
         
@@ -40,122 +57,162 @@ class StockDataListService {
             columnMappings[propertyName] = columnName
         }
         
-        // debug
-        def allTickers = []
-        
-        // now that we know what to do, execute the actions
-        try {
-            Stock.withTransaction {
-                def sql = new Sql(dataSource_temp) 
-                def successfulExchanges = []
-
-                exchanges.each { exchange ->
-                    def action = actions[exchange]
-
-                    if (action.command == "replace") {
-                        successfulExchanges.add(exchange)
-
-                        // now add them back
-                        action.data.each { stockData ->
-                            println "Adding: " + stockData.ticker
-                            
-                            if (allTickers.contains(stockData.ticker)) {
-                                println "BAD ALREADY EXISTS: " + stockData.ticker
-                            }
-                            
-                            allTickers.add(stockData.ticker)
-                            
-                            
-                            stockData.exchange = exchange
-                            //stockData.dayChange = "just testing!"
-
-                            // have we already created a Stock object for this stock?
-                            def stock = Stock.findByTicker(stockData.ticker)
-                            def alreadyExisted = stock != null
-
-                            // either update the existing stock, or add a non-existing one
-                            if (! alreadyExisted) { // stock hasn't been added yet, so create a new one
-                                def columns = "version, "
-                                def values = "?, "
-                                def valuesList = [0]
-
-                                // add actual properties
-                                stockData.keySet().each { propertyName ->
-                                    columns += columnMappings[propertyName] + ", "
-                                    values += "?, "
-
-                                    valuesList.add(stockData[propertyName])
-                                }
-
-                                // add special properties that can't be null
-                                def specialProperties = ["lastSale", "open", "yearTarget", "peRatio"]
-
-                                specialProperties.each { propertyName ->
-                                    columns += columnMappings[propertyName] + ", "
-                                    values += "?, "
-
-                                    valuesList.add(0)
-                                }
-
-                                // trim the lists to remove trailing commas and spaces
-                                columns = columns.substring(0, columns.length() - 2)
-                                values = values.substring(0, values.length() - 2)
-
-                                def query = "insert into stock ($columns) values ($values)"
-                                sql.execute(query, valuesList)
-                            } else {
-                                // TODO: this literally took 33 minutes to run through for all stocks, so
-                                // we definitely need a more performant way to do this
-                                // 
-                                // idea: http://stackoverflow.com/questions/2848857/batch-insert-using-groovy-sql
-                                // (need to test it)
-                                
-                                // stock has already been added, so update the existing values
-                                stockData.yearRange = "nope"
-
-                                if (stockData.keySet().size() > 0) { // are there any properties to update?
-                                    def valuesList = []
-                                    def query = "update stock set "
-
-                                    stockData.keySet().each { propertyName ->
-                                        query += columnMappings[propertyName] + " = ?, "
-                                        valuesList.add(stockData[propertyName])
-                                    }
-
-                                    query = query.substring(0, query.length() - 2)
-                                    query += " where ticker = ?"
-
-                                    valuesList.add(stockData.ticker)
-
-                                    sql.execute(query, valuesList)
-                                }
-                            }
-
-
-                            //// TODO: is it necessary to do it manually for speed?
-                            //sql.execute("insert into stock (version, ticker, name, industry, sector, exchange, ipo_year, last_sale, exchange_cap) values (0.1, ?, ?, ?, ?, ?, ?, ?, ?)",
-                            //    [stock.getTicker(), stock.getName(), stock.getIndustry(), stock.getSector(), stock.getExchange(), stock.getIpoYear(), stock.getLastSale(), stock.getMarketCap()])
-                        }
-                    } else if (action.command == "giveup") {
-                        println "Unable to find any stocks for exchange ${exchange}, try again soon."
-                    } else if (action.command == "ok") { // current version is fine
-                        successfulExchanges.add(exchange)
-                    }
-                }
-
-                if (! hasSuccessfullyLoaded && successfulExchanges.size() >= 2) {
-                    hasSuccessfullyLoaded = true
-                }
-            }
-        } catch (JdbcSQLException ex) {
-            // sometimes a constraint fails because the data is bad
-            ex.printStackTrace()
-        }
-        
-        println "Finished, total time ${new Date().getTime() - fullStart}"
+        columnMappings
     }
     
-    private def determineCacheActionForExchanges(exchanges) {
+    def updateStockCachesWithData(def actions) {
+        // prepare column mappings
+        def columnMappings = getStockColumnMappings()
+        
+        // get the list of SQL actions
+        println "Creating list of SQL actions..."
+        def sqlActions = getSQLActions(actions, columnMappings)
+        
+        // perform all the SQL actions in batches
+        println "Performing SQL actions..."
+        performSQLActions(sqlActions, columnMappings)
+    }
+    
+    def performSQLActions(def sqlActions, def columnMappings) {
+        
+    }
+    
+    def getSQLActions(def actions, def columnMappings) {
+        def sql = new Sql(dataSource_temp)
+        def successfulExchanges = []
+        def sqlActions = [:]
+        
+        // setup map for actions
+        sqlActions.queries.insert = []
+        sqlActions.queries.update = []
+        
+        // handle each exchange
+        exchanges.each { exchange ->
+            def action = actions[exchange]
+            def success = getSQLActionsForExchange(sqlActions, action)
+            
+            if (sqlActionMap.success) {
+                successfulExchanges.add(exchange)
+            }
+        }
+
+        if (! hasSuccessfullyLoaded && successfulExchanges.size() >= 2) {
+            hasSuccessfullyLoaded = true
+        }
+        
+        sqlActions
+    }
+    
+    def getSQLActionsForExchange(def sqlActions, def action) {
+        if (action.command == "replace") {
+            successfulExchanges.add(exchange)
+
+            // now add them back
+            action.data.each { stockData ->
+                def query = handleStockForExchange(stockData, exchange)
+                
+                if (query.type == Query.INSERT) {
+                    sqlActions.queries.insert.add(query.query)
+                } else if (query.type == Query.UPDATE) {
+                    sqlActions.queries.insert.add(query.query)
+                } // there shouldn't be any other types (yet)
+            }
+            
+            return true
+        } else if (action.command == "ok") { // current version is fine
+            // do nothing, all is ok
+            return true
+        } else if (action.command == "giveup") {
+            println "Unable to find any stocks for exchange ${exchange}, try again soon."
+            return false
+        }
+        
+        return false
+    }
+    
+    // returns the query for the stock
+    def handleStockForExchange(def stockData, def exchange) {
+        println "Adding: " + stockData.ticker
+
+        stockData.exchange = exchange
+        //stockData.dayChange = "just testing!"
+
+        // have we already created a Stock object for this stock?
+        def stock = Stock.findByTicker(stockData.ticker)
+        def alreadyExisted = stock != null
+
+        // either update the existing stock, or add a non-existing one
+        def query = null
+        
+        if (! alreadyExisted) { // stock hasn't been added yet, so create a new one
+            query = [type: Query.INSERT, query: getQueryForStockInsert(stockData)]
+        } else { // stock already exists, so update the existing one with our new data
+            query = [type: Query.UPDATE, query: getQueryForStuckUpdate(stockData)]
+        }
+        
+        query
+    }
+    
+    def getQueryForStockInsert(def stockData) {
+        def columns = "version, "
+        def values = "?, "
+        def valuesList = [0]
+
+        // add actual properties
+        stockData.keySet().each { propertyName ->
+            columns += columnMappings[propertyName] + ", "
+            values += "?, "
+
+            valuesList.add(stockData[propertyName])
+        }
+
+        // add special properties that can't be null
+        def specialProperties = ["lastSale", "open", "yearTarget", "peRatio"]
+
+        specialProperties.each { propertyName ->
+            columns += columnMappings[propertyName] + ", "
+            values += "?, "
+
+            valuesList.add(0)
+        }
+
+        // trim the lists to remove trailing commas and spaces
+        columns = columns.substring(0, columns.length() - 2)
+        values = values.substring(0, values.length() - 2)
+
+        def query = "insert into stock ($columns) values ($values)"
+        sql.execute(query, valuesList)
+    }
+    
+    def handleStockUpdate(def stockData) {
+        // TODO: this literally took 33 minutes to run through for all stocks, so
+        // we definitely need a more performant way to do this
+        // 
+        // idea: http://stackoverflow.com/questions/2848857/batch-insert-using-groovy-sql
+        // (need to test it)
+
+        // stock has already been added, so update the existing values
+        stockData.yearRange = "nope"
+
+        if (stockData.keySet().size() > 0) { // are there any properties to update?
+            def valuesList = []
+            def query = "update stock set "
+
+            stockData.keySet().each { propertyName ->
+                query += columnMappings[propertyName] + " = ?, "
+                valuesList.add(stockData[propertyName])
+            }
+
+            query = query.substring(0, query.length() - 2)
+            query += " where ticker = ?"
+
+            valuesList.add(stockData.ticker)
+
+            sql.execute(query, valuesList)
+        }
+    }
+    
+    def determineCacheActionForExchanges(def exchanges) {
         def actions = [:]
         
         exchanges.each { exchange ->
@@ -166,7 +223,7 @@ class StockDataListService {
         actions
     }
     
-    private def determineActionForExchange(exchange) {
+    def determineActionForExchange(def exchange) {
         def action = [:]
         action.command = "skip" // do nothing by default
         
@@ -228,21 +285,21 @@ class StockDataListService {
         action
     }
     
-    private def buildURLForExchangeStocksDownload(exchange) {
+    def buildURLForExchangeStocksDownload(exchange) {
         "http://www.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=${exchange}&render=download".toURL()
     }
     
-    private def getStocksFromSource(URLConnection connection) {
+    def getStocksFromSource(URLConnection connection) {
         def reader = new CSVReader(new InputStreamReader(connection.getInputStream()))
         getStocksFromCSVReader(reader)
     }
     
-    private def getStocksFromSource(File file) {
+    def getStocksFromSource(File file) {
         def reader = new CSVReader(new FileReader(file))
         getStocksFromCSVReader(reader)
     }
     
-    private def getStocksFromCSVReader(CSVReader reader) {
+    def getStocksFromCSVReader(CSVReader reader) {
         if (! reader.readNext()) { // skip the headers on the CSV file
             throw new IOException("Bad CSV file (no headers)")
         }
