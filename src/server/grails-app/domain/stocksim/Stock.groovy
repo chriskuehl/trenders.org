@@ -6,7 +6,7 @@ class Stock {
     }
     
     static constraints = {
-        ticker unique: true
+        ticker unique: true, index: "Ticker_Idx"
         
         name nullable: true
         lastSale nullable: true
