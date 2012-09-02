@@ -227,9 +227,6 @@ class StockDataListService {
     // returns the query for the stock
     def handleStockForExchange(def stockData, def exchange, def tickerList) {
         stockData.exchange = exchange
-        //stockData.dayChange = "just testing!"
-        
-        println "Add: ${stockData.ticker}"
 
         // have we already created a Stock object for this stock?
         def alreadyExisted = tickerList.contains(stockData.ticker.toLowerCase())
@@ -265,14 +262,7 @@ class StockDataListService {
     }
     
     def getQueryParamsForStockUpdate(def stockData) {
-        // TODO: this literally took 33 minutes to run through for all stocks, so
-        // we definitely need a more performant way to do this
-        // 
-        // idea: http://stackoverflow.com/questions/2848857/batch-insert-using-groovy-sql
-        // (need to test it)
-
         // stock has already been added, so update the existing values
-        stockData.yearRange = "nope"
 
         if (stockData.keySet().size() > 0) { // are there any properties to update?
             def valuesList = []

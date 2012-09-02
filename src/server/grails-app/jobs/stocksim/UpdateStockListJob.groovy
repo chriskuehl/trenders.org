@@ -7,7 +7,7 @@ import stocksim.data.*
     Once this is done, then we can fetch more data from the Yahoo! CSV dumps
 */
 class UpdateStockListJob {
-    def startDelay = 1000 // 15 seconds
+    def startDelay = 15000 // 15 seconds
     def timeout = 60 * 15 * 1000 // every 15 minutes
     
     def stockDataService
