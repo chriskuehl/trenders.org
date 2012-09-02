@@ -20,6 +20,8 @@ class StockDataListService {
         UPDATE
     }
     
+    final def exchanges = ["nasdaq", "nyse"] // TODO: read from config file
+    
     // methods called by other parts of the app
     def hasLoaded() {
         hasSuccessfullyLoaded
@@ -29,7 +31,6 @@ class StockDataListService {
         println "Updating stock list"
         
         // download CSV files from nasdaq.com for the two important exchanges
-        def exchanges = ["nasdaq", "nyse"] // TODO: read from config file
         def fullStart = new Date().getTime()
 
         def start = new Date().getTime()
@@ -83,20 +84,20 @@ class StockDataListService {
     
     def performSQLInserts(def queryParamSet) {
         queryParamSet.each { queryParams ->
-            println queryParams
+            println "insert: " + queryParams
         }
     }
     
     def performSQLUpdates(def queryParamSet) {
         queryParamSet.each { queryParams ->
-            println queryParams
+            println "update: " + queryParams
         }
     }
     
     def getSQLActions(def actions, def columnMappings) {
         def sql = new Sql(dataSource_temp)
         def successfulExchanges = []
-        def sqlActions = [:]
+        def sqlActions = [queryParams: [:]]
         
         // setup map for actions
         sqlActions.queryParams.insert = []
@@ -105,7 +106,7 @@ class StockDataListService {
         // handle each exchange
         exchanges.each { exchange ->
             def action = actions[exchange]
-            def success = getSQLActionsForExchange(sqlActions, action)
+            def success = getSQLActionsForExchange(sqlActions, action, exchange)
             
             if (success) {
                 successfulExchanges.add(exchange)
@@ -114,17 +115,15 @@ class StockDataListService {
             }
         }
 
-        if (! hasSuccessfullyLoaded && successfulExchanges.size() >= 2) {
+        if (! hasSuccessfullyLoaded && successfulExchanges.size() >= 2) { // TODO: move this to a more logical place
             hasSuccessfullyLoaded = true
         }
         
         sqlActions
     }
     
-    def getSQLActionsForExchange(def sqlActions, def action) {
+    def getSQLActionsForExchange(def sqlActions, def action, def exchange) {
         if (action.command == "replace") {
-            successfulExchanges.add(exchange)
-
             // now add them back
             action.data.each { stockData ->
                 def query = handleStockForExchange(stockData, exchange)
