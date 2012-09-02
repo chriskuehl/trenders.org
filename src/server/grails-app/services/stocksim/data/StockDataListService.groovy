@@ -10,6 +10,8 @@ import org.h2.jdbc.JdbcSQLException
 class StockDataListService {
     def hasSuccessfullyLoaded = false
     
+    def stockDataService
+    
     def grailsApplication
     def dataSource_temp
     def sessionFactory_temp
@@ -162,11 +164,7 @@ class StockDataListService {
         sqlActions.queryParams.update = []
         
         // get ticker list
-        def tickerList = []
-        
-        Stock.findAll().each { stock ->
-            tickerList.add(stock.ticker.toLowerCase())
-        }
+        def tickerList = stockDataService.getTickerList()
         
         // handle each exchange
         exchanges.each { exchange ->
@@ -229,7 +227,7 @@ class StockDataListService {
         stockData.exchange = exchange
 
         // have we already created a Stock object for this stock?
-        def alreadyExisted = tickerList.contains(stockData.ticker.toLowerCase())
+        def alreadyExisted = tickerList.contains(stockData.ticker.toLowerCase()) // TODO: adapt this to figure out which stocks have been removed
 
         // either update the existing stock, or add a non-existing one
         def query = null
