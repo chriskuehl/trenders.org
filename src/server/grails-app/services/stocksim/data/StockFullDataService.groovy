@@ -15,33 +15,44 @@ class StockFullDataService {
         def batches = splitListIntoSubListsOfSize(tickerList, batchSize)
         
         // iterate through each batch and fetch the new data
+        def stocksToUpdate = []
+        println "Fetching all stock data... ${stocksToUpdate.size()}/${tickerList.size()}"
+        
         batches.each { batch ->
-            updateBatch(batch)
+            updateBatch(batch, stocksToUpdate)
+            
+            println "Fetching all stock data... ${stocksToUpdate.size()}/${tickerList.size()}"
         }
+        
+        println "Fetched stock data; stocks to update: ${stocksToUpdate.size()}"
     }
     
-    def updateBatch(def tickers) {
+    def updateBatch(def tickers, def stocksToUpdate) {
         // example URL: http://download.finance.yahoo.com/d/quotes.csv?s=RHT,MSFT,NOV&f=sl1d1t1c1ohgv&e=.csv
         def url = buildURLForTickers(tickers)
         def connection = url.openConnection()
         
-        def rows = readRowsFromConnection(connection)
+        def rows = readRowsFromConnection(connection, stocksToUpdate)
         
     }
     
-    def readRowsFromConnection(def connection) {
+    def readRowsFromConnection(def connection, def stocksToUpdate) {
         def reader = new CSVReader(new InputStreamReader(connection.getInputStream()))
-        readRowsFromCSVReader(reader)
+        readRowsFromCSVReader(reader, stocksToUpdate)
     }
     
-    def readRowsFromCSVReader(def reader) {
+    def readRowsFromCSVReader(def reader, def stocksToUpdate) {
         def stocks = []
         def nextLine
         
-        // read each stock from the CSV file and add it to our array
-        println "========================="
+        // read each stock from the CSV file and add it to our array after making sure it's ok
         while ((nextLine = reader.readNext()) != null) {
-            println nextLine
+            // example line: "WWW",47.03,"8/31/2012","4:04pm",+0.11,47.17,47.529,46.805,353265
+            if (nextLine.size() == 9) {
+                stocksToUpdate.add(nextLine)
+            } else {
+                println "Error, got line with wrong size (${nextLine.size()}, should be 9): ${nextLine}"
+            }
         }
     }
     
