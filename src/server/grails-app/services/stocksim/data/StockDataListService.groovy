@@ -62,10 +62,10 @@ class StockDataListService {
         // prepare column mappings
         def columnMappings = stockDataHelperService.getStockColumnMappings()
         
-        println "Performing SQL inserts..."
+        println "Performing SQL inserts... (${sqlActions.queryParams.insert.size()})"
         performSQLInserts(sql, columnMappings, sqlActions.queryParams.insert, sqlActions.queryModels.insert)
         
-        println "Performing SQL updates..."
+        println "Performing SQL updates... (${sqlActions.queryParams.update.size()})"
         performSQLUpdates(sql, columnMappings, sqlActions.queryParams.update, sqlActions.queryModels.update)
     }
     
