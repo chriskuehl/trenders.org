@@ -2,11 +2,11 @@ package stocksim.data
 
 class StockFullDataService {
     final def batchSize = 20
+    def stockDataHelperService
     
     // for each existing ticker, we need to get the info
     def update() {
-        def stockDataService
-        def tickerList = stockDataService.getTickerList()
+        def tickerList = stockDataHelperService.getTickerList()
         
         // split into batches of 20
         def batches = splitListIntoSubListsOfSize(tickerList, batchSize)

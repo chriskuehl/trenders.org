@@ -28,9 +28,4 @@ class StockDataService {
     def updateStockFullData() {
         stockFullDataService.update()
     }
-    
-    // helper methods
-    def getTickerList() {
-        Stock.findAll().collect { it.ticker.toLowerCase() }
-    }
 }

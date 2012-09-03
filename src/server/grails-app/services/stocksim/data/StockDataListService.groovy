@@ -10,8 +10,7 @@ import org.h2.jdbc.JdbcSQLException
 class StockDataListService {
     def hasSuccessfullyLoaded = false
     
-    def stockDataService
-    
+    def stockDataHelperService
     def grailsApplication
     def dataSource_temp
     def sessionFactory_temp
@@ -30,8 +29,6 @@ class StockDataListService {
     }
     
     def update() {
-        println "Updating stock list"
-        
         // download CSV files from nasdaq.com for the two important exchanges
         def fullStart = new Date().getTime()
 
@@ -164,7 +161,7 @@ class StockDataListService {
         sqlActions.queryParams.update = []
         
         // get ticker list
-        def tickerList = stockDataService.getTickerList()
+        def tickerList = stockDataHelperService.getTickerList()
         
         // handle each exchange
         exchanges.each { exchange ->
