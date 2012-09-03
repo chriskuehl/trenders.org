@@ -3,6 +3,8 @@ package stocksim.data
 import stocksim.*
 
 class StockDataHelperService {
+    def sessionFactory_temp
+    
     def getTickerList() {
         Stock.findAll().collect { it.ticker.toLowerCase() }
     }

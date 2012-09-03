@@ -13,7 +13,6 @@ class StockDataListService {
     def stockDataHelperService
     def grailsApplication
     def dataSource_temp
-    def sessionFactory_temp
     
     // constants used for queries
     enum Query {
