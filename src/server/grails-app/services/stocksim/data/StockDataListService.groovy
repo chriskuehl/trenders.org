@@ -46,20 +46,6 @@ class StockDataListService {
     }
     
     // private methods
-    def getStockColumnMappings() {
-        def metadata = sessionFactory_temp.getClassMetadata(Stock)
-        def columnMappings = [:]
-        
-        def propertyNames = metadata.getPropertyNames()
-        
-        propertyNames.eachWithIndex { propertyName, i ->
-            def columnName = metadata.getPropertyColumnNames(i)[0]
-            columnMappings[propertyName] = columnName
-        }
-        
-        columnMappings
-    }
-    
     def updateStockCachesWithData(def actions) {
         // get the list of SQL actions
         println "Creating list of SQL actions..."
@@ -75,7 +61,7 @@ class StockDataListService {
         def sql = new Sql(dataSource_temp)
         
         // prepare column mappings
-        def columnMappings = getStockColumnMappings()
+        def columnMappings = stockDataHelperService.getStockColumnMappings()
         
         println "Performing SQL inserts..."
         performSQLInserts(sql, columnMappings, sqlActions.queryParams.insert, sqlActions.queryModels.insert)
