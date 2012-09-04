@@ -12,6 +12,8 @@ class StockFullDataService {
     
     // for each existing ticker, we need to get the info
     def update() {
+        def start = new Date()
+        
         def sql = new Sql(dataSource_temp)
         def tickerList = stockDataHelperService.getTickerList(sql)
         
@@ -28,7 +30,95 @@ class StockFullDataService {
             println "Fetching all stock data... ${stocksToUpdate.size()}/${tickerList.size()}"
         }
         
-        println "Fetched stock data; stocks to update: ${stocksToUpdate.size()}"
+        println "Fetched stock data; stocks to update: ${stocksToUpdate.size()} (time: ${new Date().getTime() - start.getTime()})"
+        updateStocks(sql, stocksToUpdate)
+        
+        println "Stocks fully updated (time: ${new Date().getTime() - start.getTime()})"
+        sql.close()
+    }
+    
+    def updateStocks(def sql, def stocksToUpdate) {
+        if (stocksToUpdate.size() <= 0) {
+            println "No updates to perform"
+            return
+        }
+        
+        def columns = ["lastSale", "dayChange", "dayChangePercent", "open", "dayRange"]
+        def query = buildQuery(columns)
+        
+        // now perform the updates with the query we just built
+        sql.withBatch(20, query) { preparedStatement ->
+            stocksToUpdate.eachWithIndex { stockToUpdate, i ->
+                // ticker, lastSale, lastUpdateDate, lastUpdateTime, dayChange, open, dayRangeUpper, dayRangeLower, volume
+                // example row: "MSFT",30.82,"8/31/2012","4:00pm",+0.50,30.62,30.96,30.38,36595416
+                def ticker = stockToUpdate[0]
+                def lastSale = stockToUpdate[1].toDouble()
+                def lastUpdateDate = stockToUpdate[2]
+                def lastUpdateTime = stockToUpdate[3]
+                def dayChange = stockToUpdate[4]
+                
+                if (dayChange.startsWith("+")) {
+                    dayChange = dayChange.substring(1)
+                }
+                
+                dayChange = doubleIfExists(dayChange)
+                
+                def open = doubleIfExists(stockToUpdate[5])
+                def dayRangeUpper = doubleIfExists(stockToUpdate[6])
+                def dayRangeLower = doubleIfExists(stockToUpdate[7])
+                def volume = integerIfExists(stockToUpdate[8])
+                
+                // calculate some things based on this data
+                def dayChangePercent = null
+                
+                if (dayChange != 0.0 && open != 0.0) {
+                    dayChangePercent = Math.floor((dayChange / open) * 100)
+                    
+                    if (dayChangePercent > 0) {
+                        dayChangePercent = "+${dayChangePercent}"
+                    }
+                    
+                    dayChangePercent = dayChangePercent.toString() + "%"
+                }
+                
+                def dayRange = "${dayRangeLower} - ${dayRangeUpper}".toString()
+                
+                // order these into an array for the prepared statement
+                def params = [lastSale, dayChange, dayChangePercent, open, dayRange, ticker.toUpperCase()]
+                
+                preparedStatement.addBatch(params)
+            }
+        }
+    }
+    
+    def doubleIfExists(def str) {
+        if (str == "N/A") {
+            return 0.0
+        }
+        
+        return str.toDouble()
+    }
+    
+    def integerIfExists(def str) {
+        if (str == "N/A") {
+            return 0
+        }
+        
+        return str.toInteger()
+    }
+    
+    def buildQuery(def columns) {
+        def query = "update stock set "
+        def columnMappings = stockDataHelperService.getStockColumnMappings()
+        
+        columns.each { column ->
+            query += "${columnMappings[column]} = ?, "
+        }
+        
+        query = query.substring(0, query.length() - 2) // trim comma off end
+        query += " where ticker = ?"
+        
+        query
     }
     
     def updateBatch(def tickers, def stocksToUpdate) {
