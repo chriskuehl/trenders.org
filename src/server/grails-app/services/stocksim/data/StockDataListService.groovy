@@ -150,7 +150,7 @@ class StockDataListService {
         sqlActions.queryParams.update = []
         
         // get ticker list
-        def tickerList = stockDataHelperService.getTickerList()
+        def tickerList = stockDataHelperService.getTickerList(sql)
         
         // handle each exchange
         exchanges.each { exchange ->

@@ -5,8 +5,14 @@ import stocksim.*
 class StockDataHelperService {
     def sessionFactory_temp
     
-    def getTickerList() {
-        Stock.findAll().collect { it.ticker.toLowerCase() }
+    def getTickerList(sql) {
+        def tickerList = []
+        
+        sql.eachRow("select ticker from stock") { stockRow ->
+            tickerList.add(stockRow.ticker)
+        }
+        
+        tickerList
     }
     
     def getStockColumnMappings() {
