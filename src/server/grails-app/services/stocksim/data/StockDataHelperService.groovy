@@ -9,7 +9,7 @@ class StockDataHelperService {
         def tickerList = []
         
         sql.eachRow("select ticker from stock") { stockRow ->
-            tickerList.add(stockRow.ticker)
+            tickerList.add(stockRow.ticker.toLowerCase())
         }
         
         tickerList

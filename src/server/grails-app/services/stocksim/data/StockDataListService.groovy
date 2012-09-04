@@ -62,13 +62,11 @@ class StockDataListService {
         // prepare column mappings
         def columnMappings = stockDataHelperService.getStockColumnMappings()
         
-        Stock.withTransaction {
-            println "Performing SQL inserts... (${sqlActions.queryParams.insert.size()})"
-            performSQLInserts(sql, columnMappings, sqlActions.queryParams.insert, sqlActions.queryModels.insert)
+        println "Performing SQL inserts... (${sqlActions.queryParams.insert.size()})"
+        performSQLInserts(sql, columnMappings, sqlActions.queryParams.insert, sqlActions.queryModels.insert)
 
-            println "Performing SQL updates... (${sqlActions.queryParams.update.size()})"
-            performSQLUpdates(sql, columnMappings, sqlActions.queryParams.update, sqlActions.queryModels.update)
-        }
+        println "Performing SQL updates... (${sqlActions.queryParams.update.size()})"
+        performSQLUpdates(sql, columnMappings, sqlActions.queryParams.update, sqlActions.queryModels.update)
         
         sql.close()
     }
@@ -151,7 +149,6 @@ class StockDataListService {
         
         // get ticker list
         def tickerList = stockDataHelperService.getTickerList(sql)
-        println "all tickers: " + tickerList
         
         // handle each exchange
         exchanges.each { exchange ->
