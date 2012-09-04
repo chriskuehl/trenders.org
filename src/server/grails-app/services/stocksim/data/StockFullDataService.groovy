@@ -1,15 +1,19 @@
 package stocksim.data
 
 import stocksim.*
+import groovy.sql.Sql
 import au.com.bytecode.opencsv.CSVReader
 
 class StockFullDataService {
     final def batchSize = 200 // Yahoo limits to 200 per query
+    
     def stockDataHelperService
+    def dataSource_temp
     
     // for each existing ticker, we need to get the info
     def update() {
-        def tickerList = stockDataHelperService.getTickerList()
+        def sql = new Sql(dataSource_temp)
+        def tickerList = stockDataHelperService.getTickerList(sql)
         
         // split into batches of 200
         def batches = splitListIntoSubListsOfSize(tickerList, batchSize)
@@ -33,7 +37,6 @@ class StockFullDataService {
         def connection = url.openConnection()
         
         def rows = readRowsFromConnection(connection, stocksToUpdate)
-        
     }
     
     def readRowsFromConnection(def connection, def stocksToUpdate) {
