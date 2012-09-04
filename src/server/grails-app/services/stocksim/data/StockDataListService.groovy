@@ -46,19 +46,22 @@ class StockDataListService {
     
     // private methods
     def updateStockCachesWithData(def actions) {
+        // prepare SQL handler
+        def sql = new Sql(dataSource_temp)
+        
         // get the list of SQL actions
         println "Creating list of SQL actions..."
-        def sqlActions = getSQLActions(actions)
+        def sqlActions = getSQLActions(sql, actions)
         
         // perform all the SQL actions in batches
         println "Performing SQL actions..."
-        performSQLActions(sqlActions)
+        performSQLActions(sql, sqlActions)
+        
+        // close SQL handler
+        sql.close()
     }
     
-    def performSQLActions(def sqlActions) {
-        // prepare sql handler
-        def sql = new Sql(dataSource_temp)
-        
+    def performSQLActions(def sql, def sqlActions) {
         // prepare column mappings
         def columnMappings = stockDataHelperService.getStockColumnMappings()
         
@@ -67,8 +70,6 @@ class StockDataListService {
 
         println "Performing SQL updates... (${sqlActions.queryParams.update.size()})"
         performSQLUpdates(sql, columnMappings, sqlActions.queryParams.update, sqlActions.queryModels.update)
-        
-        sql.close()
     }
     
     def performSQLInserts(def sql, def columnMappings, def queryParamSet, def model) {
@@ -138,8 +139,7 @@ class StockDataListService {
         }
     }
     
-    def getSQLActions(def actions) {
-        def sql = new Sql(dataSource_temp)
+    def getSQLActions(def sql, def actions) {
         def successfulExchanges = []
         def sqlActions = [queryParams: [:], queryModels: [:]]
         
