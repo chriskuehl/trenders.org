@@ -151,6 +151,7 @@ class StockDataListService {
         
         // get ticker list
         def tickerList = stockDataHelperService.getTickerList(sql)
+        println "all tickers: " + tickerList
         
         // handle each exchange
         exchanges.each { exchange ->
