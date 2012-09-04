@@ -18,6 +18,11 @@ class SandboxController {
         render map
     }
     
+    def allTickers() {
+        def allTickers = Stock.findAll().collect { it.ticker.toLowerCase() }
+        render allTickers
+    }
+    
     def getAllStocks() {
         def stocks = OwnedStock.executeQuery("select distinct a.ticker from OwnedStock a")
         def f = ""

@@ -1,5 +1,7 @@
 package stocksim.data
 
+import stocksim.*
+
 class StockDataService {
     def stockDataListService
     def stockFullDataService
@@ -14,7 +16,7 @@ class StockDataService {
         // only if previous succeeded
         if (stockDataListService.hasSuccessfullyLoaded) {
             println "Updating stock full data..."
-            updateStockFullData()
+            UpdateStockFullDataJob.triggerNow()
         } else {
             println "Unable to fetch full stock data, failed to load stock list; SITE IS DOWN!"
             // TODO: speed up retrieval next time since site is down!
