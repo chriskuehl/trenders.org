@@ -15,6 +15,6 @@ class UpdateStockDataJob {
     def execute() {
         def start = new Date().getTime()
         stockDataService.updateStockData()
-        println "Updated stock list in ${(new Date().getTime() - start) / 1000} seconds."
+        println "Updated stock data in ${(new Date().getTime() - start) / 1000} seconds."
     }
 }
