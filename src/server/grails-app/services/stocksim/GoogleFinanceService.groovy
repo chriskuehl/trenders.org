@@ -6,6 +6,7 @@ import stocksim.temp.*
 class GoogleFinanceService {
     def wikipediaService
     def cacheService
+    def financeService
     def utilService
     
     // in reality we are using this for the indicies more than stocks
@@ -66,16 +67,16 @@ class GoogleFinanceService {
             change = WikipediaService.between(change, ">", "%") + "%"
             
             if (ticker != null) {
-                def tempStock = Stock.findByTicker(ticker)
+                def stockObj = financeService.getStock(ticker)
                 
-                if (tempStock != null && tempStock.getMarketCap() > 0) {
-                    def marketCap = utilService.formatBigNumber(tempStock.getMarketCap())
+                if (stockObj != null/* && stockObj.getMarketCap() > 0*/) {
+                    def marketCap = 0 // utilService.formatBigNumber(stockObj.getMarketCap())
                     
                     stockList.add([
-                        stock: tempStock,
+                        stock: stockObj,
                         marketCap: marketCap,
                         ticker: ticker,
-                        name: tempStock.getName(),
+                        name: stockObj.getName(),
                         change: change
                     ])
                 }
