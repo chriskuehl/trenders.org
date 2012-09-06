@@ -121,7 +121,7 @@
       <ul class="stockList" style="margin-top: 7px !important;">
         <googleNews:articles query="finance" num="5">
           <li>
-            <strong><a href="${googleNews.article(req: "link")}" class="gray" target="_blank"><g:trim elipses="true" content="${googleNews.article(req: "title")}" chars="45" /></a></strong><br />
+            <strong><a title="${googleNews.article(req: "title")}" href="${googleNews.article(req: "link")}" class="gray" target="_blank"><g:trim elipses="true" content="${googleNews.article(req: "title")}" chars="45" /></a></strong><br />
             <span class="soft"><googleNews:article req="author" />, <g:toRecentTime date="${googleNews.article(req: "pubDate")}" />. <a class="small" href="${googleNews.article(req: "relatedLink")}" target="_blank">related</a></span><br />
             <p><g:trim elipses="true" content="${googleNews.article(req: "description")}" chars="150" /></p>
           </li>
