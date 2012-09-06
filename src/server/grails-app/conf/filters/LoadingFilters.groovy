@@ -2,20 +2,18 @@ package filters
 
 class LoadingFilters {
     def request
-    def searchService
+    def stockDataService
     
     def filters = {
-        /*
-        searchLoadedFilter(uri: "/**") {
-            before = { // have searches been loaded?
-                if (! searchService.cacheHasLoaded()) {
+        stocksLoadedFilter(uri: "/**") {
+            before = { // have stocks been loaded?
+                if (! stockDataService.isReady()) {
                     println "Unable to load!"
                     render(view: "/loading", status: 503)
                     return false
                 }
             }
         }
-        */
     }
 }
 
