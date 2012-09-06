@@ -4,6 +4,7 @@ import groovy.sql.Sql
 
 class SearchService {
     def financeService
+    def dataSource_temp
     
     def getResults(def query, int limit, def sector) {
         def results = []
@@ -21,22 +22,11 @@ class SearchService {
         }
         
         sql.eachRow(mquery, p) { row ->
-            /*def stock = new Stock()
-            
-            stock.setIndustry(row.industry)
-            stock.setIpoYear(row.ipo_year)
-            stock.setLastSale(row.last_sale)
-            stock.setMarket(row.market)
-            stock.setMarketCap(row.market_cap)
-            stock.setName(financeService.getSimpleName(row.name))
-            stock.setSector(row.sector)
-            stock.setTicker(row.ticker)
-            */
-           
-            // TODO: testing
             def stock = financeService.getStock(row.ticker)
             results.add(stock)
         }
+        
+        sql.close()
         
         results
     }
