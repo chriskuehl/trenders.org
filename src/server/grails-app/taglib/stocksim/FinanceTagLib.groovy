@@ -18,7 +18,7 @@ class FinanceTagLib {
     }
     
     def stock = { attrs ->
-        out << request.stocks.get(attrs.ticker.toLowerCase())[attrs.req]
+        out << request.stocks.get(attrs.ticker.toUpperCase())[attrs.req]
     }
     
     def index = { attrs ->
