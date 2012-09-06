@@ -16,87 +16,10 @@ class FinanceService {
         }
         
         stocks
-        /*
-        def tickerList = ""
-        
-        // see if we can just use the cache
-        def foundOld = false
-        
-        tickers.each { ticker ->
-            def stockC = cacheService.fetchFromCache("stocks", ticker.toLowerCase(), 15)
-            
-            if (stockC == null) {
-                foundOld = true
-            } else {
-                stocks[ticker.toLowerCase()] = stockC
-            }
-        }
-        
-        // we can just use the cache
-        if (! foundOld) {
-            return stocks
-        }
-        
-        
-        // can't just use the cache, so fetch the data via YQL
-        if (tickers.size() < 2) {
-            tickers.add("MSFT")
-            tickers.add("YHOO") // TODO: fix this
-        }
-        
-        // build a ticker list & ensure all tickers are alphanumeric
-        tickers.each { ticker ->
-            if (! YahooQueryService.isAlphaNumericOrSlash(ticker)) {
-                throw new BadTickerSymbolException("Bad ticker symbol: " + ticker);
-            }
-            
-            tickerList += "\"${ticker.trim().toUpperCase()}\","
-        }
-        
-        tickerList = tickerList[0..tickerList.size() - 2]
-        
-        // generate a YQL query
-        // example: select * from yahoo.finance.quotes where symbol in ("YHOO","AAPL","GOOG","MSFT")
-        def query = "SELECT * FROM yahoo.finance.quotes where symbol in (${tickerList})"
-        def json = YahooQueryService.getResultsFromQuery(query)
-        
-        json.query.results.quote.each { stock ->
-            def cachedStock = SearchableStock.findByTicker(stock.symbol.toUpperCase())
-            def realName = "(unknown)"
-            
-            if (cachedStock != null) {
-                realName = cachedStock.name
-            } else {
-                // TODO: handle these kind of errors (where a stock stops existing) better...
-                println "Error: Unable to find a stock with the ticker ${stock.Symbol} in the SearchableStock DB, but apparently it exists...?"
-            }
-            
-            def stockO = new Stock(
-                ticker: stock.Symbol,
-                name: realName,
-                prevClose: stock.PreviousClose,
-                dayChange: stock.Change.startsWith("+") ? stock.Change.substring(1) : stock.Change,
-                dayChangePercent: stock.PercentChange,
-                open: stock.Open,
-                yearTarget: stock.OneyrTargetPrice,
-                dayRange: stock.DaysRange,
-                yearRange: stock.YearRange,
-                marketCap: stock.MarketCapitalization,
-                peRatio: stock.PERatio,
-                value: (stock.LastTradePriceOnly.toDouble() * 100).toInteger() / 100,
-                exchange: stock.StockExchange.startsWith("Nasdaq") ? "nasdaq" : "nyse"
-            )
-            
-            stocks[stock.symbol.toLowerCase()] = stockO
-            cacheService.storeInCache("stocks", stock.symbol.toLowerCase(), stockO)
-        }
-        
-        stocks
-        */
     }
     
     def getStock(def ticker) {
-        return Stock.findByTicker(ticker)
+        return Stock.findByTicker(ticker.toUpperCase())
     }
     
     def getSectors() {
