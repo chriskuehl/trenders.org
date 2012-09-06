@@ -58,7 +58,7 @@
       <%-- second column --%>
       <div class="column3">
         <h3 id="lastTradeLabel">Last trading price:</h3>
-        <div id="lastTrade"><finance:stock ticker="${ticker}" req="value" /></div>
+        <div id="lastTrade"><finance:stock ticker="${ticker}" req="lastSale" /></div>
         <div id="lastTradeInfo">
           <span id="tradeMove" class="${finance.stock(ticker: ticker, req: "dayChangePercent").startsWith("-") ? "tradeMoveDown" : "tradeMoveUp"}"><finance:stock ticker="${ticker}" req="dayChange" /> (<finance:stock ticker="${ticker}" req="dayChangePercent" />)</span><br />
           from previous day
@@ -116,7 +116,7 @@
                 <br />
 
                 <span class="stockStats">
-                  <strong>Price:</strong> <finance:stock ticker="${relatedStock}" req="value" />&nbsp;
+                  <strong>Price:</strong> <finance:stock ticker="${relatedStock}" req="lastSale" />&nbsp;
                   <strong>P/E:</strong> <finance:stock ticker="${relatedStock}" req="peRatio" />&nbsp;
                   <strong>Market Cap:</strong> <finance:stock ticker="${relatedStock}" req="marketCap" />
                 </span>
