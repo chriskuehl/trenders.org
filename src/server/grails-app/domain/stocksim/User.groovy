@@ -160,7 +160,7 @@ class User {
         def stocks = financeService.getStocks(tickers)
         
         s.each { stock ->
-            portfolioValue += stocks[stock.getTicker().toLowerCase()].getValue() * stock.getQuantity()
+            portfolioValue += stocks[stock.getTicker().toLowerCase()].lastSale * stock.getQuantity()
         }
         
         portfolioValue
@@ -212,11 +212,11 @@ class User {
     }
     
     def purchaseStocks(def stock, def num) {
-        if (num > getMaxPurchasableStocks(stock.getValue())) {
+        if (num > getMaxPurchasableStocks(stock.lastSale)) {
             return false
         }
         
-        def totalPrice = 8.95 + (stock.getValue() * num)
+        def totalPrice = 8.95 + (stock.lastSale * num)
         def ownedStock = ownedStocks.find { it.getTicker().toLowerCase() == stock.getTicker().toLowerCase() }
         def existed = ownedStock != null
         
@@ -259,7 +259,7 @@ class User {
             return false
         }
         
-        def totalPrice = (stock.getValue() * num)
+        def totalPrice = (stock.lastSale * num)
         
         setBalance(Math.max(getBalance() - 8.95, 0))
         setBalance(getBalance() + totalPrice)
