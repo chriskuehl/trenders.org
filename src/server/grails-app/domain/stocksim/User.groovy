@@ -27,7 +27,12 @@ class User {
         passwordResetToken(nullable: true)
     }
     
-    static transients = ["orderedHistoryEvents"]
+    static transients = [
+        "orderedHistoryEvents", "resetPasswordURL", "classmates", "ownedTickers",
+        "portfolioValue", "moneySpentOnPortfolio", "prettyMoneySpentOnPortfolio", "prettyPortfolioValue",
+        "totalAssets", "prettyTotalAssets", "prettyBalance", "maxPurchasableStocks", "numberOwned",
+        "classmatesByTotalAssets", "allHistoryCompanies"
+    ]
     
     static mapping = {
         ownedStocks lazy: false
