@@ -160,7 +160,7 @@ class User {
         def stocks = financeService.getStocks(tickers)
         
         s.each { stock ->
-            portfolioValue += stocks[stock.getTicker().toLowerCase()].lastSale * stock.getQuantity()
+            portfolioValue += stocks[stock.getTicker().toUpperCase()].lastSale * stock.getQuantity()
         }
         
         portfolioValue
