@@ -2,7 +2,7 @@
 <finance:stocks tickers="${[ticker]}">
   <g:set var="title" value="${finance.stock(ticker: ticker, req: "name")}" />
   <g:set var="simpleTitle" value="${finance.simpleName(name: title)}" />
-  <g:set var="price" value="${finance.stock(ticker: ticker, req: "value")}" />
+  <g:set var="price" value="${finance.stock(ticker: ticker, req: "lastSale")}" />
   <!doctype html>
   <html>
     <head>
