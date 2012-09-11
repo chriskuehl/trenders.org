@@ -18,8 +18,8 @@ class StockDataService {
         listReady && dataReady
     }
     
-    def updateStockData() {
-        def marketOpen = marketIsOpen()
+    def updateStockData(def force) {
+        def marketOpen = force || marketIsOpen()
         
         if (! marketOpen && lastCheckMarketsClosed) {
             println "Market still closed, not updating."
