@@ -13,8 +13,8 @@
         <p><input type="submit" value="Flush Cache" /></p>
       </form>
       
-      <form method="POST" action="${createLink(action: "flushSearchCache")}">
-        <p><input type="submit" value="Flush Search Cache (this will take some time)" /></p>
+      <form method="POST" action="${createLink(action: "flushStockData")}">
+        <p><input type="submit" value="Flush Stock Data Cache (this will take some time)" /></p>
       </form>
       
       <h2>Cache Services</h2>
