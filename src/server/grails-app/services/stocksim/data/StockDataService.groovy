@@ -26,6 +26,8 @@ class StockDataService {
             return
         } else if (! marketOpen) {
             println "Market closed, but was open last check, going ahead with update..."
+        } else {
+            println "Market probably open, going ahead with update..."
         }
         
         lastCheckMarketsClosed = ! marketOpen
