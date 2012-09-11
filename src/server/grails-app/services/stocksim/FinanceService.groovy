@@ -12,7 +12,7 @@ class FinanceService {
         def stocks = [:]
         
         tickers.each { ticker ->
-            stocks[ticker] = getStock(ticker)
+            stocks[ticker.toUpperCase()] = getStock(ticker)
         }
         
         stocks
