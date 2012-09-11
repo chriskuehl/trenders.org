@@ -28,10 +28,10 @@
             <tr>
               <td><g:link mapping="stock" params="${[ticker: stock.getTicker()]}">${finance.stock(ticker: stock.getTicker(), req: "name")}</g:link></td>
               <td>${stock.getQuantity()}</td>
-              <td>$${finance.stock(ticker: stock.getTicker(), req: "value").toDouble().trunc(2)}</td>
+              <td>$${finance.stock(ticker: stock.getTicker(), req: "lastSale").toDouble().trunc(2)}</td>
               <td>$${stock.getTotalSpent().toDouble().trunc(2)}</td>
-              <td>$${(finance.stock(ticker: stock.getTicker(), req: "value").toDouble() * stock.getQuantity().toDouble()).trunc(2)}</td>
-              <td>$${((finance.stock(ticker: stock.getTicker(), req: "value").toDouble() * stock.getQuantity().toDouble()) - stock.getTotalSpent().toDouble()).round(2)}</td>
+              <td>$${(finance.stock(ticker: stock.getTicker(), req: "lastSale").toDouble() * stock.getQuantity().toDouble()).trunc(2)}</td>
+              <td>$${((finance.stock(ticker: stock.getTicker(), req: "lastSale").toDouble() * stock.getQuantity().toDouble()) - stock.getTotalSpent().toDouble()).round(2)}</td>
               <td><g:link mapping="sell" params="${[ticker: stock.getTicker()]}">Sell</g:link></td>
               <td><g:link mapping="invest" params="${[ticker: stock.getTicker()]}">Buy More</g:link></td>
             </tr>
