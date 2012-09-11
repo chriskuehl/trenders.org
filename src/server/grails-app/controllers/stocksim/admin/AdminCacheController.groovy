@@ -5,6 +5,7 @@ import stocksim.*
 class AdminCacheController {
     def servletContext
     def searchService
+    def stockDataService
     
     def index() {
         render(view: "/admin/cache/index")
@@ -22,10 +23,10 @@ class AdminCacheController {
         redirect(action: "index")
     }
     
-    def flushSearchCache() {
-        searchService.updateCache()
+    def flushStockData() {
+        stockDataService.updateStockData(true)
         
-        new UserAlert(type: "success", title: "All done!", message: "The search cache has been flushed. It may take a few seconds for search to start working again.").add(flash)
+        new UserAlert(type: "success", title: "All done!", message: "The stock data cache has been flushed. It may take a few seconds for everything to start working again.").add(flash)
         redirect(action: "index")
     }
 }
