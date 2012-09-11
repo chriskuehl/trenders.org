@@ -18,19 +18,23 @@ class StockDataService {
         listReady && dataReady
     }
     
-    def updateStockData(def force) {
-        def marketOpen = force || marketIsOpen()
-        
-        if (! marketOpen && lastCheckMarketsClosed) {
-            println "Market still closed, not updating."
-            return
-        } else if (! marketOpen) {
-            println "Market closed, but was open last check, going ahead with update..."
+    def updateStockData(def forceUpdate) {
+        if (! forceUpdate) {
+            def marketOpen = marketIsOpen()
+
+            if (! marketOpen && lastCheckMarketsClosed) {
+                println "Market still closed, not updating."
+                return
+            } else if (! marketOpen) {
+                println "Market closed, but was open last check, going ahead with update..."
+            } else {
+                println "Market probably open, going ahead with update..."
+            }
+
+            lastCheckMarketsClosed = ! marketOpen
         } else {
-            println "Market probably open, going ahead with update..."
+            println "Skipping market check, instructed to force update..."
         }
-        
-        lastCheckMarketsClosed = ! marketOpen
         
         println "Updating stock data..."
         
