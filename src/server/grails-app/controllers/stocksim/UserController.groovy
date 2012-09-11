@@ -166,7 +166,7 @@ class UserController {
     def invest() {
         def num = Math.floor(params.num.toDouble())
         def ticker = params.ticker
-        def stock = financeService.getStocks([ticker])[ticker]
+        def stock = financeService.getStock(ticker)
         
         def success = false
         
@@ -185,7 +185,7 @@ class UserController {
     def sell() {
         def num = Math.floor(params.num.toDouble()).toInteger()
         def ticker = params.ticker
-        def stock = financeService.getStocks([ticker])[ticker]
+        def stock = financeService.getStock(ticker)
         
         def success = false
         
