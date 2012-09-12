@@ -165,7 +165,13 @@ class User {
         def stocks = financeService.getStocks(tickers)
         
         s.each { stock ->
-            portfolioValue += stocks[stock.getTicker().toUpperCase()].lastSale * stock.getQuantity()
+            def stockData = stocks[stock.getTicker().toUpperCase()]
+            
+            if (stockData != null) {
+                portfolioValue += stockData.lastSale * stock.getQuantity()
+            } else {
+                println "Stock no longer exists: " + stock.getTicker().toUpperCase()
+            }
         }
         
         portfolioValue
