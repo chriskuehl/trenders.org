@@ -12,10 +12,19 @@ class SandboxController {
     def financeService
     def mailService
     def googleFinanceService
+    def hashingService
     
     def gainersLosers() {
         def map = GoogleFinanceService.getGainersLosers()
         render map
+    }
+    
+    def hashTest() {
+        def start = new Date().getTime()
+        def hash = hashingService.hash("testing", params.it)
+        def end = new Date().getTime()
+        
+        render "time: ${end - start}, ${hash}"
     }
     
     def allTickers() {

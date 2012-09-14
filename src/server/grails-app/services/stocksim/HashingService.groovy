@@ -9,6 +9,10 @@ class HashingService {
         BCrypt.hashpw(str, BCrypt.gensalt(6))
     }
     
+    def hash(def str, def it) {
+        BCrypt.hashpw(str, BCrypt.gensalt(it.toInteger()))
+    }
+    
     def matches(def hash, def str) {
         BCrypt.checkpw(str, hash)
     }
