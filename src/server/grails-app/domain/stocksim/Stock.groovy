@@ -31,7 +31,7 @@ class Stock {
     double yearTarget = 0
     String dayRange
     String yearRange
-    String marketCap
+    long marketCap
     double peRatio = 0
     String exchange // USED TO BE "market"
     int ipoYear = 0

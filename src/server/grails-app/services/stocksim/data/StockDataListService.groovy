@@ -375,6 +375,7 @@ class StockDataListService {
             // which provide more data than the NASDAQ download)
             stock.ticker = nextLine[0].trim()
             stock.name = nextLine[1] == "n/a" ? nextLine[0] : nextLine[1]
+            stock.marketCap = nextLine[3] == "n/a" ? 0L : (nextLine[3].indexOf(".") > (- 1) ? nextLine[3].substring(0, nextLine[3].indexOf(".")) : nextLine[3]).toLong()
             stock.ipoYear = nextLine[5] == "n/a" ? (- 1) : nextLine[5].toInteger()
             stock.sector = nextLine[6] == "n/a" ? "" : nextLine[6]
             stock.industry = nextLine[7] == "n/a" ? "" : nextLine[7]
