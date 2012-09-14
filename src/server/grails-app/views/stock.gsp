@@ -35,14 +35,21 @@
           ["1-Year Target", "yearTarget"],
           ["Day Range", "dayRange"],
           ["Year Range", "yearRange"],
-          ["Market Cap", "marketCap"],
+          ["Market Cap", null, formatBigNumber(num: finance.stock(ticker: ticker, req: "marketCap").toDouble())],
           ["P/E Ratio", "peRatio"]
         ]}" />
         
         <g:each var="info" in="${financialInfo}">
           <div class="infoRow">
             <div class="key">${info[0]}</div>
-            <div class="value"><finance:stock ticker="${ticker}" req="${info[1]}" /></div>
+            <div class="value">
+              <g:if test="${info[1] != null}">
+                <finance:stock ticker="${ticker}" req="${info[1]}" />
+              </g:if>
+              <g:else>
+                ${info[2]}
+              </g:else>
+            </div>
             <div class="clear"></div>
           </div>
         </g:each>

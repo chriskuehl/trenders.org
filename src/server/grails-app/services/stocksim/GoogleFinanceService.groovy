@@ -70,7 +70,7 @@ class GoogleFinanceService {
                 def stockObj = financeService.getStock(ticker)
                 
                 if (stockObj != null/* && stockObj.getMarketCap() > 0*/) {
-                    def marketCap = 0 // utilService.formatBigNumber(stockObj.getMarketCap())
+                    def marketCap = utilService.formatBigNumber(stockObj.getMarketCap().toDouble())
                     
                     stockList.add([
                         stock: stockObj,

@@ -24,6 +24,10 @@ class UtilTagLib {
         out << utilService.trim(content, chars, elipses)
     }
     
+    def formatBigNumber = { attrs ->
+        out << utilService.formatBigNumber(attrs.num)
+    }
+    
     def pickRandom = { attrs ->
         def array = attrs.array
         def max = Math.min(array.size(), attrs.num.toInteger())
