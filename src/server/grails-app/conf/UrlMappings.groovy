@@ -7,7 +7,6 @@ class UrlMappings {
         }
         
         // user pages
-        
         name signup: "/signup" {
             controller = "user"
             action = "signup"
@@ -136,10 +135,13 @@ class UrlMappings {
             proxyView = "/about"
         }
         
-        // lessons
+        // beta testing/helper pages
+        name report: "/report" {
+            controller = "betaTest"
+        }
         
         // admin pages
-        "/admin" (controller: "viewProxy", proxyView: "admin/index")
+        "/admin" (controller: "viewProxy", proxyView: "/admin/index")
         "/admin/cache/$action" (controller: "adminCache")
         "/admin/user/$action" (controller: "adminUser")
         

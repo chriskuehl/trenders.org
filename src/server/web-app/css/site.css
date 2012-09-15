@@ -831,3 +831,19 @@ img.floatRight {
     margin-left: 10px;
     margin-bottom: 10px;
 }
+
+.contactUsLink {
+    position: absolute;
+    top: 0px;
+    right: 400px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.contactUsLink:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
