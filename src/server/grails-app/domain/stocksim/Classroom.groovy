@@ -2,6 +2,7 @@ package stocksim
 
 class Classroom {
     // TODO: implement options
+    static hasMany = [users: User]
     User teacher
     
     
