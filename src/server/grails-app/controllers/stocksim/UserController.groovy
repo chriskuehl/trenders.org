@@ -100,6 +100,12 @@ class UserController {
             def email = params.email
             def name = params.name
             def classID = params.classid
+            def password = params.password
+            
+            if (password.length() < 6 || password.length() > 50) {
+                render "Your password must be between 6 and 50 characters long." // TODO: prettier
+                return
+            }
             
             def classroom = Classroom.findByClassCode(classID)
             
@@ -109,16 +115,13 @@ class UserController {
                 def user = new User(displayName: name, email: email, classroom: classroom)
                 
                 if (user.validate()) {
+                    user.setPassword(password)
                     user.save()
                     userService.become(response, user)
 
                     redirect(mapping: "signupStudentSuccess")
                 } else {
                     render "Please use valid information." // TODO: make this prettier
-                    
-                    user.errors.allErrors.each { error ->
-                        println error
-                    }
                 }
             }
         } else {
@@ -130,10 +133,17 @@ class UserController {
         if (params.signup) { // TODO: redirect after POST
             def email = params.email
             def name = params.name
+            def password = params.password
+            
+            if (password.length() < 6 || password.length() > 50) {
+                render "Your password must be between 6 and 50 characters long." // TODO: prettier
+                return
+            }
             
             def user = new User(displayName: name, email: email)
             
             if (user.validate()) {
+                user.setPassword(password)
                 user.save()
                 userService.become(response, user)
 
@@ -145,10 +155,6 @@ class UserController {
                 redirect(mapping: "signupTeacherSuccess")
             } else {
                 render "Please use valid information." // TODO: prettier
-
-                user.errors.allErrors.each { error ->
-                    println error
-                }
             }
         } else {
             render(view: "/signupTeacher")

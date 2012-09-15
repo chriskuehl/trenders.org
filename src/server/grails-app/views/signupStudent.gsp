@@ -13,18 +13,26 @@
     <form method="POST">
       <table>
         <tr>
-          <th>Email:</th>
-          <td><input type="text" name="email" value="" /></td>
-        </tr>
-        
-        <tr>
           <th>Name:</th>
           <td><input type="text" name="name" value="" /></td>
         </tr>
         
         <tr>
+          <th>Email:</th>
+          <td><input type="text" name="email" value="" /></td>
+        </tr>
+        
+        <tr>
+          <th>Password:</th>
+          <td><input type="password" name="password" value="" /></td>
+        </tr>
+        
+        <tr>
           <th>Class ID:</th>
-          <td><input type="text" name="classid" value="" /></td>
+          <td>
+            <input type="text" name="classid" value="" /><br />
+            <span style="font-size: 10px; font-style: italic;">(use <strong>DEMO</strong> if you don't have one)</span>
+          </td>
         </tr>
       </table>
       
