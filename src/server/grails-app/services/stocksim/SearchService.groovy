@@ -7,7 +7,18 @@ class SearchService {
     def dataSource_temp
     
     def getResults(def query, int limit, def sector) {
+        def rows = getResultsRaw(query, limit, sector)
         def results = []
+        
+        rows.each { row ->
+            def stock = financeService.getStock(row.ticker)
+            results.add(stock)
+        }
+        
+        results
+    }
+    
+    def getResultsRaw(def query, int limit, def sector) {
         def sql = new Sql(dataSource_temp)
         def term = YahooQueryService.makeAlphaNumeric(query).toLowerCase() + "%"
         def mquery
@@ -21,13 +32,14 @@ class SearchService {
             p = [term, term, limit]
         }
         
+        def rows = []
+        
         sql.eachRow(mquery, p) { row ->
-            def stock = financeService.getStock(row.ticker)
-            results.add(stock)
+            rows.add(row.toRowResult())
         }
         
         sql.close()
         
-        results
+        rows
     }
 }

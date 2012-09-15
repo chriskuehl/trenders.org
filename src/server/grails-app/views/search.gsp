@@ -22,35 +22,33 @@
     <g:if test="${query}">
       <search:results query="${query}" offset="${offset}">
         <g:if test="${search.getNumResults() > 0}">
-          <finance:stocks tickers="${search.getResultTickers(max: resultsPerPage)}">
-            <p>Displaying results ${offset + 1} to ${Math.min(offset + resultsPerPage, search.getNumResults())} of ${search.getNumResults()}.</p>
-            <ul id="searchResults">
-              <search:eachResult max="${resultsPerPage}">
-                <li>
-                  <a href="${createLink(mapping: "stock", params: [ticker: search.resultReturn(req: "ticker")])}">
-                    <span class="searchTitle"><search:result req="name" /></span><br />
-                    <search:result req="ticker" /> &ndash; <finance:stock ticker="${search.result(req: "ticker").toLowerCase()}" req="lastSale" /> &ndash; <search:result req="sector" />
-                  </a>
-                </li>
-              </search:eachResult>
-            </ul>
+          <p>Displaying results ${offset + 1} to ${Math.min(offset + resultsPerPage, search.getNumResults())} of ${search.getNumResults()}.</p>
+          <ul id="searchResults">
+            <search:eachResult max="${resultsPerPage}">
+              <li>
+                <a href="${createLink(mapping: "stock", params: [ticker: search.resultReturn(req: "ticker")])}">
+                  <span class="searchTitle"><search:result req="name" /></span><br />
+                  <search:result req="ticker" /> &ndash; <search:result req="lastSale" /> &ndash; <search:result req="sector" />
+                </a>
+              </li>
+            </search:eachResult>
+          </ul>
 
-            <%-- previous and next page --%>
-            <g:set var="hasPrev" value="${offset > 0}" />
-            <g:set var="hasNext" value="${search.getNumResults() > offset + resultsPerPage}" />
+          <%-- previous and next page --%>
+          <g:set var="hasPrev" value="${offset > 0}" />
+          <g:set var="hasNext" value="${search.getNumResults() > offset + resultsPerPage}" />
 
-            <g:if test="${hasPrev || hasNext}">
-              <div id="pageNavHolder">
-                <g:if test="${hasPrev}">
-                  <a id="prevPage" href="${createLink(params: [q: query, p: (page - 1)])}">&laquo; Previous Page</a>
-                </g:if>
+          <g:if test="${hasPrev || hasNext}">
+            <div id="pageNavHolder">
+              <g:if test="${hasPrev}">
+                <a id="prevPage" href="${createLink(params: [q: query, p: (page - 1)])}">&laquo; Previous Page</a>
+              </g:if>
 
-                <g:if test="${hasNext}">
-                  <a id="nextPage" href="${createLink(params: [q: query, p: (page + 1)])}">Next Page &raquo;</a>
-                </g:if>
-              </div>
-            </g:if>
-          </finance:stocks>
+              <g:if test="${hasNext}">
+                <a id="nextPage" href="${createLink(params: [q: query, p: (page + 1)])}">Next Page &raquo;</a>
+              </g:if>
+            </div>
+          </g:if>
         </g:if>
         <g:else>
           <p>We didn't find any results for your query. Try again?</p>

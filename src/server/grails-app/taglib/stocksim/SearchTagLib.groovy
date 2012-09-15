@@ -5,6 +5,7 @@ class SearchTagLib {
     static returnObjectForTags = ["resultReturn", "getNumResults", "getResultTickers"]
     
     def searchService
+    def financeService
     
     def results = { attrs, body ->
         def query
@@ -17,7 +18,7 @@ class SearchTagLib {
         
         def offset = attrs.offset.toInteger()
         
-        def results = searchService.getResults(query, 1000, attrs.sector ? true : false)
+        def results = searchService.getResultsRaw(query, 1000, attrs.sector ? true : false)
         
         request.numResults = results.size()
         
@@ -25,6 +26,10 @@ class SearchTagLib {
             for (i in (1..offset)) {
                 results.remove(0)
             }
+        }
+        
+        for (i in (0..10)) {
+            results[i] = financeService.getStock(results[i].ticker)
         }
         
         request.searchResults = results
