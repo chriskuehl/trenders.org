@@ -125,7 +125,7 @@
                 <span class="stockStats">
                   <strong>Price:</strong> <finance:stock ticker="${relatedStock}" req="lastSale" />&nbsp;
                   <strong>P/E:</strong> <finance:stock ticker="${relatedStock}" req="peRatio" />&nbsp;
-                  <strong>Market Cap:</strong> <finance:stock ticker="${relatedStock}" req="marketCap" />
+                  <strong>Market Cap:</strong> <g:formatBigNumber num="${finance.stock(ticker: relatedStock, req: "marketCap").toDouble()}" />
                 </span>
               </g:link>
             </li>
