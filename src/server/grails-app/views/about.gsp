@@ -15,8 +15,9 @@
     <h2>APIs and Data Sources</h2>
     <p>We use publicly-available APIs to get data pertaining to companies or to the stock market. The following sites or services provide us with data:</p>
     <ul>
-      <li><a target="_blank" href="http://finance.yahoo.com/">Yahoo! Finance</a>, through their YQL public data API, is used for company financial information</li>
+      <li><a target="_blank" href="http://finance.yahoo.com/">Yahoo! Finance</a>, through their CSV data dumps, is used for company financial information</li>
       <li><a target="_blank" href="http://news.google.com/">Google News</a> is used to provide relevant news articles on company pages and on the home page</li>
+      <li><a target="_blank" href="http://www.reuters.com/">Reuters</a> is used to provide graphs for historical (past week) data for stock indices and for individual stocks</li>
       <li><a target="_blank" href="http://finance.google.com/">Google Finance</a>, through their JSON API, is used to provide information on stock market indices (DJI, S&amp;P 500)</li>
       <li>The <a target="_blank" href="http://en.wikipedia.org/">English Wikipedia</a> is used to provide short summaries of companies on their information pages</li>
       <li>The <a target="_blank" href="http://nasdaq.com/">NASDAQ stock exchange</a> company CSV download provides an updated list of all companies on both the NASDAQ and NYSE stock exchanges</li>
