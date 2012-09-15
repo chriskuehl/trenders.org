@@ -87,7 +87,7 @@
         <ul class="stockList" style="margin-top: 7px !important;">
           <googleNews:articles query="${simpleTitle.toString()}" num="5">
             <li>
-              <strong><a href="${googleNews.article(req: "link")}" class="gray" target="_blank"><g:trim elipses="true" content="${googleNews.article(req: "title")}" chars="45" /></a></strong><br />
+              <strong><a href="${googleNews.article(req: "link")}" class="gray" target="_blank"><g:trim elipses="true" content="${googleNews.article(req: "title")}" chars="42" /></a></strong><br />
               <span class="soft"><googleNews:article req="author" />, <g:toRecentTime date="${googleNews.article(req: "pubDate")}" />. <a class="small" href="${googleNews.article(req: "relatedLink")}" target="_blank">related</a></span><br />
             </li>
           </googleNews:articles>
