@@ -6,7 +6,7 @@ class HashingService {
     def hash(def str) {
         // 6 rounds takes about a second on my development machine; additional
         // benchmarking and testing is needed before we go live
-        BCrypt.hashpw(str, BCrypt.gensalt(6))
+        BCrypt.hashpw(str, BCrypt.gensalt(9))
     }
     
     def hash(def str, def it) {
