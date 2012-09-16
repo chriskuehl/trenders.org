@@ -8,6 +8,8 @@ class UserInterfaceService {
     
     public def _info = { response, action, params, user ->
         response.displayName = user.displayName
+        response.email = user.email
+        response.classCode = user.classroom.classCode
         
         response.balance = [
             raw: user.balance,
