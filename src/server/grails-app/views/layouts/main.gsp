@@ -83,11 +83,11 @@
         <user:ifNotLoggedIn>
           <a href="${createLink(mapping: "signup")}" id="signupButton">Get Started</a>
         </user:ifNotLoggedIn>
+        
+        <g:link class="contactUsLink" mapping="report">
+          Submit Testing Report
+        </g:link>
       </div>
-
-      <g:link class="contactUsLink" mapping="report">
-        Submit Testing Report
-      </g:link>
     </div>
 
     <div id="blueBar"></div>

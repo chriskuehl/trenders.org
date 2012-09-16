@@ -834,8 +834,8 @@ img.floatRight {
 
 .contactUsLink {
     position: absolute;
-    top: 0px;
-    right: 400px;
+    top: 57px;
+    left: 325px;
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     padding: 10px;
