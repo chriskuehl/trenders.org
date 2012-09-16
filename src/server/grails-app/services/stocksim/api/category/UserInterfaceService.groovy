@@ -27,6 +27,54 @@ class UserInterfaceService {
         ]
     }
     
+    public def _classroom = { response, action, params, user ->
+        def classroom = user.classroom
+        def teacher = classroom.teacher
+        
+        response.teacher = [
+            email: teacher.email,
+            displayName: teacher.displayName
+        ]
+        
+        response.classCode = classroom.classCode
+        
+        def unsortedMembers = []
+        
+        user.getClassmates().each { classmate ->
+            unsortedMembers.add([
+                displayName: classmate.displayName,
+                email: classmate.email,
+
+                balance: [
+                    raw: classmate.getBalance(),
+                    pretty: classmate.getPrettyBalance()
+                ],
+
+                portfolioValue: [
+                    raw: classmate.getPortfolioValue(),
+                    pretty: classmate.getPrettyPortfolioValue()
+                ],
+
+                totalAssets: [
+                    raw: classmate.getTotalAssets(),
+                    pretty: classmate.getPrettyTotalAssets()
+                ]
+            ])
+        }
+        
+        def sortedMembers = unsortedMembers.sort { a, b ->
+            if (a.totalAssets.raw == b.totalAssets.raw) {
+                return 0
+            } else if (a.totalAssets.raw < b.totalAssets.raw) {
+                return 1
+            } else {
+                return (- 1)
+            }
+        }
+        
+        response.members = sortedMembers
+    }
+    
     // TODO: eventually this is a security hole that should be fixed
     // (it is possible to see if an email is registered here since requests take longer
     //  when we have to compute the password hash, which is only when an account is registered)
