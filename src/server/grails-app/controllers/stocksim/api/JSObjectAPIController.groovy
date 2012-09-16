@@ -11,7 +11,7 @@ class JSObjectAPIController {
         def item = params.apiItem
         def action = params.apiAction
         
-        def response = appInterfaceService.generateResponse(category, item, action, params)
+        def response = appInterfaceService.generateResponse(request, category, item, action, params)
         
         if (params.xml) {
             render response as XML

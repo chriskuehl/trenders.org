@@ -13,9 +13,15 @@ class AppInterfaceService {
     def portfolioInterfaceService
     def infoInterfaceService
     
-    def generateResponse(def category, def item, def action, def params) {
+    def generateResponse(def request, def category, def item, def action, def params) {
         def response = [:]
         def startTime = (new Date()).getTime()
+        
+        // add additional helper info to params
+        params.info = [
+            userAgent: request.getHeader("User-Agent"),
+            ip: request.getRemoteAddr()
+        ]
         
         // see if the request has an appropriate token, and if so, find the user
         // they're trying to login as
