@@ -73,7 +73,7 @@ class InfoInterfaceService {
                     ipoYear: stock.ipoYear,
                     sector: stock.sector,
                     industry: stock.industry,
-                    market: stock.market
+                    exchange: stock.market
                 ]
             }
         }
