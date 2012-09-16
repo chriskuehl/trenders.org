@@ -1,9 +1,66 @@
 package stocksim.api.category
 
 import stocksim.*
+import stocksim.api.*
 
 class PortfolioInterfaceService {
     def financeService
+    
+    public def _invest = { response, action, params, user ->
+        def ticker
+        def num
+        def hasParams = false
+        
+        // validate the query params
+        try {
+            ticker = params.ticker.toUpperCase()
+            num = params.num.toInteger()
+            
+            if (num <= 0 || ticker.length() <= 0) {
+                throw new Exception()
+            }
+            
+            hasParams = true
+        } catch (Exception ex) {
+            response.apiCode = AppInterface.codes.MISSING_BAD_PARAMS
+        }
+        
+        // perform the actual investment
+        if (hasParams) {
+            def stock = financeService.getStock(ticker)
+            if (stock != null) {
+                if (user.purchaseStocks(stock, num)) {
+                    def ownedStock = user.ownedStocks.find { it.getTicker().toUpperCase() == ticker.toUpperCase() }
+                    
+                    response.asset = [
+                        company: [
+                            ticker: stock.ticker,
+                            name: stock.name,
+                            lastSale: stock.lastSale,
+                            marketCap: stock.marketCap,
+                            ipoYear: stock.ipoYear,
+                            sector: stock.sector,
+                            industry: stock.industry,
+                            exchange: stock.exchange
+                        ],
+
+                        numShares: ownedStock.quantity,
+                        totalSpent: ownedStock.totalSpent.toDouble().trunc(2),
+                        currentValue: stock.lastSale * ownedStock.quantity,
+                        gain: ((stock.lastSale * ownedStock.quantity) - ownedStock.totalSpent.toDouble()).round(2)
+                    ]
+                } else {
+                    response.apiCode = AppInterface.codes.UNABLE_TO_PERFORM_ACTION
+                }
+            } else {
+                response.apiCode = AppInterface.codes.MISSING_BAD_PARAMS
+            }
+        }
+    }
+    
+    public def _sell = { response, action, params, user ->
+        
+    }
     
     public def _current = { response, action, params, user ->
         def assets = []
