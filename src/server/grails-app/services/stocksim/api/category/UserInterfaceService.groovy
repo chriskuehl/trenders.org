@@ -12,7 +12,7 @@ class UserInterfaceService {
     // 
     // ...but in theory this is not that big of a deal, especially since you can tell
     // if an email is registered simply by trying to register as that email
-    public def login = { response, action, params ->
+    public def login = { response, action, params, alreadyAuthedUser ->
         def email = params.email
         def password = params.password
         

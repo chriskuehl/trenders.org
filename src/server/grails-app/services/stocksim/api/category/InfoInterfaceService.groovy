@@ -8,7 +8,7 @@ class InfoInterfaceService {
     def googleNewsService
     def googleFinanceService
     
-    public def home = { response, action, params ->
+    public def home = { response, action, params, user ->
         // stock market indicies
         response.indicies = [:]
         def indexNames = [
@@ -33,7 +33,7 @@ class InfoInterfaceService {
                     value: index.getCurrentValue(),
                     direction: (index.isUp() ? 1 : (- 1)),
                     changeText: index.getPercentChangeText(),
-                    graphLink: "http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=\${width}&height=\${height}&symbol=${indexName["title"]}&duration=5&headertype=none"
+                    graphLink: "http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=\${width}&height=\${height}&symbol=${indexName["ticker"]}&duration=5&headertype=none"
                 ]
             }
         }
