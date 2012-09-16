@@ -7,6 +7,7 @@ class AppInterfaceService {
     def lyricService
     def userService
     
+    def betaInterfaceService
     def classroomInterfaceService
     def userInterfaceService
     def portfolioInterfaceService
@@ -73,6 +74,7 @@ class AppInterfaceService {
     
     def getCategoryService(def category) {
         def categories = [
+            beta: betaInterfaceService,
             classroom: classroomInterfaceService,
             user: userInterfaceService,
             portfolio: portfolioInterfaceService,
