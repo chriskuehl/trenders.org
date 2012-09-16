@@ -28,18 +28,21 @@ class AppInterfaceService {
         // process for a response
         def categoryService = getCategoryService(category)
         
-        if (categoryService == null || item.startsWith("_") || ! categoryService.hasProperty(item)) {
+        if (categoryService == null || item.startsWith("_") || ! (categoryService.hasProperty(item) || categoryService.hasProperty("_" + item))) {
             response.apiCode = AppInterface.codes.NOT_AVAILABLE
         } else {
             // does a closure exist for the item requested?
-            def method = categoryService[item]
+            def method
             
-            def authMethodName = "_" + item
+            def normalMethodName = item
+            def authMethodName = "_" + normalMethodName
             def requiresAuth = false
             
-            if (categoryService.hasProperty(authMethodName) != null) {
+            if (categoryService.hasProperty(authMethodName)) {
                 method = categoryService[authMethodName]
                 requiresAuth = true
+            } else {
+                method = categoryService[item]
             }
             
             if (method != null) {
@@ -50,7 +53,7 @@ class AppInterfaceService {
                     // mark the response as "ok" (API methods can override this later if
                     // they want)
                     response.apiCode = AppInterface.codes.OK
-                    categoryService[item](response, action, params)
+                    method(response, action, params)
                 } else {
                     response.apiCode = AppInterface.codes.LOGIN_FIRST
                 }
