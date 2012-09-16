@@ -19,7 +19,6 @@
     <h2>The Stock Market</h2>
     <ul>
       <li><g:link mapping="lesson" params="${[cat: "stocks", lesson: "stock-market-intro"]}">Introduction to the Stock Market</g:link></li>
-      <%-- <li><g:link mapping="lesson" params="${[cat: "stocks", lesson: "when-to-invest"]}">When to Invest, When to Sell</g:link></li> --%>
       <li><g:link mapping="lesson" params="${[cat: "stocks", lesson: "choosing-stocks"]}">Choosing the Right Stocks</g:link></li>
     </ul>
   </body>
