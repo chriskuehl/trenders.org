@@ -6,7 +6,7 @@
   </head>
   <body>
     <h1>About This Site</h1>
-    <p>This site was developed as part of the Oracle Education Foundation ThinkQuest 2012 Application Development competition by students at Woodford County High School.</p>
+    <p>This site was developed as part of the Oracle Education Foundation ThinkQuest 2012 Application Development competition by <a href="http://www.linkedin.com/pub/chris-kuehl/31/220/1b4" target="_blank">Chris Kuehl</a> and Ryan Leigh, students at Woodford County High School.</p>
     
     <h2>Site Platform</h2>
     <p>This site runs on <a target="_blank" href="http://grails.org/">Grails</a>, a nifty web framework for the nifty programming language <a target ="_blank" href="http://groovy.codehaus.org/">Groovy</a>, which has the incredibly convenient property of running on the JVM. The application is hosted on the <a target="_blank" href="http://tomcat.apache.org/">Apache Tomcat</a> servlet engine with Apache's <a target="_blank" href="http://httpd.apache.org/docs/2.2/mod/mod_proxy_ajp.html">mod_proxy_ajp</a>. In addition, <a target="_blank" href="https://www.varnish-cache.org/">Varnish</a> proxies requests to and from the Apache server, and enables us to serve static resources extremely quickly.</p>
@@ -23,8 +23,12 @@
       <li>The <a target="_blank" href="http://nasdaq.com/">NASDAQ stock exchange</a> company CSV download provides an updated list of all companies on both the NASDAQ and NYSE stock exchanges</li>
     </ul>
     
+    <h2>Public API and Data Feeds</h2>
+    <p>trenders.org does contain a comprehensive API that can be used to control a user's portfolio or to get general financial data; in fact, we use this for our mobile applications. While there's nothing preventing you from using the API yourself, this isn't recommended, supported, or (to the extent that we can control you) permitted. We don't make any money off this site, and we're paying for the servers out of our own pockets.</p>
+    <p>It's nothing personal, but if we notice someone is using our private API, we'll probably take steps to try to stop that. We just can't afford to pay for the extra traffic. I've tried to provide all of our data sources in a convenient manner because I know from experience how hard it can be to get all this information from public sources. If you've got questions on an implementation detail, we can probably help you out&mdash;<a href="mailto:chris@trenders.org">shoot us an email!</a></p>
+    
     <h2>Graphics</h2>
-    <p>We use a number of graphics which have been licensed under terms permitting their use on non-commercial websites:</p>
+    <p>We use a number of graphics which have been licensed under terms permitting their use on non-commercial websites. A huge thanks to these people:</p>
     <ul>
       <li><a target="_blank" href="http://www.iconfinder.com/icondetails/27849/24/folder_yellow_icon">Folder Icon</a> by Visual Pharm</li>
       <li><a target="_blank" href="http://www.iconfinder.com/icondetails/45350/24/history_icon">History Icon</a> by Iconshock</li>
