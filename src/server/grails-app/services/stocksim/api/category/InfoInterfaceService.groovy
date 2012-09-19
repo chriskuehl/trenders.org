@@ -6,6 +6,7 @@ import stocksim.api.*
 class InfoInterfaceService {
     def cacheService
     def searchService
+    def financeService
     def utilService
     def googleNewsService
     def googleFinanceService
@@ -82,24 +83,46 @@ class InfoInterfaceService {
     }
     
     public def search = { response, action, params, user ->
-        if (action == "suggestions") {
-            def results = searchService.getResults(params["query"], 15, false)
-            def suggestions = []
+        def results = searchService.getResults(params["query"], 20, false)
+        def flatResults = []
 
-            results.each { stock ->
-                suggestions.add([
-                    ticker: stock.ticker,
-                    name: stock.name,
-                    lastSale: stock.lastSale,
-                    marketCap: stock.marketCap,
-                    ipoYear: stock.ipoYear,
-                    sector: stock.sector,
-                    industry: stock.industry,
-                    exchange: stock.exchange
-                ])
-            }
-            
-            response.suggestions = suggestions
+        results.each { stock ->
+            flatResults.add([
+                ticker: stock.ticker,
+                name: stock.name,
+                lastSale: stock.lastSale,
+                marketCap: stock.marketCap,
+                ipoYear: stock.ipoYear,
+                sector: stock.sector,
+                industry: stock.industry,
+                exchange: stock.exchange
+            ])
         }
+
+        response.results = flatResults
+    }
+    
+    public def sectors = { response, action, params, user ->
+        response.sectors = financeService.getSectors()
+    }
+    
+    public def browse = { response, action, params, user ->
+        def results = searchService.getResults(params["sector"], 20, true)
+        def flatResults = []
+
+        results.each { stock ->
+            flatResults.add([
+                ticker: stock.ticker,
+                name: stock.name,
+                lastSale: stock.lastSale,
+                marketCap: stock.marketCap,
+                ipoYear: stock.ipoYear,
+                sector: stock.sector,
+                industry: stock.industry,
+                exchange: stock.exchange
+            ])
+        }
+
+        response.results = flatResults
     }
 }
