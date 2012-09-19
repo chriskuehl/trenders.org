@@ -5,6 +5,8 @@ import stocksim.api.*
 
 class InfoInterfaceService {
     def cacheService
+    def searchService
+    def utilService
     def googleNewsService
     def googleFinanceService
     
@@ -76,6 +78,28 @@ class InfoInterfaceService {
                     exchange: stock.market
                 ]
             }
+        }
+    }
+    
+    public def search = { response, action, params, user ->
+        if (action == "suggestions") {
+            def results = searchService.getResults(params["query"], 15, false)
+            def suggestions = []
+
+            results.each { stock ->
+                suggestions.add([
+                    ticker: stock.ticker,
+                    name: stock.name,
+                    lastSale: stock.lastSale,
+                    marketCap: stock.marketCap,
+                    ipoYear: stock.ipoYear,
+                    sector: stock.sector,
+                    industry: stock.industry,
+                    exchange: stock.exchange
+                ])
+            }
+            
+            response.suggestions = suggestions
         }
     }
 }
