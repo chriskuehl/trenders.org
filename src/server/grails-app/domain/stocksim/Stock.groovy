@@ -8,7 +8,7 @@ class Stock {
     static constraints = {
         ticker unique: true, index: "Ticker_Idx"
         
-        name nullable: true
+        name nullable: true, index: "Name_Idx"
         lastSale nullable: true
         prevClose nullable: true
         dayChange nullable: true
@@ -17,8 +17,9 @@ class Stock {
         yearTarget nullable: true
         dayRange nullable: true
         yearRange nullable: true
-        marketCap nullable: true
+        marketCap nullable: true, index: "MarketCap_Idx"
         peRatio nullable: true
+        sector index: "Sector_Idx"
     }
     
     String ticker
