@@ -20,6 +20,7 @@ class SandboxController {
         render map
     }
     
+    /*
     def sendEmails() {
         User.findAll([fetch: "eager"]).each { user ->
             def body =
@@ -61,7 +62,7 @@ class SandboxController {
         }
         
         render "ok"
-    }
+    }*/
     
     def hashTest() {
         def start = new Date().getTime()
