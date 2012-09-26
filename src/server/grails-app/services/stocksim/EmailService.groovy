@@ -14,6 +14,6 @@ class EmailService {
         new MailMessage(from: "trenders.org <chris@trenders.org>", to: to, subject: subject, body: body).save()
         
         // trigger sending all unsent emails in the queue
-        ProcessMailQueueJob.triggerNow()
+        // ProcessMailQueueJob.triggerNow()
     }
 }

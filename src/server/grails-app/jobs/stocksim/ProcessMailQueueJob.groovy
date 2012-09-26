@@ -2,7 +2,7 @@ package stocksim
 
 class ProcessMailQueueJob {
     def startDelay = 15000
-    def timeout = 5 * 1000 // every 5 seconds
+    def timeout = 1 * 1000 // every 5 seconds
     
     def mailService
 
