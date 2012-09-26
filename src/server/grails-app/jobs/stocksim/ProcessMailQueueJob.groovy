@@ -2,28 +2,42 @@ package stocksim
 
 class ProcessMailQueueJob {
     def startDelay = 15000
-    def timeout = 30 * 1000 // every 30 seconds
+    def timeout = 5 * 1000 // every 5 seconds
     
     def mailService
 
     def execute() {
-        def unsentMessages = MailMessage.findAllBySent(false)
+        def message = MailMessage.findBySent(false)
         
-        unsentMessages.each { message ->
-            println "Sending mail message: ${message}"
-
-            mailService.sendMail {
-                //multipart true
-
-                to message.to
-                from message.from
-                subject message.subject
-                //html 'this is <b>some</b> text'
-                body message.body
-            }
-
-            message.sent = true
-            message.save()
+        if (message == null) {
+            return
         }
+        
+        //unsentMessages.each { message ->
+            if (message.sent) {
+                println "Already sent: ${message}"
+            } else {
+                println "Sending mail message: ${message}"
+
+                message.sent = true
+                
+                try {
+                    message.save(flush: true)
+                } catch (Exception ex) {
+                    println "Abandoning ${message}, is dirty..."
+                    return false
+                }
+
+                mailService.sendMail {
+                    //multipart true
+
+                    to message.to
+                    from message.from
+                    subject message.subject
+                    //html 'this is <b>some</b> text'
+                    body message.body
+                }
+            }
+        //}
     }
 }
