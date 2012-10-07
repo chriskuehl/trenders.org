@@ -15,7 +15,6 @@
       <table>
         <tr>
           <th>Name</th>
-          <th>Email</th>
           <th>Current Balance</th>
           <th>Portfolio Value</th>
           <th>Total Assets</th>
@@ -25,7 +24,6 @@
         <g:each in="${request.user.getClassmates()}" var="user">
           <tr>
             <td>${user.getDisplayName()}</td>
-            <td>${user.getEmail()}</td>
             <td>$${user.getPrettyBalance()}</td>
             <td>$${user.getPrettyPortfolioValue()}</td>
             <td>$${user.getPrettyTotalAssets()}</td>

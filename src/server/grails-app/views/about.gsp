@@ -9,7 +9,7 @@
     <p>This site was developed as part of the Oracle Education Foundation ThinkQuest 2012 Application Development competition by <a href="http://www.linkedin.com/pub/chris-kuehl/31/220/1b4" target="_blank">Chris Kuehl</a> and Ryan Leigh, students at Woodford County High School.</p>
     
     <h2>Site Platform</h2>
-    <p>This site runs on <a target="_blank" href="http://grails.org/">Grails</a>, a nifty web framework for the nifty programming language <a target ="_blank" href="http://groovy.codehaus.org/">Groovy</a>, which has the incredibly convenient property of running on the JVM. The application is hosted on the <a target="_blank" href="http://tomcat.apache.org/">Apache Tomcat</a> servlet engine with Apache's <a target="_blank" href="http://httpd.apache.org/docs/2.2/mod/mod_proxy_ajp.html">mod_proxy_ajp</a>. In addition, <a target="_blank" href="https://www.varnish-cache.org/">Varnish</a> proxies requests to and from the Apache server, and enables us to serve static resources extremely quickly.</p>
+    <p>This site runs on <a target="_blank" href="http://grails.org/">Grails</a>, a nifty web framework for the nifty programming language <a target ="_blank" href="http://groovy.codehaus.org/">Groovy</a>, which has the incredibly convenient property of running on the JVM. The application is hosted on the <a target="_blank" href="http://jetty.codehaus.org/jetty/">Jetty</a> servlet engine. <a target="_blank" href="https://www.varnish-cache.org/">Varnish</a> proxies requests to and from the Jetty server, and enables us to serve static resources extremely quickly.</p>
     <p>A <a target="_blank" href="http://www.mysql.com/">MySQL server</a> acts as the datasource for this application.</p>
     
     <h2>APIs and Data Sources</h2>

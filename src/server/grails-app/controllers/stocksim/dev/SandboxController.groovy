@@ -13,11 +13,56 @@ class SandboxController {
     def mailService
     def googleFinanceService
     def hashingService
+    def emailService
     
     def gainersLosers() {
         def map = GoogleFinanceService.getGainersLosers()
         render map
     }
+    
+    /*
+    def sendEmails() {
+        User.findAll([fetch: "eager"]).each { user ->
+            def body =
+                "Hello there, ${user.displayName}.\n\n" +
+                "Thanks for beta-testing trenders.org. The dozens of willing testers " +
+                "helped us to perfect trenders.org last year. Since then, we've done even " +
+                "more work to improve the speed and reliability of the site, including " +
+                "a complete rewrite of the core methods for fetching data.\n\n" +
+                "As such, we'd like to ask for your help in testing once again. " +
+                "This coming Monday, trenders.org will be put to the test in an actual " +
+                "economics classroom at WCHS. Before the end of this week, we hope to " +
+                "have another round of testing completed to ensure everything goes smoothly " +
+                "come Monday.\n\n" +
+                "If you've got a few minutes, we'd really appreciate it if you'd visit " +
+                "trenders.org and browse around. Maybe update your portfolio or see how " +
+                "the summer treated you.\n\n" +
+                "Once you're done, or if you discover any issues, please click \"Submit Testing Report\" " +
+                "at the top of any page and tell us a little bit about your experience.\n\n" +
+                "Thanks again for your help. I hope to receive a testing report from you soon!\n\n" +
+                "Chris Kuehl\n\n"
+
+            def passHash = user.passwordHash
+
+            body += "P.S.: "
+
+            if (passHash == null) {
+                body += "You haven't created a password yet. To create one, visit: " + user.getResetPasswordURL()
+                user.save()
+            } else {
+                body += "You've already created a password. To login, visit: http://trenders.org/login"
+            }
+
+            body += "\n\n(if you've got any questions, you can reply to this email)"
+
+            println "${user.displayName}: ${user.email}"
+
+            emailService.sendMail(user.email, "Last-Minute Beta Testing: trenders.org", body)
+            
+        }
+        
+        render "ok"
+    }*/
     
     def hashTest() {
         def start = new Date().getTime()

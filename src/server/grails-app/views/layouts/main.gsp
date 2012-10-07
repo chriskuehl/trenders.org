@@ -65,7 +65,6 @@
               <li><a href="${createLink(mapping: "lessons")}" id="lessonsIcon">Lessons</a></li>
               <li><a href="${createLink(controller: "search")}/?q=" id="searchIcon">Search</a></li>
               <li><a href="${createLink(mapping: "classroom")}" id="myClassIcon">My Class</a></li>
-              <li><a href="${createLink(mapping: "rankings")}" id="rankingsIcon">Rankings</a></li>
               <li><a href="${createLink(mapping: "logout")}" id="logOutIcon">Log Out</a></li>
             </ul>
 
@@ -83,10 +82,6 @@
         <user:ifNotLoggedIn>
           <a href="${createLink(mapping: "signup")}" id="signupButton">Get Started</a>
         </user:ifNotLoggedIn>
-        
-        <g:link class="contactUsLink" mapping="report">
-          Submit Testing Report
-        </g:link>
       </div>
     </div>
 

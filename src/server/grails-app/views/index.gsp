@@ -49,9 +49,6 @@
     <div class="sidebar">
       <h1>Get started</h1>
       <p>Signing up is quick, easy, and doesn’t require an email or password; click below to get started.</p>
-    
-      <h1>Have an iPad?</h1>
-      <p>This site is optimized for use on iPads. Visit this site to install the trenders.org app.</p>
       
       <h1>Browse</h1>
       <ul>
