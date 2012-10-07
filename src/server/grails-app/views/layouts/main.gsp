@@ -82,10 +82,6 @@
         <user:ifNotLoggedIn>
           <a href="${createLink(mapping: "signup")}" id="signupButton">Get Started</a>
         </user:ifNotLoggedIn>
-        
-        <a href="https://docs.google.com/a/techxonline.net/spreadsheet/viewform?formkey=dFBrYUVxZkQzTnBOTmJHa1RuanNna1E6MQ" class="contactUsLink">
-          Submit Testing Report
-        </a>
       </div>
     </div>
 
