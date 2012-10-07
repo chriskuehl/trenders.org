@@ -71,7 +71,7 @@
       <p><strong>S&amp;P 500</strong></p>
       <g:set var="chartWidth" value="329" />
       <g:set var="chartHeight" value="90" />
-      <div id="chart" style="background-image: url('http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=${chartWidth}&height=${chartHeight}&symbol=.INX&duration=5&headertype=none'); width: ${chartWidth}px; height: ${chartHeight}px;">
+      <div id="chart" style="background-image: url('http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=${chartWidth}&height=${chartHeight}&symbol=.SPX&duration=5&headertype=none'); width: ${chartWidth}px; height: ${chartHeight}px;">
         <p>Chart powered by Reuters.</p>
       </div>
       
