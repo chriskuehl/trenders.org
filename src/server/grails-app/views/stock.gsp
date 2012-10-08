@@ -54,6 +54,8 @@
           </div>
         </g:each>
         
+        <p>Some statistics are currently unavailable. Sorry for the inconvenience.</p>
+        
         <user:ifLoggedIn>
           <g:link mapping="invest" params="${[ticker: ticker]}" class="yellowButton">Invest</g:link>
         </user:ifLoggedIn>
@@ -73,15 +75,60 @@
         
         <div class="clear"></div>
         
-        <a id="chartBack" target="_blank" href="http://finance.yahoo.com/q/bc?s=${ticker.toUpperCase()}+Basic+Chart">
+        <div id="chartBack">
           <g:set var="chartWidth" value="266" />
           <g:set var="chartHeight" value="150" />
-          <div id="chart" style="background-image: url('http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=${chartWidth}&height=${chartHeight}&symbol=${ticker.toUpperCase()}.${finance.stock(ticker: ticker, req: "exchange") == "nasdaq" ? "O" : "N"}&duration=5&headertype=none'); width: ${chartWidth}px; height: ${chartHeight}px;">
+          <div id="chart" data-symbol="${ticker.toUpperCase()}.${finance.stock(ticker: ticker, req: "exchange") == "nasdaq" ? "O" : "N"}" data-chart-width="${chartWidth}" data-chart-height="${chartHeight}" style="background-image: url('http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=${chartWidth}&height=${chartHeight}&symbol=${ticker.toUpperCase()}.${finance.stock(ticker: ticker, req: "exchange") == "nasdaq" ? "O" : "N"}&duration=150&headertype=none'); width: ${chartWidth}px; height: ${chartHeight}px;">
             <p>Chart powered by Reuters.</p>
           </div>
           
-          <user:userAgentChoose iOS="Tap" other="Click" /> to view more charts.
-        </a>
+          <g:set var="ranges" value="${[
+            ["day", 1, false],
+            ["week", 5, false],
+            ["month", 30, false],
+            ["3 months", 30 * 3, false],
+            ["5 months", 30 * 5, true],
+            ["year", 365, false]
+          ]}" />
+          
+          <g:each var="range" in="${ranges}" status="rangeIndex">
+            <a class="changeDateRange ${range[2] ? "changeDateRangeActive" : ""}" data-days="${range[1]}">${range[0]}</a>
+            
+            <g:if test="${rangeIndex < ranges.size() - 1}">
+              &bull;
+            </g:if>
+          </g:each>
+          
+          <script>
+            $(function() {
+              $(".changeDateRange").click(function(e) {
+                var active = $(".changeDateRangeActive");
+                active.removeClass("changeDateRangeActive");
+                
+                $(this).addClass("changeDateRangeActive");
+                
+                switchChartToDays($(this).data("days"));
+                
+                e.preventDefault();
+                return false;
+              });
+            });
+            
+            function switchChartToDays(days) {
+              var chart = $("#chart");
+              
+              var symbol = chart.data("symbol");
+              var chartWidth = chart.data("chart-width");
+              var chartHeight = chart.data("chart-height");
+              
+              chart.css("backgroundImage", "url('" + buildImageURL(symbol, chartWidth, chartHeight, days) + "')");
+            }
+            
+            function buildImageURL(symbol, chartWidth, chartHeight, days) {
+              return "http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=" + chartWidth + "&height=" + chartHeight + "&symbol=" + symbol + "&duration=" + days + "&headertype=none";
+            }
+          </script>
+        </div>
         
         <h2 class="understroked">Recent News Articles</h2>
         <ul class="stockList" style="margin-top: 7px !important;">

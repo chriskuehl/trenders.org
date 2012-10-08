@@ -77,3 +77,26 @@ a.small {
 span.description {
     font-size: 12px !important;
 }
+
+a.changeDateRange {
+    cursor: pointer;
+    font-size: 12px;
+    
+    color: rgb(100, 100, 130) !important;
+}
+
+a.changeDateRange:hover {
+    text-decoration: underline !important;
+}
+
+a.changeDateRangeActive {
+    cursor: text;
+    font-size: 12px;
+    
+    font-weight: bold;
+    color: black !important;
+}
+
+a.changeDateRangeActive:hover {
+    text-decoration: none !important;
+}

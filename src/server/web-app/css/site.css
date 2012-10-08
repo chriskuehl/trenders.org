@@ -741,10 +741,6 @@ div.floatRight img {
     margin-bottom: 10px;
 }
 
-#chartBack:hover {
-    background-color: #DCE1E3 !important;
-}
-
 #chart {
     position: relative;
 }
