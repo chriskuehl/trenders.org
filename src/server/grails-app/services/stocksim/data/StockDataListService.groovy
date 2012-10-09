@@ -288,8 +288,6 @@ class StockDataListService {
         
         // try to load from the URLConnection now
         try {
-            throw new IOException() // TEMP BAD HACKY FIX
-            
             def stocks = getStocksFromSource(connection)
             action.command = "replace" // replace the stocks currently in the database, they're outdated
             action.data = stocks
@@ -336,7 +334,7 @@ class StockDataListService {
     }
     
     def buildURLForExchangeStocksDownload(exchange) {
-        "http://www.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=${exchange}&render=download".toURL()
+        "http://techxonline.net/${exchange}.csv".toURL() // TEMP HACKY FIX
     }
     
     def getStocksFromSource(URLConnection connection) {
