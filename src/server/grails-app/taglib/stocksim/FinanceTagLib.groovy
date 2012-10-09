@@ -52,13 +52,17 @@ class FinanceTagLib {
     }
     
     def eachSector = { attrs, body ->
-        request.sectors = financeService.getSectors()
-        def max = request.sectors.size()
-        
-        for (i in (1..max)) {
-            request.sectorIndex = i - 1
-            out << body()
-        }
+        //try {
+            request.sectors = financeService.getSectors()
+            def max = request.sectors.size()
+
+            for (i in (1..max)) {
+                request.sectorIndex = i - 1
+                out << body()
+            }
+        //} catch (Exception ex) {
+            //ex.printStackTrace(out)
+        //}
     }
     
     def sector = { attrs, body ->

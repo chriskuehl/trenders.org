@@ -288,6 +288,8 @@ class StockDataListService {
         
         // try to load from the URLConnection now
         try {
+            throw new IOException() // TEMP BAD HACKY FIX
+            
             def stocks = getStocksFromSource(connection)
             action.command = "replace" // replace the stocks currently in the database, they're outdated
             action.data = stocks
