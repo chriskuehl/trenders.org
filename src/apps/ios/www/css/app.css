@@ -1,0 +1,43 @@
+* {
+    -webkit-touch-callout: none;                   /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;                /* prevent webkit from resizing text to fit */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    -webkit-user-select: none;                     /* prevent copy paste, to allow, change 'none' to 'text' */
+}
+
+html, body {
+	padding: 0px;
+	margin: 0px;
+}
+
+body {
+	padding: 40px !important;
+	
+	font-family: Georgia, serif;
+}
+
+h1 {
+	text-align: center;
+	
+	font-size: 24px;
+	font-weight: bold;
+}
+
+#log {
+	margin-left: auto;
+	margin-right: auto;
+	
+	margin-top: 30px;
+	
+	width: 600px;
+	height: 400px;
+	
+	overflow-x: auto;
+	overflow-y: scroll;
+	
+	border: solid 1px #adadad;
+	background-color: #e8e8e8;
+	
+	padding: 5px;
+	font-family: "Courier New", "Courier", monospace;
+}
