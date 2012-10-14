@@ -16,7 +16,31 @@ function attemptInitialization() {
 	initializing = true;
 	log("Attempting to initialize app");
 	
+	if (localStorage.token) {
+		log("Found token [" + localStorage.token.substring(0, 5) + "...], using...");
+	} else {
+		attemptLogin("chris2@techxonline.net", "testing!");
+	}
+}
+
+function attemptLogin(email, password) {
+	log("Attempting to login with email [" + email + "] and password");
 	
+	api("user/login", {
+		email: email,
+		password: password
+	}, function(response) {
+		alert(response);
+	});
+}
+
+// api management
+function api(command, params, callback) {
+	if (localStorage.token) {
+		params.token = localStorage.token;
+	}
+	
+	$.post("http://trenders.org/api/" + command, params, callback);
 }
 
 // device event handling
@@ -56,7 +80,14 @@ function onDeviceResumed() {
 }
 
 
-/* logging and debugging */
+// check user agent for testing on PC
+if (navigator.userAgent.indexOf("Chrome") >= 0) {
+	// simulate normal events
+	onDeviceReady();
+	onDeviceOnline();
+}
+
+// logging
 function log(msg) {
 	var now = new Date();
 	msg = "[" + dd(now.getHours()) + ":" + dd(now.getMinutes()) + ":" + dd(now.getSeconds()) + "]: " + msg;
