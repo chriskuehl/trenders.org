@@ -22,11 +22,25 @@
 			<h1>trenders.org</h1>
 
 			<div id="log">Welcome to the trenders.org console.</div>
+			
+			<a href="#" id="resetInfo">Reset Login Info</a>
 		</div>
 
 		<script src="js/lib/cordova-2.1.0.js"></script>
 		<script src="js/lib/jquery-1.8.2.min.js"></script>
 		<script src="js/lib/jquery-ui-1.9.0.min.js"></script>
 		<script src="js/app.js"></script>
+		
+		<script>
+			$(function() {
+				$("#resetInfo").click(function(e) {
+					delete localStorage.token;
+					alert("OK");
+					
+					e.preventDefault();
+					return false;
+				});
+			});
+		</script>
 	</body>
 </html>

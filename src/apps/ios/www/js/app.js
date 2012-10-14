@@ -3,6 +3,7 @@ var online = false;
 var ready = false;
 var initialized = false;
 var initializing = false;
+var user = null;
 
 function attemptInitialization() {
 	if (initialized || initializing) {
@@ -14,33 +15,133 @@ function attemptInitialization() {
 	}
 	
 	initializing = true;
-	log("Attempting to initialize app");
+	log("Attempting to initialize app...");
 	
 	if (localStorage.token) {
-		log("Found token [" + localStorage.token.substring(0, 5) + "...], using...");
-	} else {
-		attemptLogin("chris2@techxonline.net", "testing!");
+		log("Found token [" + localStorage.token.substring(0, 5) + "...], using that...");
+		
+		loadUserInformation(finishInitialization);
+	} else { // TEMP: login automatically
+		attemptLogin("chris2@techxonline.net", "testing!", function(success) {
+			log("Login success: " + success);
+			finishInitialization();
+		});
 	}
 }
 
-function attemptLogin(email, password) {
-	log("Attempting to login with email [" + email + "] and password");
+function finishInitialization() {
+	log("App initialized.");	
+	initialized = true;
+	initializing = false;
+}
+
+function loadUserInformation(callback) {
+	log("Loading user information for token [" + localStorage.token.substring(0, 5) + "...]");
+	
+	api("user/info", {}, function(response) {
+		if (response.apiCode == apiCodes.OK) {
+			log("Successfully loaded user information");
+			
+			user = {
+				// specifically and explicitly outlining the things that should be available for
+				// readability and clarity
+				assets: {
+					pretty: response.assets.pretty,
+					raw: response.assets.raw
+				},
+				
+				balance: {
+					pretty: response.balance.pretty,
+					raw: response.balance.raw
+				},
+				
+				classCode: response.classCode,
+				displayName: response.displayName,
+				email: response.email,
+				
+				totalAssets: {
+					pretty: response.totalAssets.pretty,
+					raw: response.totalAssets.raw
+				}
+			};
+		} else {
+			log("Failed to load user information, got api code: " + response.apiCode);
+			log("Resetting user token.");
+			
+			delete localStorage.token;
+			user = null;
+		}
+		
+		if (callback) {
+			callback(response.apiCode == apiCodes.OK); // param is whether successful or not
+		}
+	});
+}
+
+function attemptLogin(email, password, callback) {
+	log("Attempting to login with email [" + email + "] and password...");
 	
 	api("user/login", {
 		email: email,
 		password: password
 	}, function(response) {
-		alert(response);
+		if (response.apiCode == apiCodes.OK) {
+			log("Successfully got login token, getting user info now...");
+			localStorage.token = response.token;
+			
+			loadUserInformation(function(success) {
+				if (success) {
+					log("Got user data (login complete).");
+				} else {
+					log("Failed to get user data (login failed).");
+				}
+				
+				if (callback) {
+					callback(success); // param is successful login or not
+				}
+			});
+		} else {
+			// failed to login for some reason
+			log("Login was not successful; code received: " + response.apiCode);
+			delete localStorage.token;
+			
+			if (callback) {
+				callback(false); // param is successful login or not
+			}
+		}
+		
+		initializing = false;
 	});
 }
 
 // api management
+var apiCodes = {
+	OK: 200,
+	
+	MISSING_BAD_PARAMS: 400,
+	SET_PASSWORD_FIRST: 401,
+	BAD_LOGIN_INFO: 402,
+	LOGIN_FIRST: 403,
+	NOT_AVAILABLE: 404,
+	UPGRADE_APP: 406,
+	HIT_RATE_LIMIT: 429,
+	
+	UNABLE_TO_PERFORM_ACTION: 450,
+	
+	SERVER_ERROR: 500
+};
+
 function api(command, params, callback) {
 	if (localStorage.token) {
 		params.token = localStorage.token;
 	}
 	
-	$.post("http://trenders.org/api/" + command, params, callback);
+	$.ajax({
+		url: "http://trenders.org/api/" + command,
+		data: params,
+		crossDomain: false,
+		success: callback
+	});
 }
 
 // device event handling

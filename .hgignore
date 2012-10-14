@@ -3,3 +3,4 @@ syntax: glob
 src/server/target/*
 src/apps/ios/cordova/console.log
 src/apps/ios/build/*
+src/apps/ios/trenders.org.xcodeproj/project.xcworkspace/xcuserdata/
