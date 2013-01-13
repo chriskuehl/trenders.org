@@ -7,19 +7,27 @@ import groovy.sql.Sql
 class FinanceService {
     def cacheService
     def dataSource_temp
+    def stockMap
+    
+    def updateStockMap(newStockMap) {
+        stockMap = newStockMap
+    }
     
     def getStocks(def tickers) {
         def stocks = [:]
         
         tickers.each { ticker ->
-            stocks[ticker.toUpperCase()] = getStock(ticker)
+            def s = (new Date()).getTime()
+            stocks[ticker] = getStock(ticker)
+            // println stocks
+            // println " (" + ((new Date()).getTime() - s) + ")"
         }
         
         stocks
     }
     
     def getStock(def ticker) {
-        return Stock.findByTicker(ticker.toUpperCase())
+        return stockMap[ticker] // Stock.findByTicker(ticker.toUpperCase())
     }
     
     def getSectors() {

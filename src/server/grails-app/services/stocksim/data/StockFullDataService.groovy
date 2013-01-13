@@ -9,6 +9,7 @@ class StockFullDataService {
     
     def stockDataHelperService
     def dataSource_temp
+    def financeService
     
     // for each existing ticker, we need to get the info
     def update() {
@@ -89,6 +90,14 @@ class StockFullDataService {
                 preparedStatement.addBatch(params)
             }
         }
+        
+        def stockMap = [:]
+        
+        Stock.findAll().each { stock ->
+            stockMap[stock.ticker.toUpperCase()] = stock
+        }
+        
+        financeService.updateStockMap(stockMap)
     }
     
     def doubleIfExists(def str) {

@@ -31,8 +31,9 @@ class User {
         "orderedHistoryEvents", "resetPasswordURL", "classmates", "ownedTickers",
         "portfolioValue", "moneySpentOnPortfolio", "prettyMoneySpentOnPortfolio", "prettyPortfolioValue",
         "totalAssets", "prettyTotalAssets", "prettyBalance", "maxPurchasableStocks", "numberOwned",
-        "classmatesByTotalAssets", "allHistoryCompanies"
+        "classmatesByTotalAssets", "allHistoryCompanies", "lastTotalAssets"
     ]
+    def lastTotalAssets
     
     static mapping = {
         ownedStocks lazy: false
@@ -162,6 +163,7 @@ class User {
             tickers.add(stock.getTicker())
         }
         
+        def sg = (new Date()).getTime()
         def stocks = financeService.getStocks(tickers)
         
         s.each { stock ->
@@ -193,15 +195,24 @@ class User {
     }
     
     def getPrettyPortfolioValue() {
-        makePretty(getPortfolioValue())
+        makePretty(getTotalAssets(true) - getBalance())
     }
     
-    def getTotalAssets() {
-        getBalance() + getPortfolioValue()
+    def calculateTotalAssets() {
+        lastTotalAssets = getBalance() + getPortfolioValue()
+    }
+    
+    def getTotalAssets(lazy) {
+        if (lazy && lastTotalAssets) {
+            return lastTotalAssets
+        }
+        
+        calculateTotalAssets()
+        getTotalAssets(true)
     }
     
     def getPrettyTotalAssets() {
-        makePretty(getTotalAssets())
+        makePretty(getTotalAssets(true))
     }
     
     def getPrettyBalance() {
@@ -330,16 +341,28 @@ class User {
     }
     
     def getClassmatesByTotalAssets() {
+        println "get"
         def classmates = getClassmates()
+        
+        def totalAssetsMap = [:]
+        totalAssetsMap[this] = getTotalAssets(false)
+        
+        classmates.each { classmate ->
+            totalAssetsMap[classmate] = classmate.getTotalAssets(false)
+        }
+        
         classmates.sort { a, b ->
-            if (a.getTotalAssets() == b.getTotalAssets()) {
+            if (totalAssetsMap[a] == totalAssetsMap[b]) {
                 return 0
-            } else if (a.getTotalAssets() < b.getTotalAssets()) {
+            } else if (totalAssetsMap[a] < totalAssetsMap[b]) {
                 return 1
             } else {
                 return (- 1)
             }
         }
+        println "end"
+        
+        classmates
     }
     
     def getAllHistoryCompanies() {

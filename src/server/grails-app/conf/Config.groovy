@@ -89,7 +89,7 @@ log4j = {
     }
 
     root {
-        info 'infoLog','warnLog','errorLog','custom', stdout
+        info 'infoLog','warnLog','errorLog','custom', 'stdout'
         debug 'stderr'
         error()
         additivity = true

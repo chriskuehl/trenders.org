@@ -14,15 +14,17 @@
     <g:if test="${request.user.getClassmates().size() > 1}">
       <table>
         <tr>
+          <th>Rank</th>
           <th>Name</th>
           <th>Current Balance</th>
           <th>Portfolio Value</th>
           <th>Total Assets</th>
         </tr>
         
-        
-        <g:each in="${request.user.getClassmates()}" var="user">
+        <g:set var="i" value="${0}" />
+        <g:each in="${request.user.getClassmatesByTotalAssets()}" var="user">
           <tr>
+            <td>${(++ i)}.</td>
             <td>${user.getDisplayName()}</td>
             <td>$${user.getPrettyBalance()}</td>
             <td>$${user.getPrettyPortfolioValue()}</td>
