@@ -18,7 +18,13 @@ class FinanceTagLib {
     }
     
     def stock = { attrs ->
-        def stock = request.stocks[attrs.ticker.toUpperCase()]
+        def stock
+        
+        if (request.stocks) {
+            stock = request.stocks[attrs.ticker.toUpperCase()]
+        } else {
+            stock = financeService.getStock(attrs.ticker.toUpperCase())
+        }
     
         if (stock != null) {
             out << stock[attrs.req]

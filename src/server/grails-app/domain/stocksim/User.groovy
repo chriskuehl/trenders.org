@@ -211,6 +211,29 @@ class User {
         getTotalAssets(true)
     }
     
+    def getLargestInvestment() {
+        def s = ownedStocks
+        def mostSpent = null
+        
+        s.each { stock ->
+            if (mostSpent == null || mostSpent[1] < stock.totalSpent) {
+                mostSpent = [stock, stock.totalSpent]
+            }
+        }
+        
+        mostSpent
+    }
+    
+    def getPrettyLargestInvestment() {
+        def largestInvestment = getLargestInvestment()
+        if (largestInvestment == null) {
+            return null
+        }
+        
+        largestInvestment[1] = "\$" + makePretty(largestInvestment[1])
+        largestInvestment
+    }
+    
     def getPrettyTotalAssets() {
         makePretty(getTotalAssets(true))
     }
@@ -379,7 +402,6 @@ class User {
     
     def makePretty(def number) {
         def formatter = new DecimalFormat("#,###")
-
         formatter.format(number)
     }
 }
