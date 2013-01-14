@@ -31,7 +31,7 @@ class User {
         "orderedHistoryEvents", "resetPasswordURL", "classmates", "ownedTickers",
         "portfolioValue", "moneySpentOnPortfolio", "prettyMoneySpentOnPortfolio", "prettyPortfolioValue",
         "totalAssets", "prettyTotalAssets", "prettyBalance", "maxPurchasableStocks", "numberOwned",
-        "classmatesByTotalAssets", "allHistoryCompanies", "lastTotalAssets"
+        "classmatesByTotalAssets", "allHistoryCompanies", "lastTotalAssets", "largestInvestment", "prettyLargestInvestment"
     ]
     def lastTotalAssets
     
@@ -154,6 +154,7 @@ class User {
     }
     
     def getPortfolioValue() {
+        //def r = new Date().getTime()
         def tickers = []
         def portfolioValue = 0
         
@@ -163,11 +164,17 @@ class User {
             tickers.add(stock.getTicker())
         }
         
-        def sg = (new Date()).getTime()
-        def stocks = financeService.getStocks(tickers)
+        //println "g=" + ((new Date().getTime()) - r)
+        
+        // def stocks = financeService.getStocks(tickers)
+        
+        
+        //println "h=" + ((new Date().getTime()) - r)
+        
+        def stockMap = financeService.stockMap
         
         s.each { stock ->
-            def stockData = stocks[stock.getTicker().toUpperCase()]
+            def stockData = stockMap[stock.getTicker().toUpperCase()] // stocks[stock.getTicker().toUpperCase()]
             
             if (stockData != null) {
                 portfolioValue += stockData.lastSale * stock.getQuantity()
@@ -175,6 +182,9 @@ class User {
                 println "Stock no longer exists: " + stock.getTicker().toUpperCase()
             }
         }
+        
+        
+        //println "i=" + ((new Date().getTime()) - r)
         
         portfolioValue
     }
@@ -364,16 +374,24 @@ class User {
     }
     
     def getClassmatesByTotalAssets() {
-        println "get"
+        //println "get23"
         def classmates = getClassmates()
+       // println "got classmates"
         
         def totalAssetsMap = [:]
         totalAssetsMap[this] = getTotalAssets(false)
+       // println "got my assets"
+        
+        def f = new Date().getTime()
         
         classmates.each { classmate ->
             totalAssetsMap[classmate] = classmate.getTotalAssets(false)
         }
         
+        def g = new Date().getTime()
+        //println "time=" + ((g - f) / classmates.size()) + "each"
+        
+        // sort the classmates based on total assets
         classmates.sort { a, b ->
             if (totalAssetsMap[a] == totalAssetsMap[b]) {
                 return 0
@@ -383,7 +401,7 @@ class User {
                 return (- 1)
             }
         }
-        println "end"
+        //println "end2"
         
         classmates
     }

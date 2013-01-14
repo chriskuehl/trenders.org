@@ -15,6 +15,7 @@ class FinanceService {
     
     def getStocks(def tickers) {
         def stocks = [:]
+        //def n = (new Date().getTime())
         
         tickers.each { ticker ->
             def s = (new Date()).getTime()
@@ -22,6 +23,8 @@ class FinanceService {
             // println stocks
             // println " (" + ((new Date()).getTime() - s) + ")"
         }
+        
+        //println "nnn=" + ((new Date().getTime()) - n)
         
         stocks
     }

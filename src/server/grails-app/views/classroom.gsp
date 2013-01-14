@@ -31,6 +31,7 @@
             <td>$${user.getPrettyBalance()}</td>
             <td>$${user.getPrettyPortfolioValue()}</td>
             <td>$${user.getPrettyTotalAssets()}</td>
+            
             <td>
               <g:set var="mostSpent" value="${user.getPrettyLargestInvestment()}" />
               
