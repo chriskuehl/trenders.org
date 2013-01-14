@@ -1,4 +1,4 @@
-<g:set var="ticker" value="${params.ticker.toLowerCase()}" />
+<g:set var="ticker" value="${params.ticker.toUpperCase()}" />
 <g:set var="relatedAll" value="${finance.relatedStocks(ticker: ticker)}" />
 <g:set var="related" value="${pickRandom(array: relatedAll, num: 7)}" />
 

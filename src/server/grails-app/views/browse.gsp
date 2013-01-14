@@ -11,7 +11,7 @@
     <content tag="noRobots">true</content>
     
     <g:if test="${query.length() > 0}">
-      <content tag="canonical">${createLink(params: [q: query.toLowerCase(), p: page], absolute: true)}</content>
+      <content tag="canonical">${createLink(params: [q: query.toUpperCase(), p: page], absolute: true)}</content>
     </g:if>
     
     <title>${query ? query + " &ndash; " : ""} Search</title>
