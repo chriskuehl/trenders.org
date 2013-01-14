@@ -30,7 +30,7 @@ class FinanceService {
     }
     
     def getStock(def ticker) {
-        return stockMap[ticker] // Stock.findByTicker(ticker.toUpperCase())
+        return stockMap[ticker.toUpperCase()] // Stock.findByTicker(ticker.toUpperCase())
     }
     
     def getSectors() {
