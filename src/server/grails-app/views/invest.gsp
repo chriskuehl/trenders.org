@@ -1,4 +1,4 @@
-<g:set var="ticker" value="${params.ticker.toLowerCase()}" />
+<g:set var="ticker" value="${params.ticker.toUpperCase()}" />
 <finance:stocks tickers="${[ticker]}">
   <g:set var="title" value="${finance.stock(ticker: ticker, req: "name")}" />
   <g:set var="simpleTitle" value="${finance.simpleName(name: title)}" />
