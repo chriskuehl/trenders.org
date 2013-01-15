@@ -1,6 +1,6 @@
 var mouseOverAutoComplete = false;
 
-$(function() {
+$(document).ready(function() {
         // preload images
         if ($("a.yellowButton").length > 0) {
             preloadImages(["static/images/yellowbutton_middle-hover.png"]);
@@ -15,6 +15,17 @@ $(function() {
            var stock = $(this).attr("id").substring(4);
            window.location = "stock/" + stock;
         });
+        
+        if ($("#logOutIcon").length > 0) {
+            $("#logOutIcon").click(function(e) {
+                if (! confirm("Are you sure you want to log out?")) {
+                    e.preventDefault();
+                    return false;
+                }
+
+                return true;
+            });
+        }
         
 	// hovering over user icons
 	$(".userIconsNoScript").removeClass("userIconsNoScript");
