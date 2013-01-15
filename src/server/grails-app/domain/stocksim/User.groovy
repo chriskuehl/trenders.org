@@ -25,6 +25,7 @@ class User {
         lastSeenUserAgent nullable: true
         lastSeenURL nullable: true
         passwordResetToken nullable: true
+        lastPasswordChange nullable: true
     }
     
     static transients = [
@@ -60,6 +61,7 @@ class User {
     String registerIP
     Date registerTime
     String registerUserAgent
+    Date lastPasswordChange
     
     // information from last visit
     String lastSeenIP
@@ -139,7 +141,7 @@ class User {
     }
     
     def getClassmates() {
-        User.findAllByClassroom(getClassroom())
+        User.findAllByClassroom(getClassroom()).sort { it.getDisplayName() }
     }
     
     def getOwnedTickers() {

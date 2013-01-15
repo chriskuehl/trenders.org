@@ -65,7 +65,11 @@
               <li><a href="${createLink(mapping: "lessons")}" id="lessonsIcon">Lessons</a></li>
               <li><a href="${createLink(controller: "search")}/?q=" id="searchIcon">Search</a></li>
               <li><a href="${createLink(mapping: "classroom")}" id="myClassIcon">My Class</a></li>
-              <li><a href="${createLink(mapping: "config")}" id="configIcon">Teacher</a></li>
+              
+              <g:if test="${request.user.getClassroom().getTeacher().getEmail() == request.user.getEmail() || request.user.isIsAdmin()}">
+                <li><a href="${createLink(mapping: "teacher")}" id="configIcon">Teacher</a></li>
+              </g:if>
+              
               <li><a href="${createLink(mapping: "logout")}" id="logOutIcon">Log Out</a></li>
             </ul>
 

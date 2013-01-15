@@ -82,6 +82,16 @@ class UrlMappings {
             proxyView = "/classroom"
         }
         
+        name teacher: "/teacher" {
+            controller = "viewProxy"
+            proxyView = "/teacher"
+        }
+        
+        name teacherController: "/teacher/$dataType" {
+            controller = "teacher"
+            action = "updateInformation"
+        }
+        
         name invest: "/invest/$ticker" {
             controller = "viewProxy"
             proxyView = "/invest"

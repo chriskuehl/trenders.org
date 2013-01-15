@@ -207,6 +207,21 @@ ul.userIconsNoScript li a:hover {
 #logOutIcon { background-image: url("../images/icons/exit.png"); }
 #configIcon { background-image: url("../images/icons/config.png"); }
 
+.actionIcon {
+    text-indent: -2000em;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+
+.delete {
+    background-image: url("../images/delete.png");
+}
+
+.edit {
+    background-image: url("../images/edit.png");
+}
+
 /* tab bar */
 #tabBar {
 	height: 38px;
