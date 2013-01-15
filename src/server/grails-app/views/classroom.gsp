@@ -39,7 +39,7 @@
                 <em>no investments</em>
               </g:if>
               <g:else>
-                <g:link mapping="stock" params="${[ticker: mostSpent[0].getTicker()]}">${finance.simpleName(name: finance.stock(ticker: mostSpent[0].getTicker(), req: "name"))}</g:link> (${util.formatBigNumber(mostSpent[1])})
+                <g:link mapping="stock" params="${[ticker: mostSpent[0].getTicker()]}">${finance.simpleName(name: finance.stock(ticker: mostSpent[0].getTicker(), req: "name"))}</g:link> ($${formatBigNumber(num: Math.floor(mostSpent[1]))})
               </g:else>
             </td>
           </tr>
