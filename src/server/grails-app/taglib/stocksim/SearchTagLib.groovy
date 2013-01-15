@@ -28,11 +28,13 @@ class SearchTagLib {
             }
         }
         
-        for (i in (0..10)) {
-            results[i] = financeService.getStock(results[i].ticker)
+        def newResults = []
+        
+        results.each { result ->
+            newResults.add(financeService.getStock(result.ticker))
         }
         
-        request.searchResults = results
+        request.searchResults = newResults
         
         out << body()
     }
@@ -46,8 +48,10 @@ class SearchTagLib {
         max = Math.min(max, request.searchResults.size())
         
         for (i in (1..max)) {
-            out << body()
-            request.searchResults.remove(0)
+            if (request.searchResults.size() > 0) {
+                out << body()
+                request.searchResults.remove(0)
+            }
         }
     }
     
