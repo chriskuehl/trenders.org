@@ -65,6 +65,7 @@
               <li><a href="${createLink(mapping: "lessons")}" id="lessonsIcon">Lessons</a></li>
               <li><a href="${createLink(controller: "search")}/?q=" id="searchIcon">Search</a></li>
               <li><a href="${createLink(mapping: "classroom")}" id="myClassIcon">My Class</a></li>
+              <li><a href="${createLink(mapping: "config")}" id="configIcon">Teacher</a></li>
               <li><a href="${createLink(mapping: "logout")}" id="logOutIcon">Log Out</a></li>
             </ul>
 

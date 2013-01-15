@@ -33,13 +33,13 @@
             <td>$${user.getPrettyTotalAssets()}</td>
             
             <td>
-              <g:set var="mostSpent" value="${user.getPrettyLargestInvestment()}" />
+              <g:set var="mostSpent" value="${user.getLargestInvestment()}" />
               
               <g:if test="${mostSpent == null}">
                 <em>no investments</em>
               </g:if>
               <g:else>
-                <g:link mapping="stock" params="${[ticker: mostSpent[0].getTicker()]}">${finance.simpleName(name: finance.stock(ticker: mostSpent[0].getTicker(), req: "name"))}</g:link> (${mostSpent[1]})
+                <g:link mapping="stock" params="${[ticker: mostSpent[0].getTicker()]}">${finance.simpleName(name: finance.stock(ticker: mostSpent[0].getTicker(), req: "name"))}</g:link> (${util.formatBigNumber(mostSpent[1])})
               </g:else>
             </td>
           </tr>

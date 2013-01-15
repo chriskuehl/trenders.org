@@ -205,6 +205,7 @@ ul.userIconsNoScript li a:hover {
 #myClassIcon { background-image: url("../images/icons/class.png"); }
 #rankingsIcon { background-image: url("../images/icons/rankings.png"); }
 #logOutIcon { background-image: url("../images/icons/exit.png"); }
+#configIcon { background-image: url("../images/icons/config.png"); }
 
 /* tab bar */
 #tabBar {
