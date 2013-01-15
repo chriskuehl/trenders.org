@@ -1,19 +1,20 @@
 #flag {
     background-image: url("../../images/flag-bg.jpg");
+    background-position: -10px -10px;
     margin-left: -20px;
     margin-top: -20px;
     
-    width: 939px;
+    width: 928px;
     padding: 15px;
-    padding-top: 10px;
-    padding-left: 4px;
+    /* padding-top: 10px;
+    padding-left: 4px; */
 }
 
 #flag p {
     font-size: 16px;
     color: white;
     margin-left: 10px;
-    margin-bottom: 5px !important;
+    margin-bottom: 10px !important;
 }
 
 #flag ul {
@@ -46,7 +47,7 @@ a.homeIcon {
     
     position: relative;
     
-    width: 226px;
+    width: 228px;
     height: 55px;
     
     background-image: url("../../images/flagicon-bg.png");

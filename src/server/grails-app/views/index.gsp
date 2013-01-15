@@ -12,7 +12,7 @@
     ${resource(dir: "images", file: "lessons.png")}
     -->
     <div id="flag">
-      <p>trenders.org is an educational site where you can learn about personal investing and personal finance as part of a class.</p>
+      <p><strong>trenders.org</strong> is an educational site where you can learn about personal investing and personal finance as part of a class.</p>
       
       <ul>
         <%-- lessons --%>
