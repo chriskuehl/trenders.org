@@ -79,9 +79,9 @@ environments {
             // are taken late at night and you're probably going to lose the
             // day's data otherwise
             dbCreate = "update" //create-drop"
-            url = "jdbc:mysql://trenders.org/stocksim?useUnicode=yes&characterEncoding=UTF-8"
-            username = "stocksim"
-            password = "Fc5mPSnHtBs4mvmQ"
+            url = "jdbc:mysql://localhost/trenders?useUnicode=yes&characterEncoding=UTF-8"
+            username = "trenders"
+            password = "LMJvQs75b85ktiYnRpLyiPvWCdOZi4"
         }
     }
 }

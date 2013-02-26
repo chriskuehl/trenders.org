@@ -69,30 +69,30 @@ environments {
     production {
         grails.logging.jul.usebridge = false
         grails.serverURL = "http://trenders.org"
-    }
-}
-
-// log4j configuration
-log4j = {
-    error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
-                   'org.codehaus.groovy.grails.web.pages' //  GSP
-    warn 'org.mortbay.log' 
-
-
-    appenders {
-        rollingFile  name:'infoLog', file:'/var/log/trenders.org/info.log', threshold: org.apache.log4j.Level.INFO
-        rollingFile  name:'warnLog', file:'/var/log/trenders.org/warn.log', threshold: org.apache.log4j.Level.WARN
-        rollingFile  name:'errorLog', file:'/var/log/trenders.org/error.log', threshold: org.apache.log4j.Level.ERROR
-        rollingFile  name:'custom', file:'/var/log/trenders.org/custom.log'
         
-        console name: "errorLogDev", target: "System.err", threshold: org.apache.log4j.Level.ERROR
-    }
+        // log4j configuration
+	log4j = {
+	    error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
+		           'org.codehaus.groovy.grails.web.pages' //  GSP
+	    warn 'org.mortbay.log' 
 
-    root {
-        info 'infoLog','warnLog','errorLog','custom', 'stdout'
-        debug 'stderr'
-        error()
-        additivity = true
+
+	    appenders {
+		rollingFile  name:'infoLog', file:'/home/trenders/log/info.log', threshold: org.apache.log4j.Level.INFO
+		rollingFile  name:'warnLog', file:'/home/trenders/log/warn.log', threshold: org.apache.log4j.Level.WARN
+		rollingFile  name:'errorLog', file:'/home/trenders/log/error.log', threshold: org.apache.log4j.Level.ERROR
+		rollingFile  name:'custom', file:'/home/trenders/log/custom.log'
+		
+		console name: "errorLogDev", target: "System.err", threshold: org.apache.log4j.Level.ERROR
+	    }
+
+	    root {
+		info 'infoLog','warnLog','errorLog','custom', 'stdout'
+		debug 'stderr'
+		error()
+		additivity = true
+	    }
+	}
     }
 }
 
