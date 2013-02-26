@@ -78,10 +78,10 @@ environments {
 
 
 	    appenders {
-		rollingFile  name:'infoLog', file:'/home/trenders/log/info.log', threshold: org.apache.log4j.Level.INFO
-		rollingFile  name:'warnLog', file:'/home/trenders/log/warn.log', threshold: org.apache.log4j.Level.WARN
-		rollingFile  name:'errorLog', file:'/home/trenders/log/error.log', threshold: org.apache.log4j.Level.ERROR
-		rollingFile  name:'custom', file:'/home/trenders/log/custom.log'
+		rollingFile  name:'infoLog', file:'/home/trenders/trenders/log/info.log', threshold: org.apache.log4j.Level.INFO
+		rollingFile  name:'warnLog', file:'/home/trenders/trenders/log/warn.log', threshold: org.apache.log4j.Level.WARN
+		rollingFile  name:'errorLog', file:'/home/trenders/trenders/log/error.log', threshold: org.apache.log4j.Level.ERROR
+		rollingFile  name:'custom', file:'/home/trenders/trenders/log/custom.log'
 		
 		console name: "errorLogDev", target: "System.err", threshold: org.apache.log4j.Level.ERROR
 	    }
