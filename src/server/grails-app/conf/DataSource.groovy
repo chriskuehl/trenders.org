@@ -40,7 +40,7 @@ hibernate {
 environments {
     development {
         // this datasource is just an empty testing DB (using H2)
-        /* dataSource {
+         dataSource {
             driverClassName = "org.h2.Driver"
             dialect = "org.hibernate.dialect.H2Dialect"
             
@@ -49,16 +49,16 @@ environments {
 
             dbCreate = "update"
             url = "jdbc:h2:mem:dev"
-        } */
+        } 
         
         // this datasource is for testing with a backup of the
         // prod data on the prod MySQL server (but on a separate DB)
-        dataSource {
+        /* dataSource {
             dbCreate = "update" //create-drop"
             url = "jdbc:mysql://localhost/stocksim_test-2013-01-12?useUnicode=yes&characterEncoding=UTF-8"
             username = "stocksim-dev"
             password = "YT4uxfnEtbrT8CGG"
-        }
+        } */
     }
     test {
         dataSource {
