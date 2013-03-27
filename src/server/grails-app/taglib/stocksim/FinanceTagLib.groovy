@@ -78,25 +78,41 @@ class FinanceTagLib {
             out << request.sectors[request.sectorIndex]
         }
     }
+	
+	def ifGainersLosers = { attrs, body ->
+		def gainersLosers = googleFinanceService.getGainersLosers()
+		
+		if (gainersLosers) {
+			out << body()
+		}
+	}
     
     def gainers = { attrs, body ->
-        request.movers = googleFinanceService.getGainersLosers().gainers
-        def max = Math.min(attrs.num.toInteger(), request.movers.size())
-        
-        for (i in (1..max)) {
-            request.currentMoverIndex = i - 1
-            out << body()
-        }
+		def gainersLosers = googleFinanceService.getGainersLosers()
+		
+		if (gainersLosers) {
+			request.movers = gainersLosers.gainers
+			def max = Math.min(attrs.num.toInteger(), request.movers.size())
+
+			for (i in (1..max)) {
+				request.currentMoverIndex = i - 1
+				out << body()
+			}
+		}
     }
     
     def losers = { attrs, body ->
-        request.movers = googleFinanceService.getGainersLosers().losers
-        def max = Math.min(attrs.num.toInteger(), request.movers.size())
-        
-        for (i in (1..max)) {
-            request.currentMoverIndex = i - 1
-            out << body()
-        }
+		def gainersLosers = googleFinanceService.getGainersLosers()
+		
+		if (gainersLosers) {
+			request.movers = gainersLosers.losers
+			def max = Math.min(attrs.num.toInteger(), request.movers.size())
+
+			for (i in (1..max)) {
+				request.currentMoverIndex = i - 1
+				out << body()
+			}
+		}
     }
     
     def mover = { attrs, body ->

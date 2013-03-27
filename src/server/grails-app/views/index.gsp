@@ -75,42 +75,44 @@
         <p>Chart powered by Reuters.</p>
       </div>
       
-      <h1>Trending</h1>
-      <table id="trendingTable">
-        <tr>
-          <th style="width: 230px;">&nbsp;</th>
-          <th style="width: 80px;">% Change</th>
-          <th style="width: 80px;">Mkt. Cap</th>
-        </tr>
-        
-        <tr>
-          <th>Gainers</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-        </tr>
-        
-        <finance:gainers num="4">
-          <tr id="row-${finance.mover(req: "ticker").toUpperCase()}" class="stock">
-            <td>${finance.mover(req: "name")}</td>
-            <td class="green">${finance.mover(req: "change")}</td>
-            <td>${finance.mover(req: "marketCap")}</td>
-          </tr>
-        </finance:gainers>
-        
-        <tr>
-          <th>Losers</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-        </tr>
-        
-        <finance:losers num="4">
-          <tr id="row-${finance.mover(req: "ticker").toUpperCase()}" class="stock">
-            <td>${finance.mover(req: "name")}</td>
-            <td class="red">${finance.mover(req: "change")}</td>
-            <td>${finance.mover(req: "marketCap")}</td>
-          </tr>
-        </finance:losers>
-      </table>
+	  <finance:ifGainersLosers>
+		<h1>Trending</h1>
+		<table id="trendingTable">
+		  <tr>
+			<th style="width: 230px;">&nbsp;</th>
+			<th style="width: 80px;">% Change</th>
+			<th style="width: 80px;">Mkt. Cap</th>
+		  </tr>
+
+		  <tr>
+			<th>Gainers</th>
+			<th>&nbsp;</th>
+			<th>&nbsp;</th>
+		  </tr>
+
+		  <finance:gainers num="4">
+			<tr id="row-${finance.mover(req: "ticker").toUpperCase()}" class="stock">
+			  <td>${finance.mover(req: "name")}</td>
+			  <td class="green">${finance.mover(req: "change")}</td>
+			  <td>${finance.mover(req: "marketCap")}</td>
+			</tr>
+		  </finance:gainers>
+
+		  <tr>
+			<th>Losers</th>
+			<th>&nbsp;</th>
+			<th>&nbsp;</th>
+		  </tr>
+
+		  <finance:losers num="4">
+			<tr id="row-${finance.mover(req: "ticker").toUpperCase()}" class="stock">
+			  <td>${finance.mover(req: "name")}</td>
+			  <td class="red">${finance.mover(req: "change")}</td>
+			  <td>${finance.mover(req: "marketCap")}</td>
+			</tr>
+		  </finance:losers>
+		</table>
+	  </finance:ifGainersLosers>
     </div>
     
     <div class="column3">

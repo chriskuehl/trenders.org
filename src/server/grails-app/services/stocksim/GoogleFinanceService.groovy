@@ -34,25 +34,31 @@ class GoogleFinanceService {
     }
     
     def getGainersLosers() {
-        def stats = cacheService.fetchFromCache("googlefinance-gainerslosers", "stats", 60)
+		try {
+			def stats = cacheService.fetchFromCache("googlefinance-gainerslosers", "stats", 60)
+
+			if (stats == null) {
+				def body = "http://www.google.com/finance".toURL().getText()
+				def content = WikipediaService.betweenMore(body, "<td class=\"title chg\">Gainers<td class=change>Change", "</table>", 2)
+
+				def gainers = "<tr>" + WikipediaService.between(content, "<tr>", "<tr><td style=\"height:.7em\">")
+				def losers = WikipediaService.between(content, "<td class=\"title chr\">Losers<td class=change>Change", "<tr><td style=\"height:.7em\">")
+				losers = losers.substring(32)
+
+				stats = [:]
+
+				stats.gainers = parseStockList(gainers)
+				stats.losers = parseStockList(losers)
+
+				cacheService.storeInCache("googlefinance-gainerslosers", "stats", stats)
+			}
         
-        if (stats == null) {
-            def body = "http://www.google.com/finance".toURL().getText()
-            def content = WikipediaService.betweenMore(body, "<td class=\"title chg\">Gainers<td class=change>Change", "</table>", 2)
-
-            def gainers = "<tr>" + WikipediaService.between(content, "<tr>", "<tr><td style=\"height:.7em\">")
-            def losers = WikipediaService.between(content, "<td class=\"title chr\">Losers<td class=change>Change", "<tr><td style=\"height:.7em\">")
-            losers = losers.substring(32)
-
-            stats = [:]
-
-            stats.gainers = parseStockList(gainers)
-            stats.losers = parseStockList(losers)
-
-            cacheService.storeInCache("googlefinance-gainerslosers", "stats", stats)
-        }
-        
-        stats
+			return stats
+		} catch (Exception ex) { // TODO: clean this up
+			ex.printStackTrace()
+		}
+		
+		return null
     }
     
     def parseStockList(html) {
