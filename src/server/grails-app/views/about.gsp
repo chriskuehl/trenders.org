@@ -5,9 +5,13 @@
     <title>About This Site</title>
   </head>
   <body>
-    <h1>About This Site</h1>
-    <p>This site was developed as part of the Oracle Education Foundation ThinkQuest 2012 Application Development competition by <a href="http://www.linkedin.com/pub/chris-kuehl/31/220/1b4" target="_blank">Chris Kuehl</a> and Ryan Leigh, students at Woodford County High School.</p>
+	<h1>About This Site</h1>
+    <p>trenders.org is an open-source project started by <a href="http://www.linkedin.com/pub/chris-kuehl/31/220/1b4" target="_blank">Chris Kuehl</a>. All source code is available under an MIT license on <a href="https://github.com/chriskuehl/trenders.org">GitHub</a>. For information on contributing to this project, see the README.</p>
     
+	<p>Follow trenders.org on GitHub:</p>
+	<iframe src="http://ghbtns.com/github-btn.html?user=chriskuehl&repo=trenders.org&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30" style="margin-bottom: 20px;"></iframe>
+	
     <h2>Site Platform</h2>
     <p>This site runs on <a target="_blank" href="http://grails.org/">Grails</a>, a nifty web framework for the nifty programming language <a target ="_blank" href="http://groovy.codehaus.org/">Groovy</a>, which has the incredibly convenient property of running on the JVM. The application is hosted on the <a target="_blank" href="http://jetty.codehaus.org/jetty/">Jetty</a> servlet engine. <a target="_blank" href="https://www.varnish-cache.org/">Varnish</a> proxies requests to and from the Jetty server, and enables us to serve static resources extremely quickly.</p>
     <p>A <a target="_blank" href="http://www.mysql.com/">MySQL server</a> acts as the datasource for this application.</p>
@@ -25,7 +29,14 @@
     
     <h2>Public API and Data Feeds</h2>
     <p>trenders.org does contain a comprehensive API that can be used to control a user's portfolio or to get general financial data; in fact, we use this for our mobile applications. While there's nothing preventing you from using the API yourself, this isn't recommended, supported, or (to the extent that we can control you) permitted. We don't make any money off this site, and we're paying for the servers out of our own pockets.</p>
-    <p>It's nothing personal, but if we notice someone is using our private API, we'll probably take steps to try to stop that. We just can't afford to pay for the extra traffic. I've tried to provide all of our data sources in a convenient manner because I know from experience how hard it can be to get all this information from public sources. If you've got questions on an implementation detail, we can probably help you out&mdash;<a href="mailto:chris@trenders.org">shoot us an email!</a></p>
+    <p>
+	  It's nothing personal, but if we notice someone is using our API on the trenders.org domain, we'll probably take
+	  steps to try to stop that. We just can't afford to pay for the extra traffic. I've tried to provide all of our data
+	  sources in a convenient manner because I know from experience how hard it can be to get all this information from public
+	  sources. Additionally, all of the code that powers this site is available for free on
+	  <a href="https://github.com/chriskuehl/trenders.org">GitHub</a>, and you're more than welcome to adapt that for your own
+	  project.
+	</p>
     
     <h2>Graphics</h2>
     <p>We use a number of graphics which have been licensed under terms permitting their use on non-commercial websites. A huge thanks to these people:</p>
