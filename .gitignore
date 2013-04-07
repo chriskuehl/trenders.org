@@ -1,5 +1,3 @@
-syntax: glob
-
 src/server/target/*
 src/apps/ios/cordova/console.log
 src/apps/ios/build/*
