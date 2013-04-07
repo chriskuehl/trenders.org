@@ -49,39 +49,14 @@ environments {
 
             dbCreate = "update"
             url = "jdbc:h2:mem:dev"
-        } 
-        
-        // this datasource is for testing with a backup of the
-        // prod data on the prod MySQL server (but on a separate DB)
-        /* dataSource {
-            dbCreate = "update" //create-drop"
-            url = "jdbc:mysql://localhost/stocksim_test-2013-01-12?useUnicode=yes&characterEncoding=UTF-8"
-            username = "stocksim-dev"
-            password = "YT4uxfnEtbrT8CGG"
-        } */
-    }
-    test {
-        dataSource {
-            dbCreate = "create"
-            url = "jdbc:mysql://trenders.org/stocksim-dev?useUnicode=yes&characterEncoding=UTF-8"
-            username = "stocksim-dev"
-            password = "YT4uxfnEtbrT8CGG"
         }
     }
     production {
         dataSource {
-            // we are at the stage where production updates should be made
-            // using migration scripts rather than letting Hibernate attempt
-            // to work magic (which fails too often to be useful with valuable
-            // data, i.e. student data)
-            // 
-            // be sure to backup data first, though, as the daily server backups
-            // are taken late at night and you're probably going to lose the
-            // day's data otherwise
-            dbCreate = "update" //create-drop"
-            url = "jdbc:mysql://localhost/trenders?useUnicode=yes&characterEncoding=UTF-8"
-            username = "trenders"
-            password = "LMJvQs75b85ktiYnRpLyiPvWCdOZi4"
+            dbCreate = "update" // probably we should do updates manually instead...
+            url = System.env.JDBC_URL
+            username = System.env.JDBC_USERNAME
+            password = System.env.JDBC_PASSWORD
         }
     }
 }
