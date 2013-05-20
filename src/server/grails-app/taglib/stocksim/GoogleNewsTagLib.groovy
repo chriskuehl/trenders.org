@@ -9,10 +9,12 @@ class GoogleNewsTagLib {
         request.googleNewsArticles = googleNewsService.getNewsArticles(attrs.query)
         def max = Math.min(attrs.num.toInteger(), request.googleNewsArticles.size())
         
-        for (i in (1..max)) {
-            request.googleNewsCurrentArticle = i - 1
-            out << body()
-        }
+		if (max > 0) {
+			for (i in (1..max)) {
+				request.googleNewsCurrentArticle = i - 1
+				out << body()
+			}
+		}
     }
     
     def article = { attrs, body ->
