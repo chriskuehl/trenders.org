@@ -332,7 +332,7 @@ class StockDataListService {
     }
     
     def buildURLForExchangeStocksDownload(exchange) {
-        "http://techxonline.net/${exchange}.csv".toURL() // TEMP HACKY FIX
+        "http://www.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=${exchange}&render=download".toURL()
     }
     
     def getStocksFromSource(URLConnection connection) {
