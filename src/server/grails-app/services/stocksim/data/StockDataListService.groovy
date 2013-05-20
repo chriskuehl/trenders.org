@@ -307,9 +307,7 @@ class StockDataListService {
                 println "Database had no entries for exchange ${exchange}; using backup cache file"
 
                 // get stored cache file as a last backup
-                def resourcePath = grailsApplication.parentContext.getResource(File.separator).file.getAbsolutePath()
-                def appPath = resourcePath.substring(0, resourcePath.lastIndexOf(File.separator)) + File.separator + "grails-app" + File.separator
-                def cacheDir = appPath + "conf" + File.separator + "stockcsv-cache" + File.separator
+                def cacheDir = grailsApplication.parentContext.getResource("stockcsv-cache").file.getAbsolutePath()
                 def dir = new File(cacheDir)
                 
                 FilenameFilter filter = new StockCacheFilenameFilter(exchange + "-")
