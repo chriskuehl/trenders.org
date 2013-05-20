@@ -1,6 +1,8 @@
 package stocksim
 
 class WikipediaService {
+	def financeService // TODO: separate this, they're not really related
+	
     def getURL(def title) {
         title = URLEncoder.encode(title.replace(" ", "_"))
         "http://en.wikipedia.org/wiki/$title"
@@ -14,12 +16,21 @@ class WikipediaService {
                 "<div id=\"mw-content-text\" lang=\"en\" dir=\"ltr\" class=\"mw-content-ltr\">",
                 "</div>				<!-- /bodycontent -->"
             )
-            
-            return source
+			
+			if (source.length() > 0) {
+				return source
+			}
         } catch (Exception ex) {
             ex.printStackTrace()
-            return null
         }
+		
+		def simpleTitle = financeService.getSimpleName(title)
+		
+		if (simpleTitle != title) {
+			return getArticleSource(simpleTitle)
+		} else {
+			return null
+		}
     }
     
     def cleanupHTML(def source) {
