@@ -78,7 +78,7 @@
         <div id="chartBack">
           <g:set var="chartWidth" value="266" />
           <g:set var="chartHeight" value="150" />
-          <div id="chart" data-symbol="${ticker.toUpperCase()}.${finance.stock(ticker: ticker, req: "exchange") == "nasdaq" ? "O" : "N"}" data-chart-width="${chartWidth}" data-chart-height="${chartHeight}" style="background-image: url('http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=${chartWidth}&height=${chartHeight}&symbol=${ticker.toUpperCase()}.${finance.stock(ticker: ticker, req: "exchange") == "nasdaq" ? "O" : "N"}&duration=150&headertype=none'); width: ${chartWidth}px; height: ${chartHeight}px;">
+          <div id="chart" data-symbol="${ticker.toUpperCase()}.${finance.stock(ticker: ticker, req: "exchange") == "nasdaq" ? "O" : "N"}" data-chart-width="${chartWidth}" data-chart-height="${chartHeight}" style="background-image: url('http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=${chartWidth}&height=${chartHeight}&symbol=${ticker.toUpperCase()}.${finance.stock(ticker: ticker, req: "exchange") == "nasdaq" ? "O" : "N"}&duration=180&headertype=none'); width: ${chartWidth}px; height: ${chartHeight}px;">
             <p>Chart powered by Reuters.</p>
           </div>
           
@@ -87,7 +87,7 @@
             ["week", 5, false],
             ["month", 30, false],
             ["3 months", 30 * 3, false],
-            ["5 months", 30 * 5, true],
+            ["6 months", 30 * 6, true],
             ["year", 365, false]
           ]}" />
           
