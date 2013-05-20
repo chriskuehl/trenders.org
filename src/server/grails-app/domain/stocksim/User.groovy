@@ -417,8 +417,6 @@ class User {
             }
         }
         
-		println "all comps: " + tickers
-		
         tickers
     }
     
