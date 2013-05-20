@@ -411,12 +411,14 @@ class User {
     def getAllHistoryCompanies() {
         def tickers = []
         
-        historyEvents.each { event ->
-            if (! tickers.contains(event.getTicker().toLowerCase())) {
-                tickers.add(event.getTicker().toLowerCase())
+        getHistoryEvents().each { event ->
+            if (! tickers.contains(event.getTicker().toUpperCase())) {
+                tickers.add(event.getTicker().toUpperCase())
             }
         }
         
+		println "all comps: " + tickers
+		
         tickers
     }
     

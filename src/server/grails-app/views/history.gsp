@@ -25,7 +25,7 @@
           <g:each in="${events}" var="event">
             <tr>
               <td>${event.getDate()}</td>
-              <td><g:link mapping="stock" params="${[ticker: event.getTicker()]}">${finance.stock(ticker: event.getTicker(), req: "name")}</g:link></td>
+              <td><g:link mapping="stock" params="${[ticker: event.getTicker().toUpperCase()]}">${finance.stock(ticker: event.getTicker(), req: "name")}</g:link></td>
               <td>${event.getWasPurchase() ? "Purchase" : "Sale"}</td>
               <td>${event.getQuantity()}</td>
               <td style="color: ${event.getWasPurchase() ? "red" : "green"};">$${event.getMoney().toDouble().trunc(2)}</td>
