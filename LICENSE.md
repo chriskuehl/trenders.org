@@ -8,7 +8,7 @@ individually. All other code and images are licensed under an MIT license.
 All original code and images are copyright &copy; 2013 Chris Kuehl.
 
 All code and images which do not have their own copyright attached (e.g. as
-a comment block or a separate LICENSE or COPYING file), is released under
+a comment block or a separate LICENSE or COPYING file), are released under
 the MIT license, a copy of which is included below.
 
 
