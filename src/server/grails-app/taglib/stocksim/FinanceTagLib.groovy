@@ -82,7 +82,7 @@ class FinanceTagLib {
 	def ifGainersLosers = { attrs, body ->
 		def gainersLosers = googleFinanceService.getGainersLosers()
 		
-		if (gainersLosers) {
+		if (gainersLosers.gainers.size() > 0) {
 			out << body()
 		}
 	}
@@ -90,14 +90,12 @@ class FinanceTagLib {
     def gainers = { attrs, body ->
 		def gainersLosers = googleFinanceService.getGainersLosers()
 		
-		if (gainersLosers) {
-			request.movers = gainersLosers.gainers
-			def max = Math.min(attrs.num.toInteger(), request.movers.size())
+		request.movers = gainersLosers.gainers
+		def max = Math.min(attrs.num.toInteger(), request.movers.size())
 
-			for (i in (1..max)) {
-				request.currentMoverIndex = i - 1
-				out << body()
-			}
+		for (i in (1..max)) {
+			request.currentMoverIndex = i - 1
+			out << body()
 		}
     }
     
@@ -116,6 +114,8 @@ class FinanceTagLib {
     }
     
     def mover = { attrs, body ->
-        out << request.movers[request.currentMoverIndex][attrs.req]
+		if (request.currentMoverIndex > 0 && request.movers[request.currentMoverIndex].hasProperty(attrs.req)) {
+			out << request.movers[request.currentMoverIndex][attrs.req]
+		}
     }
 }
