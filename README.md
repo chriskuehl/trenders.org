@@ -46,5 +46,5 @@ beneficial for you to instead work with us to improve the site. We'd love to inc
 I'll be happy to deploy updates to the main trenders.org site after reviewing them.
 
 ### License
-BrowseRight is copyright &copy; 2013 Chris Kuehl, with original code and images released under an MIT license. See
+trenders.org is copyright &copy; 2013 Chris Kuehl, with original code and images released under an MIT license. See
 `LICENSE` for details.
