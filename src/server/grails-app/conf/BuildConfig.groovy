@@ -41,6 +41,7 @@ grails.project.dependency.resolution = {
         runtime "joda-time:joda-time:2.1"
         runtime "com.ocpsoft:ocpsoft-pretty-time:1.0.7"
         //runtime "hsqldb:hsqldb:1.8.0.10"
+
     }
 
     plugins {
@@ -48,5 +49,7 @@ grails.project.dependency.resolution = {
         runtime ":resources:1.1.5"
 
         build ":tomcat:7.0.42"
+
+		compile ":quartz:1.0-RC9"
     }
 }
