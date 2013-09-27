@@ -17,7 +17,7 @@ class GoogleNewsTagLib {
 		}
     }
     
-    def article = { attrs, body ->
+    def article = { attrs, body ->	
         out << request.googleNewsArticles[request.googleNewsCurrentArticle][attrs.req]
     }
 }
