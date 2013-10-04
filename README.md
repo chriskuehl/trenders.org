@@ -18,7 +18,7 @@ trenders.org is a web application written using the [Grails](http://grails.org/)
 technologies used, see [the about page](http://trenders.org/about).
 
 ### Building trenders
-Download and install the version of Grails used (currently **2.1.0**). It should build without any
+Download and install the version of Grails used (currently **2.3.0**). It should build without any
 additional configuration. Use `grails run-app` for testing on your machine and `grails war` to create a WAR file to
 deploy to a Java application server.
 
