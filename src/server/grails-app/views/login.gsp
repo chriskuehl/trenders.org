@@ -9,7 +9,7 @@
   <body>
     <div class="alert alertInfo">
       <g:img dir="images" file="alert-info.png" alt="Warning" />
-      <strong>Beta testers:</strong> If you signed up before September 2012, you haven't created a password yet. That's ok&ndash;just enter your email and hit "Login". We'll send you an email with a link you can click to login.
+      <strong>Beta testers:</strong> If you signed up before September 2012, you haven't created a password yet. That's ok&ndash;just enter your email and hit "Login". We'll send you an email with a link you can click to log in.
     </div>
     
     <h1 style="margin-top: 30px;">Login</h1>
