@@ -1,0 +1,30 @@
+# simple PHP configuration
+Alias /global-cgi-bin /srv/cgi
+
+AddHandler php-cgi .php
+Action php-cgi /global-cgi-bin/php
+
+<Location /global-cgi-bin/>
+	Options +ExecCGI
+	SetHandler cgi-script
+</Location>
+
+# default virtualhost definition
+<VirtualHost *:8080>
+	ServerName domain.invalid
+	DocumentRoot /var/www
+
+	<Directory /var/www>
+		Order deny,allow
+		Deny from all
+	</Directory>
+</VirtualHost>
+
+# worker configuration
+ServerLimit 1
+StartServers 0
+MaxClients 25
+MinSpareThreads 1
+MaxSpareThreads 1
+ThreadsPerChild 25
+ThreadLimit 25
