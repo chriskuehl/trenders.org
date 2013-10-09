@@ -36,7 +36,7 @@ class InfoInterfaceService {
                     value: index.getCurrentValue(),
                     direction: (index.isUp() ? 1 : (- 1)),
                     changeText: index.getPercentChangeText(),
-                    graphLink: "http://charts.reuters.com/reuters/enhancements/chartapi/chart_api.asp?width=\${width}&height=\${height}&symbol=${indexName["ticker"]}&duration=5&headertype=none"
+                    graphLink: "https://trenders.org/graphProxy?width=\${width}&height=\${height}&symbol=${indexName["ticker"]}&duration=5&headertype=none"
                 ]
             }
         }
