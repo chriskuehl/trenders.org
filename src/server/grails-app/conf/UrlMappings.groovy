@@ -51,7 +51,12 @@ class UrlMappings {
             controller = "user"
             action = "logout"
         }
-        
+
+		name graphProxy: "/graphProxy" {
+			controller = "graphProxy"
+			action = "graph"
+		}
+
         name portfolio: "/portfolio" {
             controller = "viewProxy"
             proxyView = "/portfolio"
