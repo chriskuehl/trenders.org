@@ -1,5 +1,0 @@
-package stocksim
-
-class Trade {
-    
-}
