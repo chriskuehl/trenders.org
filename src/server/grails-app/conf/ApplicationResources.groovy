@@ -1,6 +1,6 @@
 modules = {
     site {
-        resource url: "http://fonts.googleapis.com/css?family=Cabin:500|Arimo:400italic,400,700", attrs: [type:"css"], disposition: 'head'
+        resource url: "https://fonts.googleapis.com/css?family=Cabin:500|Arimo:400italic,400,700", attrs: [type:"css"], disposition: 'head'
         
         resource url: "css/reset.css", disposition: 'head'
         resource url: "css/site.css", disposition: 'head'
