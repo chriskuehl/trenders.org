@@ -2,6 +2,7 @@ package org.trenders
 
 import org.trenders.info.*
 import groovy.util.XmlParser
+import java.text.SimpleDateFormat
 
 class GoogleNewsService {
     def cacheService
@@ -27,19 +28,17 @@ class GoogleNewsService {
                 description = WikipediaService.between(description, "</font></b></font><br /><font size=\"-1\">", "</font>").replaceAll("<[^>]*>", "")
                 description = description.substring(0, description.length() - 4)
 
-                def articleObject = new GoogleNewsArticle(
-                        title: title)
-				/*,
-                        author: author,
-                        link: article.link.text(),
-                        pubDate: new Date(article.pubDate.text()),
-                        relatedLink: relatedLink,
-                        description: description
-                )*/
-	println title
-	println articleObject.title
-println				articleObject.dump()
-//				println "${title} ${author}"
+                def articleObject = new GoogleNewsArticle()
+
+				def sdf = new SimpleDateFormat("EE, dd MMM yyyy HH:mm:ss zzz")
+				def pubDate = sdf.parse(article.pubDate[0].text())
+
+				articleObject.title = title
+				articleObject.author = author
+				articleObject.link = article.link.text()
+				articleObject.pubDate =  pubDate
+				articleObject.relatedLink = relatedLink
+				articleObject.description = description
 
                 articleObjects.add(articleObject)
             }

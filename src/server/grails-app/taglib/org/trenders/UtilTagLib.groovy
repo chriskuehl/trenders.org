@@ -12,7 +12,7 @@ class UtilTagLib {
     }
     
     def toRecentTime = { attrs ->
-        def date = new Date() //attrs.date.toString())
+        def date = new Date(attrs.date.toString())
         out << new PrettyTime().format(date)
     }
     
