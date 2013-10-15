@@ -78,7 +78,7 @@
         <div id="chartBack">
           <g:set var="chartWidth" value="266" />
           <g:set var="chartHeight" value="150" />
-		  <div id="chart" data-symbol="${ticker.toUpperCase()}.${finance.stock(ticker: ticker, req: "exchange") == "nasdaq" ? "O" : "N"}" data-chart-width="${chartWidth}" data-chart-height="${chartHeight}" style="background-image: url('/graphProxy?width=${chartWidth}&height=${chartHeight}&symbol=${ticker.toUpperCase()}.${finance.stock(ticker: ticker, req: "exchange") == "nasdaq" ? "O" : "N"}&duration=180&headertype=none'); width: ${chartWidth}px; height: ${chartHeight}px;">
+		  <div id="chart" data-symbol="${ticker.toUpperCase()}.${finance.stock(ticker: ticker, req: "exchange") == "nasdaq" ? "O" : "N"}" data-chart-width="${chartWidth}" data-chart-height="${chartHeight}" style="background-image: url('${createLink(mapping: "graphProxy")}?width=${chartWidth}&height=${chartHeight}&symbol=${ticker.toUpperCase()}.${finance.stock(ticker: ticker, req: "exchange") == "nasdaq" ? "O" : "N"}&duration=180&headertype=none'); width: ${chartWidth}px; height: ${chartHeight}px;">
             <p>Chart powered by Reuters.</p>
           </div>
           
@@ -125,7 +125,7 @@
             }
             
             function buildImageURL(symbol, chartWidth, chartHeight, days) {
-			return "/graphProxy?width=" + chartWidth + "&height=" + chartHeight + "&symbol=" + symbol + "&duration=" + days + "&headertype=none";
+			return "${createLink(mapping: "graphProxy")}?width=" + chartWidth + "&height=" + chartHeight + "&symbol=" + symbol + "&duration=" + days + "&headertype=none";
             }
           </script>
         </div>
