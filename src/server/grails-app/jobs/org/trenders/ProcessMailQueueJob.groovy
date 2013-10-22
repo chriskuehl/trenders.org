@@ -2,7 +2,7 @@ package org.trenders
 
 class ProcessMailQueueJob {
 	static triggers = { // start 15 seconds after bootstrap, repeat every 5 seconds
-		simple name: "updateStocks", startDelay: 15000, repeatInterval: 5 * 1000
+		simple name: "processMail", startDelay: 15000, repeatInterval: 5 * 1000
 	}
 
     def mailService

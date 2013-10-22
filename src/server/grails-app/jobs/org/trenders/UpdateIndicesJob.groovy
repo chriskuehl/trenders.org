@@ -3,7 +3,7 @@ package org.trenders
 
 class UpdateIndicesJob {
 	static triggers = { // start 15 seconds after bootstrap, repeat every 30 minutes
-		simple name: "updateStocks", startDelay: 15000, repeatInterval: 60 * 30 * 1000
+		simple name: "updateIndices", startDelay: 15000, repeatInterval: 60 * 30 * 1000
 	}
 
     def googleFinanceService
