@@ -18,8 +18,6 @@ class GraphProxyController {
 			encode(k) + "=" + encode(v)
 		}.join("&")	
 
-		println url
-
 		response.contentType = "image/png"
 		response.outputStream << url.toURL().openStream()
 		response.outputStream.flush()
