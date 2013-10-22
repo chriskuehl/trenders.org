@@ -7,8 +7,9 @@ import org.trenders.data.*
     and to fetch recent data from the Yahoo! CSV dumps
 */
 class UpdateStockDataJob {
-    def startDelay = 15000 // 15 seconds
-    def timeout = 60 * 15 * 1000 // every 15 minutes
+	static triggers = { // start 15 seconds after bootstrap, repeat every 15 minutes
+		simple name: "updateStocks", startDelay: 15000, repeatInterval: 60 * 15 * 1000
+	}
     
     def stockDataService
 

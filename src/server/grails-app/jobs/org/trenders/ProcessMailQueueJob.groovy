@@ -1,9 +1,10 @@
 package org.trenders
 
 class ProcessMailQueueJob {
-    def startDelay = 15000
-    def timeout = 1 * 1000 // every 5 seconds
-    
+	static triggers = { // start 15 seconds after bootstrap, repeat every 5 seconds
+		simple name: "updateStocks", startDelay: 15000, repeatInterval: 5 * 1000
+	}
+
     def mailService
 
     def execute() {
